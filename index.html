@@ -6,94 +6,45 @@
 <title>Seven Sisters Voice</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-<style>body{font-family:'Outfit',sans-serif}</style>
+<style>body{font-family:'Outfit',sans-serif}.hashtag{color:#9333ea;font-weight:600}</style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-6">
-<div id="landing" class="text-center max-w-2xl w-full">
-<h1 class="text-6xl font-extrabold leading-tight">Your Voice.<br><span class="bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 bg-clip-text text-transparent">Your Hills.</span></h1>
-<p class="text-gray-500 text-xl mt-6 mb-10">Seven Sisters Voice - Northeast Youth</p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center">
-<button onclick="openJoin()" class="bg-black text-white px-10 py-4 rounded-full text-xl font-bold">Join the Hills</button>
-<button onclick="openLogin()" class="bg-white border-2 border-gray-200 px-10 py-4 rounded-full text-xl font-bold">Log In</button>
+<body class="bg-[#fafafa]">
+<div id="landing" class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+<h1 class="text-6xl md:text-8xl font-extrabold">Your Voice.<br><span class="bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 bg-clip-text text-transparent">Your Hills.</span></h1>
+<p class="text-gray-500 text-xl mt-6">Northeast's Youth Super App</p>
+<div class="flex gap-4 mt-10"><button onclick="document.getElementById('join').classList.remove('hidden')" class="bg-black text-white px-10 py-4 rounded-full font-bold">Join the Hills →</button><button onclick="document.getElementById('login').classList.remove('hidden')" class="bg-white border-2 px-10 py-4 rounded-full font-bold">Log In</button></div>
 </div>
+<div id="join" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-[2rem] p-8 w-full max-w-md"><h2 class="text-3xl font-bold">Join</h2><input id="jName" placeholder="Name" class="w-full border p-4 rounded-2xl my-2"><input id="jEmail" placeholder="Email" class="w-full border p-4 rounded-2xl mb-2"><input id="jDob" type="date" class="w-full border p-4 rounded-2xl mb-2"><select id="jState" class="w-full border p-4 rounded-2xl mb-2"><option>Assam</option><option>Meghalaya</option><option>Manipur</option><option>Nagaland</option><option>Mizoram</option><option>Tripura</option><option>Arunachal Pradesh</option></select><input id="jPass" type="password" placeholder="Password" class="w-full border p-4 rounded-2xl mb-4"><button onclick="doJoin()" class="w-full bg-black text-white py-4 rounded-2xl font-bold">Enter</button><button onclick="this.parentElement.parentElement.classList.add('hidden')" class="w-full mt-2 text-gray-400">Cancel</button></div></div>
+<div id="login" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-[2rem] p-8 w-full max-w-md"><h2 class="text-3xl font-bold">Login</h2><input id="lEmail" placeholder="Email" class="w-full border p-4 rounded-2xl my-2 mt-6"><input id="lPass" type="password" placeholder="Password" class="w-full border p-4 rounded-2xl mb-4"><button onclick="doLogin()" class="w-full bg-black text-white py-4 rounded-2xl font-bold">Login</button><button onclick="this.parentElement.parentElement.classList.add('hidden')" class="w-full mt-2 text-gray-400">Cancel</button></div></div>
+<div id="app" class="hidden max-w-[720px] mx-auto bg-white min-h-screen md:my-4 md:rounded-[2rem] overflow-hidden shadow-sm">
+<div class="p-5 border-b flex justify-between items-center sticky top-0 bg-white/90 backdrop-blur z-20"><div><h2 class="text-xl font-bold">Seven Sisters Voice</h2><p class="text-xs text-gray-500" id="uInfo"></p></div><button onclick="logout()" class="bg-gray-100 px-4 py-2 rounded-full text-xs font-bold">Logout</button></div>
+<div class="flex border-b sticky top-[69px] bg-white z-10"><button onclick="switchTab('feed')" id="tab-feed" class="flex-1 py-4 font-bold border-b-2 border-black">Feed</button><button onclick="switchTab('jobs')" id="tab-jobs" class="flex-1 py-4 font-bold border-b-2 border-transparent text-gray-400">Jobs</button><button onclick="switchTab('dm')" id="tab-dm" class="flex-1 py-4 font-bold border-b-2 border-transparent text-gray-400">DM</button></div>
+<div id="panel-feed"><div class="p-3 flex gap-2 overflow-x-auto border-b bg-gray-50"><button onclick="filterState('All')" class="fbtn bg-black text-white px-4 py-1.5 rounded-full text-sm">All</button><button onclick="filterState('Assam')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Assam</button><button onclick="filterState('Meghalaya')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Meghalaya</button><button onclick="filterState('Manipur')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Manipur</button><button onclick="filterState('Nagaland')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Nagaland</button><button onclick="filterState('Mizoram')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Mizoram</button><button onclick="filterState('Tripura')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Tripura</button><button onclick="filterState('Arunachal Pradesh')" class="fbtn bg-white border px-4 py-1.5 rounded-full text-sm">Arunachal</button></div><div class="p-5 border-b"><textarea id="postText" placeholder="What's happening? Use #Bihu #Hornbill..." class="w-full text-lg outline-none resize-none" rows="3"></textarea><div id="preview" class="hidden mt-3"><img id="previewImg" class="rounded-2xl max-h-64 w-full object-cover"><button onclick="clearImg()" class="text-xs text-red-500 mt-1">Remove ✕</button></div><div class="flex justify-between items-center mt-4"><label class="cursor-pointer bg-gray-100 px-4 py-2 rounded-full text-sm font-bold">Photo<input type="file" id="imgInput" accept="image/*" class="hidden" onchange="handleImg(this)"></label><button onclick="createPost()" class="bg-black text-white px-8 py-2.5 rounded-full font-bold">Post</button></div></div><div id="posts"></div></div>
+<div id="panel-jobs" class="hidden"><div class="p-5 border-b bg-gradient-to-r from-purple-50 to-cyan-50"><h3 class="font-bold">Opportunities</h3><div class="mt-4 flex gap-2"><input id="jobTitle" placeholder="Job Title" class="flex-1 border p-3 rounded-xl text-sm"><button onclick="addJob()" class="bg-black text-white px-6 rounded-xl text-sm font-bold">Post</button></div></div><div id="jobsList" class="p-3 space-y-3"></div></div>
+<div id="panel-dm" class="hidden flex h-[70vh]"><div class="w-[35%] border-r bg-gray-50 p-2 space-y-1 overflow-y-auto" id="dmUsers"></div><div class="flex-1 flex flex-col"><div id="dmHeader" class="p-4 border-b font-bold text-sm">Select person</div><div id="dmMessages" class="flex-1 p-4 space-y-2 overflow-y-auto bg-gray-50/50"></div><div class="p-3 border-t flex gap-2"><input id="dmInput" placeholder="Message..." class="flex-1 border p-3 rounded-full text-sm"><button onclick="sendDM()" class="bg-black text-white px-5 rounded-full text-sm font-bold">Send</button></div></div></div>
 </div>
-
-<div id="joinBox" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-<div class="bg-white rounded-3xl p-8 w-full max-w-md">
-<h2 class="text-3xl font-bold mb-6">Join the Hills</h2>
-<input id="jName" placeholder="Full Name" class="w-full border p-3 rounded-xl mb-3">
-<input id="jEmail" placeholder="Email" class="w-full border p-3 rounded-xl mb-3">
-<input id="jState" class="w-full border p-3 rounded-xl mb-4">
-<option>Assam</option><option>Meghalaya</option><option>Manipur</option><option>Nagaland</option><option>Mizoram</option><option>Tripura</option><option>Arunachal Pradesh</option>
-</select>
-<button onclick="doJoin()" class="w-full bg-black text-white py-3 rounded-xl font-bold">Create & Enter</button>
-<button onclick="closeAll()" class="w-full mt-3 text-gray-500">Cancel</button>
-</div>
-</div>
-
-<div id="loginBox" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-<div class="bg-white rounded-3xl p-8 w-full max-w-md">
-<h2 class="text-3xl font-bold mb-6">Welcome Back</h2>
-<input id="lEmail" placeholder="Email" class="w-full border p-3 rounded-xl mb-4">
-<button onclick="doLogin()" class="w-full bg-black text-white py-3 rounded-xl font-bold">Log In</button>
-<button onclick="closeAll()" class="w-full mt-3 text-gray-500">Cancel</button>
-</div>
-</div>
-
-<div id="feed" class="hidden w-full max-w-2xl">
-<div class="bg-white rounded-3xl p-6 shadow mb-6">
-<h2 class="font-bold text-xl">Hello, <span id="uName"></span> 🏔️</h2>
-<button onclick="logout()" class="mt-3 text-sm bg-gray-100 px-4 py-2 rounded-full">Logout</button>
-</div>
-<div class="bg-white rounded-3xl p-6 shadow mb-6">
-<textarea id="postText" placeholder="What's happening in hills?" class="w-full border rounded-xl p-3" rows="3"></textarea>
-<button onclick="createPost()" class="mt-3 bg-black text-white px-6 py-2 rounded-full">Post</button>
-</div>
-<div id="posts"></div>
-</div>
-
 <script>
-function openJoin(){document.getElementById('joinBox').classList.remove('hidden')}
-function openLogin(){document.getElementById('loginBox').classList.remove('hidden')}
-function closeAll(){document.getElementById('joinBox').classList.add('hidden');document.getElementById('loginBox').classList.add('hidden')}
-function doJoin(){
-var n=document.getElementById('jName').value;
-if(!n){alert('Enter name');return}
-localStorage.setItem('ssv_name',n);
-localStorage.setItem('ssv_email',document.getElementById('jEmail').value);
-showFeed();
-}
-function doLogin(){
-var e=document.getElementById('lEmail').value;
-if(!e){alert('Enter email');return}
-if(!localStorage.getItem('ssv_name')) localStorage.setItem('ssv_name',e.split('@')[0]);
-localStorage.setItem('ssv_email',e);
-showFeed();
-}
-function showFeed(){
-document.getElementById('landing').classList.add('hidden');
-closeAll();
-document.getElementById('feed').classList.remove('hidden');
-document.getElementById('uName').innerText=localStorage.getItem('ssv_name');
-loadPosts();
-}
+let currentFilter='All',currentImg='',currentDM=null
+function doJoin(){let n=document.getElementById('jName').value.trim();if(!n)return alert('Name?');localStorage.setItem('name',n);localStorage.setItem('email',document.getElementById('jEmail').value);localStorage.setItem('dob',document.getElementById('jDob').value);localStorage.setItem('state',document.getElementById('jState').value);show();}
+function doLogin(){let e=document.getElementById('lEmail').value;if(!e)return alert('Email?');if(!localStorage.getItem('name'))localStorage.setItem('name',e.split('@')[0]);localStorage.setItem('email',e);show();}
+function show(){document.getElementById('landing').classList.add('hidden');document.getElementById('join').classList.add('hidden');document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('uInfo').innerText=(localStorage.getItem('name')||'')+' • '+(localStorage.getItem('state')||'Assam');load();loadJobs();loadDMUsers();}
 function logout(){localStorage.clear();location.reload()}
-function createPost(){
-var t=document.getElementById('postText').value;
-if(!t)return;
-var p=JSON.parse(localStorage.getItem('ssv_posts')||'[]');
-p.unshift({name:localStorage.getItem('ssv_name'),text:t,time:new Date().toLocaleString()});
-localStorage.setItem('ssv_posts',JSON.stringify(p));
-document.getElementById('postText').value='';
-loadPosts();
-}
-function loadPosts(){
-var p=JSON.parse(localStorage.getItem('ssv_posts')||'[]');
-var c=document.getElementById('posts');
-if(p.length==0){c.innerHTML='<div class=text-center text-gray-400 py-10>No posts yet</div>';return}
-c.innerHTML=p.map(function(x){return '<div class="bg-white rounded-3xl p-6 shadow mb-4"><b>'+x.name+'</b> <span class=text-xs text-gray-400>'+x.time+'</span><p class=mt-3>'+x.text+'</p></div>'}).join('');
-}
-if(localStorage.getItem('ssv_email')){showFeed()}
+function switchTab(t){['feed','jobs','dm'].forEach(x=>{document.getElementById('panel-'+x).classList.add('hidden');document.getElementById('tab-'+x).className='flex-1 py-4 font-bold border-b-2 border-transparent text-gray-400'});document.getElementById('panel-'+t).classList.remove('hidden');document.getElementById('tab-'+t).className='flex-1 py-4 font-bold border-b-2 border-black';}
+function handleImg(input){if(input.files[0]){let r=new FileReader();r.onload=e=>{currentImg=e.target.result;document.getElementById('previewImg').src=currentImg;document.getElementById('preview').classList.remove('hidden')};r.readAsDataURL(input.files[0])}}
+function clearImg(){currentImg='';document.getElementById('preview').classList.add('hidden');}
+function parseHashtags(t){return t.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>')}
+function createPost(){let t=document.getElementById('postText').value.trim();if(!t&&!currentImg)return;let p=JSON.parse(localStorage.getItem('posts')||'[]');p.unshift({id:Date.now(),name:localStorage.getItem('name'),state:localStorage.getItem('state')||'Assam',text:t,img:currentImg,time:new Date().toLocaleString(),likes:0,liked:false,comments:[]});localStorage.setItem('posts',JSON.stringify(p));document.getElementById('postText').value='';clearImg();load();}
+function filterState(s){currentFilter=s;load();}
+function load(){let p=JSON.parse(localStorage.getItem('posts')||'[]');if(currentFilter!='All')p=p.filter(x=>x.state==currentFilter);let c=document.getElementById('posts');if(!p.length){c.innerHTML='<div class=text-center py-16><div class=text-5xl>🏔️</div><p class=text-gray-400>No posts</p></div>';return}c.innerHTML=p.map(x=>`<div class="p-5 border-b"><div class="flex gap-3"><img src="https://i.pravatar.cc/100?u=${x.name}" class="w-10 h-10 rounded-full"><div class="flex-1"><div class="flex gap-2"><b class="text-sm">${x.name}</b><span class="text-[10px] bg-gray-100 px-2 py-0.5 rounded-full">${x.state}</span></div><p class="mt-2 text-[15px]">${parseHashtags(x.text)}</p>${x.img?`<img src="${x.img}" class="mt-3 rounded-2xl max-h-96 w-full object-cover">`:''}<div class="flex gap-5 mt-3 text-sm text-gray-500"><button onclick="likePost(${x.id})" class="${x.liked?'text-red-500':''}">❤️ ${x.likes}</button><button onclick="document.getElementById('cbox-${x.id}').classList.toggle('hidden')">💬 ${x.comments.length}</button><button onclick="openDM('${x.name}')">↗️ DM</button></div><div id="cbox-${x.id}" class="hidden mt-3 bg-gray-50 p-3 rounded-xl"><div class="space-y-2 mb-2">${x.comments.map(c=>`<div class="text-sm"><b>${c.name}:</b> ${c.text}</div>`).join('')||''}</div><div class="flex gap-2"><input id="cinput-${x.id}" placeholder="Comment..." class="flex-1 border p-2 rounded-full text-sm"><button onclick="addComment(${x.id})" class="bg-black text-white px-4 rounded-full text-xs">Post</button></div></div></div></div></div>`).join('')}
+function likePost(id){let p=JSON.parse(localStorage.getItem('posts')||'[]');let o=p.find(x=>x.id==id);if(o.liked){o.likes--;o.liked=false}else{o.likes++;o.liked=true}localStorage.setItem('posts',JSON.stringify(p));load();}
+function addComment(id){let inp=document.getElementById('cinput-'+id);let txt=inp.value.trim();if(!txt)return;let p=JSON.parse(localStorage.getItem('posts')||'[]');let o=p.find(x=>x.id==id);o.comments.push({name:localStorage.getItem('name'),text:txt});localStorage.setItem('posts',JSON.stringify(p));load();}
+function addJob(){let t=document.getElementById('jobTitle').value.trim();if(!t)return;let j=JSON.parse(localStorage.getItem('jobs')||'[]');j.unshift({title:t,by:localStorage.getItem('name'),state:localStorage.getItem('state'),time:new Date().toLocaleDateString()});localStorage.setItem('jobs',JSON.stringify(j));document.getElementById('jobTitle').value='';loadJobs();}
+function loadJobs(){let j=JSON.parse(localStorage.getItem('jobs')||'[]');document.getElementById('jobsList').innerHTML=j.map(x=>`<div class="bg-white border rounded-2xl p-4"><b class="text-sm">${x.title}</b><p class="text-xs text-gray-500">${x.by} • ${x.state}</p></div>`).join('')||'<p class=text-center text-gray-400 text-sm py-10>No jobs yet</p>'}
+function loadDMUsers(){let p=JSON.parse(localStorage.getItem('posts')||'[]');let names=[...new Set(p.map(x=>x.name))].filter(n=>n!=localStorage.getItem('name'));document.getElementById('dmUsers').innerHTML=names.map(n=>`<div onclick="openDM('${n}')" class="p-3 bg-white rounded-xl cursor-pointer border text-sm font-bold mb-1">${n}</div>`).join('')||'<p class=text-xs text-gray-400 p-3>No users</p>'}
+function openDM(name){currentDM=name;document.getElementById('dmHeader').innerText=name;switchTab('dm');loadDM();}
+function loadDM(){if(!currentDM)return;let all=JSON.parse(localStorage.getItem('dms')||'{}');let msgs=all[currentDM]||[];document.getElementById('dmMessages').innerHTML=msgs.map(m=>`<div class="${m.me?'bg-black text-white ml-auto':'bg-white border'} max-w-[80%] p-3 rounded-2xl text-sm">${m.text}</div>`).join('')||''}
+function sendDM(){let txt=document.getElementById('dmInput').value.trim();if(!txt||!currentDM)return;let all=JSON.parse(localStorage.getItem('dms')||'{}');if(!all[currentDM])all[currentDM]=[];all[currentDM].push({text:txt,me:true});localStorage.setItem('dms',JSON.stringify(all));document.getElementById('dmInput').value='';loadDM();}
+if(localStorage.getItem('email'))show();
 </script>
 </body>
 </html>
