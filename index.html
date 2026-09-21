@@ -1,41 +1,199 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seven Sisters Voice - Northeast Facebook</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEVEN SISTERS VOICE - Interior + Exterior</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#000;color:#fff;font-family:system-ui}
-.top{position:fixed;top:0;left:0;right:0;background:#0a0a0a;border-bottom:1px solid #222;padding:12px;z-index:10}
-.card{background:#111;border:1px solid #222;border-radius:16px;margin:12px;padding:12px;max-width:600px;margin-left:auto;margin-right:auto}
-.btn{background:#ff3b30;color:#fff;border:0;padding:12px 20px;border-radius:20px;font-weight:700;width:100%;margin-top:10px}
-.tag{background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:6px 14px;font-size:12px;margin:4px;display:inline-block}
-input,textarea{width:100%;background:#000;border:1px solid #333;border-radius:12px;padding:12px;color:#fff;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',system-ui}
+body{transition:background.4s,color.4s; padding-bottom:90px}
+.card{border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,.06); transition:all.3s}
+.top{position:sticky; top:0; z-index:50; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; backdrop-filter:blur(12px)}
+.logo{font-weight:800; font-size:20px; line-height:.9; letter-spacing:-.5px}
+.picker-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.tbtn{padding:12px; border-radius:14px; border:1.5px solid transparent; cursor:pointer; text-align:left; transition:.2s}
+.tbtn.active{border-color:currentColor; transform:scale(1.02)}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.1)}
+.tab{padding:8px 16px; border-radius:20px; font-weight:700; font-size:13px; cursor:pointer; border:1px solid rgba(0,0,0,.08)}
+.tab.active{color:white!important}
+.page{display:none; animation:fade.3s}
+.page.show{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
+.state-chip{padding:12px 14px; border-radius:16px; font-weight:700; font-size:13px; display:flex; justify-content:space-between; align-items:center; cursor:pointer}
+.bottom{position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around; padding:12px 6px 18px; border-top:1px solid rgba(0,0,0,.06); z-index:100; backdrop-filter:blur(12px)}
+.bnav{font-size:11px; font-weight:700; text-align:center; cursor:pointer; opacity:.6}
+.bnav.active{opacity:1}
 </style>
 </head>
-<body>
-<div class="top">
-<div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-between">
-<div><b>SEVEN SISTERS <span style="color:#ff3b30">VOICE</span></b><div style="font-size:10px;color:#666">NORTHEAST FACEBOOK TYPE</div></div>
-<div style="font-size:12px;background:#1a1a1a;padding:6px 12px;border-radius:20px;border:1px solid #333">LIVE • Online</div>
-</div>
-<div style="max-width:600px;margin:12px auto 0"><span class="tag" style="background:#ff3b30">All</span><span class="tag">Culture</span><span class="tag">Tourism</span><span class="tag">Food</span><span class="tag">Music</span><span class="tag">Assam</span></div>
+<body id="body">
+
+<!-- TOP -->
+<div class="top card" id="top" style="border-radius:0; margin:0; box-shadow:none; border-bottom:1px solid rgba(0,0,0,.06)">
+  <div class="logo">SEVEN SISTERS<br><span id="voice" style="font-size:22px">VOICE</span></div>
+  <button onclick="toggleTheme()" id="themeBtn" style="padding:8px 14px; border-radius:20px; border:none; font-weight:800; cursor:pointer">🎨 Theme</button>
 </div>
 
-<div style="padding:110px 12px 80px;max-width:600px;margin:0 auto">
-<div class="card"><div style="display:flex;gap:10px"><div style="width:40px;height:40px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800">G</div><input id="postInput" placeholder="What's on your mind? Share Northeast story..."></div><input id="nameInput" placeholder="Your name"><button class="btn" onclick="addPost()">POST TO FACEBOOK</button></div>
-<div id="posts"></div>
+<!-- THEME PICKER -->
+<div id="themeWrap" style="display:none; padding:12px">
+  <div class="card" id="themeCard" style="padding:16px">
+    <b style="font-size:14px">12 EYE-FRIENDLY THEMES • Interior Soft</b>
+    <div class="picker-grid" id="picker"></div>
+  </div>
+</div>
+
+<!-- PAGES -->
+<div style="padding:12px; max-width:500px; margin:0 auto">
+
+  <!-- HOME - INTERIOR FEED -->
+  <div id="home" class="page show">
+    <div style="display:flex; gap:8px; overflow:auto; padding-bottom:4px; margin-bottom:10px" id="tabs">
+      <div class="tab active" id="t1" onclick="switchTab('interior')">🏠 INTERIOR • Within NE</div>
+      <div class="tab" id="t2" onclick="switchTab('exterior')">🌍 EXTERIOR • NE to World</div>
+    </div>
+
+    <!-- CREATE -->
+    <div class="card" id="createCard" style="padding:14px; display:flex; gap:10px; align-items:center">
+      <div id="avatar" style="width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800">Y</div>
+      <div style="flex:1"><div style="opacity:.5; font-size:14px; border-bottom:1px solid rgba(0,0,0,.08); padding-bottom:8px">Share a story from your village?</div>
+      <div style="display:flex; gap:8px; margin-top:10px">
+        <button class="tab" style="flex:1" id="b1">📷 Photo</button>
+        <button class="tab" style="flex:1" id="b2">📊 Poll</button>
+        <button class="tab active" style="flex:1" id="postBtn">➤ Post</button>
+      </div></div>
+    </div>
+
+    <!-- INTERIOR CONTENT -->
+    <div id="interiorFeed">
+      <div class="card" id="post1" style="padding:14px; margin-top:12px">
+        <div style="display:flex; justify-content:space-between"><b>🏔️ Interior • Assam - Majuli</b><small style="opacity:.5">• 1h ago</small></div>
+        <div style="font-size:13px; margin-top:8px; line-height:1.5; opacity:.8">Mising tribe weaving workshop in Majuli - preserving 500-year-old loom techniques. Interior communities keeping roots alive.</div>
+        <div style="height:160px; border-radius:14px; margin-top:12px; background:linear-gradient(135deg,#E9DDC9,#8A9A7B); display:flex; align-items:center; justify-content:center; font-weight:800; color:white">INTERIOR IMAGE • Majuli Island</div>
+        <div style="display:flex; justify-content:space-around; margin-top:12px; font-size:13px; font-weight:700"><span>❤️ 243</span><span>💬 32</span><span>🔖 Save</span></div>
+      </div>
+      <div class="card" id="post2" style="padding:14px; margin-top:12px">
+        <b>🥘 Interior • Nagaland Food</b>
+        <div style="font-size:13px; margin-top:6px; opacity:.8">Axone, bamboo shoot, and smoked pork - interior kitchens of Kohima.</div>
+      </div>
+    </div>
+
+    <!-- EXTERIOR CONTENT -->
+    <div id="exteriorFeed" style="display:none">
+      <div class="card" id="post3" style="padding:14px; margin-top:12px">
+        <div style="display:flex; justify-content:space-between"><b>🌏 Exterior • Northeast on Global Map</b><small style="opacity:.5">• 3h ago</small></div>
+        <div style="font-size:13px; margin-top:8px; line-height:1.5; opacity:.8">How Seven Sisters' music is reaching Tokyo and Berlin - Exterior voice taking Ziro Festival global.</div>
+        <div style="height:160px; border-radius:14px; margin-top:12px; background:linear-gradient(135deg,#EEF2F7,#5B7FA6); display:flex; align-items:center; justify-content:center; font-weight:800; color:white">EXTERIOR IMAGE • Global Stage</div>
+        <div style="display:flex; justify-content:space-around; margin-top:12px; font-size:13px; font-weight:700"><span>❤️ 512</span><span>💬 89</span><span>↗️ Share to World</span></div>
+      </div>
+      <div class="card" id="post4" style="padding:14px; margin-top:12px">
+        <b>✈️ Exterior • Tourism</b>
+        <div style="font-size:13px; margin-top:6px; opacity:.8">Exterior travelers exploring Sikkim & Meghalaya - what world sees in us.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE - 7 SISTERS -->
+  <div id="explore" class="page">
+    <h3 style="margin:6px 0 12px">Explore 7 Sisters - Interior States</h3>
+    <div style="display:grid; gap:10px" id="stateList"></div>
+  </div>
+
+  <!-- PROFILE - EXTERIOR VOICE -->
+  <div id="profile" class="page">
+    <div class="card" id="profileCard" style="padding:18px; text-align:center; margin-top:8px">
+      <div id="pAvatar" style="width:64px;height:64px;border-radius:50%;margin:0 auto; display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">Y</div>
+      <h3 style="margin-top:10px">Your Voice</h3>
+      <small style="opacity:.6">Interior roots, Exterior reach</small>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; text-align:left">
+        <div class="card" style="padding:10px; box-shadow:none; border:1px solid rgba(0,0,0,.06)"><b>Interior</b><br><small>Posts within NE: 12</small></div>
+        <div class="card" style="padding:10px; box-shadow:none; border:1px solid rgba(0,0,0,.06)"><b>Exterior</b><br><small>Global shares: 48</small></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom card" id="bottom" style="border-radius:0; margin:0; box-shadow:0 -2px 20px rgba(0,0,0,.06)">
+  <div class="bnav active" id="navHome" onclick="showPage('home')">⌂<br>Home</div>
+  <div class="bnav" id="navExplore" onclick="showPage('explore')">◉<br>Explore</div>
+  <div id="plus" style="width:36px;height:36px;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-6px">+</div>
+  <div class="bnav">🔔<br>Alerts</div>
+  <div class="bnav" id="navProfile" onclick="showPage('profile')">👤<br>You</div>
 </div>
 
 <script>
-let posts=[
-{name:"Assam Explorer",state:"Assam",topic:"Tourism",text:"Welcome to Seven Sisters Voice! 🌄 First post from Northeast! Like, Comment, Share!",likes:12},
-{name:"Meghalaya Roots",state:"Meghalaya",topic:"Culture",text:"Cherrapunji is so beautiful today! Who's from Meghalaya? ❤️",likes:8}
+const themes={
+warmPaper:{name:"Warm Paper",bg:"#FEF6E9",card:"#FFFEFB",text:"#3D2F2F",accent:"#E07A5F",light:"#F8D5C4"},
+sageMist:{name:"Sage Mist",bg:"#F2F5EF",card:"#FAFCF8",text:"#2E332B",accent:"#8A9A7B",light:"#C5D8BA"},
+sandstone:{name:"Sandstone",bg:"#E9DDC9",card:"#FFFBF4",text:"#4A3E36",accent:"#D67D4A",light:"#E9C9A8"},
+peachWhisper:{name:"Peach Whisper",bg:"#FFF1E6",card:"#FFFEFB",text:"#3D3430",accent:"#FF9B8A",light:"#FFD5C2"},
+blueFog:{name:"Blue Fog",bg:"#EEF2F7",card:"#F8FAFC",text:"#243040",accent:"#5B7FA6",light:"#C9D9EA"},
+lavenderHush:{name:"Lavender Hush",bg:"#F3F0F7",card:"#FDFCFF",text:"#2F2A36",accent:"#8B6FAE",light:"#D4C8E8"},
+oatMilk:{name:"Oat Milk",bg:"#F5EBDD",card:"#FFFBF4",text:"#3D3832",accent:"#D4A017",light:"#EADDC9"},
+mossGarden:{name:"Moss Garden",bg:"#E8F0E3",card:"#F4F9F2",text:"#2B3329",accent:"#6AA85F",light:"#A8C0A0"},
+clayEarth:{name:"Clay Earth",bg:"#F0E2D6",card:"#FFF8F0",text:"#3E2F28",accent:"#B86B4A",light:"#D9A88A"},
+stoneLight:{name:"Stone Light",bg:"#F2F2F2",card:"#FFFFFF",text:"#1F1F1F",accent:"#6B8CAE",light:"#D0D0D0"},
+honeyDune:{name:"Honey Dune",bg:"#FFF3D6",card:"#FFFEFB",text:"#4A3E36",accent:"#C4972E",light:"#FFDC9E"},
+fernCalm:{name:"Fern Calm",bg:"#E6F2EB",card:"#F7FBF8",text:"#1E3A2F",accent:"#4A8C6F",light:"#A8D5BA"}
+};
+const states=[
+{name:"Assam",desc:"Interior: Tea & Majuli",color:"#D67D4A"},
+{name:"Arunachal",desc:"Interior: Monasteries",color:"#5B7FA6"},
+{name:"Manipur",desc:"Interior: Classical Dance",color:"#8B6FAE"},
+{name:"Meghalaya",desc:"Interior: Living Roots",color:"#6AA85F"},
+{name:"Mizoram",desc:"Interior: Bamboo Culture",color:"#4A8C6F"},
+{name:"Nagaland",desc:"Interior: Hornbill",color:"#B86B4A"},
+{name:"Tripura",desc:"Interior: Palaces",color:"#C4972E"},
+{name:"Sikkim*",desc:"Exterior Brother",color:"#E07A5F"}
 ];
-function render(){document.getElementById("posts").innerHTML=posts.map((p,i)=>`<div class="card"><div style="display:flex;gap:10px"><div style="width:40px;height:40px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800">${p.name[0]}</div><div><b>${p.name}</b> <span class="tag" style="color:#ff3b30">${p.topic}</span><div style="font-size:11px;color:#777">${p.state} • Just now • 🌎</div></div></div><div style="margin-top:10px">${p.text}</div><div style="display:flex;border-top:1px solid #222;margin-top:12px"><button onclick="like(${i})" style="flex:1;background:transparent;border:0;color:#aaa;padding:10px;font-weight:600">❤️ ${p.likes} Like</button><button style="flex:1;background:transparent;border:0;border-left:1px solid #222;border-right:1px solid #222;color:#aaa;padding:10px;font-weight:600">💬 Comment</button><button onclick="share()" style="flex:1;background:transparent;border:0;color:#aaa;padding:10px;font-weight:600">↗️ Share</button></div></div>`).join("")}
-function addPost(){let t=document.getElementById("postInput").value;let n=document.getElementById("nameInput").value||"Guest";if(!t)return;posts.unshift({name:n,state:"Assam",topic:"Culture",text:t,likes:0});document.getElementById("postInput").value="";render()}
-function like(i){posts[i].likes++;render()}
-function share(){navigator.clipboard.writeText(location.href);alert("Link copied! Share on WhatsApp!")}
-render();
+let cur=localStorage.getItem("ssv-theme")||"warmPaper";
+function apply(k){
+let t=themes[k]; cur=k; localStorage.setItem("ssv-theme",k);
+document.getElementById("body").style.background=t.bg;
+document.getElementById("body").style.color=t.text;
+document.querySelectorAll(".card").forEach(c=>{c.style.background=c.id==="top"||c.id==="bottom"?t.card+"F2":t.card; c.style.color=t.text});
+document.getElementById("voice").style.color=t.accent;
+document.getElementById("avatar").style.background=t.light; document.getElementById("avatar").style.color=t.accent;
+document.getElementById("pAvatar").style.background=t.light; document.getElementById("pAvatar").style.color=t.accent;
+document.getElementById("b1").style.background=t.light; document.getElementById("b2").style.background=t.light;
+document.getElementById("postBtn").style.background=t.accent; document.getElementById("postBtn").style.color="white";
+document.getElementById("plus").style.background=t.accent;
+document.getElementById("themeBtn").style.background=t.light; document.getElementById("themeBtn").style.color=t.accent;
+document.querySelectorAll(".tab").forEach(tab=>{
+ if(tab.classList.contains("active")){tab.style.background=t.accent; tab.style.color="white"} else {tab.style.background=t.light; tab.style.color=t.text}
+});
+document.querySelectorAll(".tbtn").forEach(b=>{ b.classList.toggle("active", b.dataset.k===k) });
+}
+function toggleTheme(){let w=document.getElementById("themeWrap"); w.style.display=w.style.display==="none"?"block":"none"}
+let picker=document.getElementById("picker");
+Object.entries(themes).forEach(([k,t])=>{
+ let d=document.createElement("div"); d.className="tbtn"; d.dataset.k=k; d.style.background=t.bg;
+ d.innerHTML=`<b style="font-size:11px">${t.name}</b><div style="display:flex;gap:3px;margin-top:6px"><span class="dot" style="background:${t.bg}"></span><span class="dot" style="background:${t.card}"></span><span class="dot" style="background:${t.text}"></span><span class="dot" style="background:${t.accent}"></span></div>`;
+ d.onclick=()=>apply(k); picker.appendChild(d);
+});
+let list=document.getElementById("stateList");
+states.forEach(s=>{
+ let d=document.createElement("div"); d.className="state-chip card"; d.id="chip"; d.style.borderLeft=`6px solid ${s.color}`;
+ d.innerHTML=`<div><b>${s.name}</b><br><small style="opacity:.6">${s.desc}</small></div><span>→</span>`; list.appendChild(d);
+});
+function switchTab(type){
+ document.getElementById("interiorFeed").style.display=type==="interior"?"block":"none";
+ document.getElementById("exteriorFeed").style.display=type==="exterior"?"block":"none";
+ document.getElementById("t1").classList.toggle("active", type==="interior");
+ document.getElementById("t2").classList.toggle("active", type==="exterior");
+ let t=themes[cur]; apply(cur);
+}
+function showPage(p){
+ document.querySelectorAll(".page").forEach(el=>el.classList.remove("show"));
+ document.getElementById(p).classList.add("show");
+ document.querySelectorAll(".bnav").forEach(b=>b.classList.remove("active"));
+ if(p==="home") document.getElementById("navHome").classList.add("active");
+ if(p==="explore") document.getElementById("navExplore").classList.add("active");
+ if(p==="profile") document.getElementById("navProfile").classList.add("active");
+ window.scrollTo(0,0);
+}
+apply(cur);
 </script>
 </body>
 </html>
