@@ -1,19 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Voice - Colourful</title>
+<title>Seven Sisters Voice</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
-body{background:#0a0a0f;color:#fff;overflow-x:hidden}
-.exterior{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;position:relative;overflow:hidden}
-/* 7 sisters colour glow */
-.exterior::before{content:'';position:absolute;width:1200px;height:600px;top:-100px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(124,92,255,.35) 0%,rgba(255,107,107,.2) 25%,rgba(78,205,196,.15) 50%,rgba(255,230,109,.1) 75%,transparent 70%);filter:blur(20px);pointer-events:none}
-.hills{font-size:clamp(36px,7vw,72px);font-weight:900;letter-spacing:-2px;line-height:0.95;position:relative;z-index:1}
-.hills span.white{color:#fff;display:block}
-.hills span.gradient{background:linear-gradient(90deg,#7c5cff,#ff6b9d,#feca57,#48dbfb,#1dd1a1,#ff9ff3,#f368e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;animation:shift 8s linear infinite;background-size:200% 100%}
-@keyframes shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.seven-dots{display:flex;gap:8px;margin:20px 0;z-index:1}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#0a0a0f;color:#fff}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;background:radial-gradient(600px 300px at 50% 0%,#2a1f4a,#0a0a0f)}
+h1{font-size:48px;font-weight:900;line-height:1}
+.grad{background:linear-gradient(90deg,#7c5cff,#ff6b9d,#feca57,#48dbfb,#1dd1a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dots{display:flex;gap:6px;justify-content:center;margin:16px 0}
 .dot{width:10px;height:10px;border-radius:50%}
-.subtitle{color:#b8b8c8;max-width:560
+p{color:#aaa;margin:16px auto;max-width:500px}
+.btn{padding:14px 26px;border-radius:99px;border:none;font-weight:800;cursor:pointer}
+.btn1{background:#fff;color:#000}.btn2{background:#222;color:#fff;margin-left:10px;border:1px solid #333}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px;z-index:99}
+.modal.on{display:flex}
+.box{background:#18181f;border-radius:20px;padding:24px;width:100%;max-width:400px;border:1px solid #333}
+input{width:100%;padding:12px;border-radius:10px;background:#101018;border:1px solid #333;color:#fff;margin-top:10px}
+.btnFull{width:100%;padding:12px;background:#7c5cff;color:#fff;border:none;border-radius:10px;margin-top:12px;font-weight:700;cursor:pointer}
+#app{display:none;padding:20px;max-width:700px;margin:0 auto}
+.post{background:#18181f;border:1px solid #222;border-radius:14px;padding:12px;margin:12px 0}
+</style>
+</head>
+<body>
+
+<div id="hero" class="hero">
+<div>
+<h1>Your Voice.<br><span class="grad">Your Hills.</span></h1>
+<div class="dots"><div class="dot" style="background:#ff6b6b"></div><div class="dot" style="background:#feca57"></div><div class="dot" style="background:#48dbfb"></div><div class="dot" style="background:#1dd1a1"></div><div class="dot" style="background:#ff9ff3"></div><div class="dot" style="background:#5f27cd"></div><div class="dot" style="background:#00d2d3"></div></div>
+<p>The first social voice for Seven Sisters. Share stories, songs & truth from Northeast India.</p>
+<button class="btn btn1" onclick="openM('su')">Join the Hills</button>
+<button class="btn btn2" onclick="openM('li')">Log In</button>
+</div>
+</div>
+
+<div id="su" class="modal"><div class="box"><h2>Sign Up</h2><input id="sn" placeholder="Full Name"><input id="sd" type="date"><input id="se" placeholder="Email"><input id="sp" type="password" placeholder="Password"><button class="btnFull" onclick="signup()">Sign Up</button><p style="font-size:13px;margin-top:10px;cursor:pointer;color:#a78bfa" onclick="openM('li')">Have account? Login</p><p style="font-size
