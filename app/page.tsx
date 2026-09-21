@@ -1,214 +1,181 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 
-type Story = {
-  id: number;
-  user: string;
-  type: "photo"|"video"|"text";
-  content: string;
-  bg?: string;
-  filter: string;
-  music: string;
-  border: string;
-  time: number;
-}
-type Post = {
-  id: number;
-  user: string;
-  text: string;
-  image?: string;
-  video?: string;
-  likes: number;
-  liked: boolean;
-  comments: {user: string, text: string}[];
-  time: string;
-}
+type Story = { id: number; user: string; type: "photo"|"video"|"text"; content: string; bg?: string; filter: string; music: string; border: string; time: number; }
+type Post = { id: number; user: string; text: string; image?: string; video?: string; likes: number; liked: boolean; comments: string[]; time: string; }
+type FriendReq = { id: number; from: string; to: string; status: "pending"|"accepted"|"rejected"; }
 
-export default function Page() {
-  const [view, setView] = useState("login");
+export default function SevenSistersVoice() {
+  const [view, setView] = useState<"login"|"signup"|"forgot"|"feed">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [activeTab, setActiveTab] = useState<"home"|"friends"|"settings">("home");
 
-  const [stories, setStories] = useState<Story[]>([
-    {id:1, user:"Priya Meghalaya", type:"photo", content:"https://picsum.photos/300/500?random=2", filter:"none", music:"Bihu Beat", border:"assam", time: Date.now()-1000*60*30},
-    {id:2, user:"Rahul Assam", type:"text", content:"Seven Sisters Voice!", bg:"linear-gradient(135deg,#ff9a9e,#fecfef)", filter:"none", music:"Local Folk", border:"meghalaya", time: Date.now()-1000*60*60*2}
-  ]);
-  const [showStoryCreate, setShowStoryCreate] = useState(false);
-  const [storyType, setStoryType] = useState<"photo"|"video"|"text">("photo");
-  const [storyContent, setStoryContent] = useState("");
-  const [storyBg, setStoryBg] = useState("linear-gradient(135deg,#ff9a9e,#fecfef)");
-  const [storyFilter, setStoryFilter] = useState("none");
-  const [storyMusic, setStoryMusic] = useState("No Music");
-  const [storyBorder, setStoryBorder] = useState("assam");
-  const [viewStory, setViewStory] = useState<Story|null>(null);
-
-  const storyBorders: any = {
-    assam: "border-4 border-[#ff6b6b] shadow-[0_0_0_3px_#ffe66d]",
-    arunachal: "border-4 border-[#48dbfb] shadow-[0_0_0_3px_#feca57]",
-    manipur: "border-4 border-[#feca57] shadow-[0_0_0_3px_#ff6b6b]",
-    meghalaya: "border-4 border-[#1dd1a1] shadow-[0_0_0_3px_#feca57]",
-    mizoram: "border-4 border-[#a55eea] shadow-[0_0_0_3px_white]",
-    nagaland: "border-4 border-[#ff6b6b] shadow-[0_0_0_3px_black]",
-    tripura: "border-4 border-[#ff9f43] shadow-[0_0_0_3px_white]",
+  // Settings
+  const [profileName, setProfileName] = useState("Seven Sisters User");
+  const [myState, setMyState] = useState("assam");
+  const [themeColor, setThemeColor] = useState("peach");
+  const themes:any = {
+    peach: { bg:"#fff5eb", card:"#ffeaa7", btn:"linear-gradient(90deg,#ff9a9e,#fecfef)", light:"#ffeaa7"},
+    mint: { bg:"#e8fffa", card:"#a1f0c4", btn:"linear-gradient(90deg,#a1f0c4,#b2f7ef)", light:"#a1f0c4"},
+    lavender: { bg:"#f5e8ff", card:"#e2d1f9", btn:"linear-gradient(90deg,#c3b1e1,#e2d1f9)", light:"#e2d1f9"},
   };
-  const musics = ["No Music","Bihu Beat","Naga Folk","Mizo Love Song","Meghalaya Rock","Manipuri Pena","Tripura Tribal","Arunachal Chant"];
-  const filters = [{name:"Normal",val:"none"},{name:"B&W",val:"grayscale(100%)"},{name:"Warm",val:"sepia(60%)"},{name:"Cold",val:"hue-rotate(180deg)"},{name:"Bright",val:"brightness(1.3) contrast(1.2)"},{name:"Vintage",val:"sepia(80%)"}];
+  const currentTheme = themes[themeColor];
 
+  // Friends
+  const [allUsers] = useState([
+    {email:"priya@test.com", name:"Priya Meghalaya", state:"meghalaya"},
+    {email:"rahul@test.com", name:"Rahul Assam", state:"assam"},
+    {email:"john@test.com", name:"John Nagaland", state:"nagaland"},
+    {email:"mizo@test.com", name:"Mizo Boy", state:"mizoram"},
+    {email:"manipur@test.com", name:"Leima Manipur", state:"manipur"},
+    {email:"arun@test.com", name:"Tashi Arunachal", state:"arunachal"},
+    {email:"tripura@test.com", name:"Riya Tripura", state:"tripura"},
+  ]);
+  const [friendReqs, setFriendReqs] = useState<FriendReq[]>([
+    {id:1, from:"priya@test.com", to:"admin@test.com", status:"pending"},
+    {id:2, from:"rahul@test.com", to:"admin@test.com", status:"pending"},
+  ]);
+  const [friends, setFriends] = useState<string[]>(["john@test.com"]);
+  const myEmail = email || "admin@test.com";
+  const myIncomingReqs = friendReqs.filter(r=> r.to===myEmail && r.status==="pending");
+
+  // Stories & Posts
+  const [stories, setStories] = useState<Story[]>([
+    {id:1, user:"priya@test.com", type:"photo", content:"https://picsum.photos/300/500?random=1", filter:"none", music:"Bihu Beat", border:"meghalaya", time: Date.now()-1000*60*30},
+    {id:2, user:"john@test.com", type:"text", content:"Seven Sisters Voice!", bg:"linear-gradient(135deg,#ff9a9e,#fecfef)", filter:"none", music:"Naga Folk", border:"nagaland", time: Date.now()-1000*60*60},
+  ]);
   const [posts, setPosts] = useState<Post[]>([
-    { id:1, user:"admin@test.com", text:"Welcome to Seven Sisters Voice! 🎉 Our light & beautiful Northeast social site!", likes:12, liked:false, comments:[], time:"Just now" }
+    { id:1, user:"admin@test.com", text:"Welcome to Seven Sisters Voice! 🎉 Connect with all 7 Sisters. Friends only posts & 12Hr stories!", likes:12, liked:false, comments:[], time:"Just now" },
   ]);
   const [newText, setNewText] = useState("");
   const [newImage, setNewImage] = useState<string|undefined>();
   const [newVideo, setNewVideo] = useState<string|undefined>();
-  const [commentText, setCommentText] = useState<{[key:number]:string}>({});
+  const [showStoryCreate, setShowStoryCreate] = useState(false);
+  const [viewStory, setViewStory] = useState<Story|null>(null);
+  const [storyType, setStoryType] = useState<"photo"|"video"|"text">("photo");
+  const [storyContent, setStoryContent] = useState("");
+  const [storyBg, setStoryBg] = useState("linear-gradient(135deg,#ff9a9e,#fecfef)");
+
   const imageRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
   const storyFileRef = useRef<HTMLInputElement>(null);
+  const storyBorders:any = {
+    assam:"border-4 border-[#ff6b6b]", meghalaya:"border-4 border-[#1dd1a1]", nagaland:"border-4 border-black",
+    mizoram:"border-4 border-purple-500", manipur:"border-4 border-yellow-500", arunachal:"border-4 border-blue-400", tripura:"border-4 border-orange-400"
+  };
 
-  useEffect(()=>{
-    const i = setInterval(()=>{ setStories(s=> s.filter(st=> Date.now()-st.time < 12*60*60*1000)); },60000);
-    return ()=> clearInterval(i);
-  },[]);
+  useEffect(()=>{ const i=setInterval(()=>{ setStories(s=>s.filter(st=>Date.now()-st.time < 12*60*60*1000)); },60000); return()=>clearInterval(i); },[]);
 
-  const handleLogin = (e:any) => { e.preventDefault(); if(email) setView("feed"); };
-  const handleStoryFile = (e:any)=>{
-    const file = e.target.files[0]; if(!file) return;
-    const r = new FileReader();
-    r.onload = ev=>{
-      const res = ev.target?.result as string;
-      if(file.type.startsWith("video")){
-        const vid = document.createElement("video");
-        vid.onloadedmetadata = ()=>{ if(vid.duration>30){ alert("Story video max 30 sec!"); return; } setStoryContent(res); setStoryType("video"); };
-        vid.src = res;
-      } else { setStoryContent(res); setStoryType("photo"); }
-    };
-    r.readAsDataURL(file);
-  };
-  const addStory = ()=>{
-    if(!storyContent && storyType!=="text") return;
-    setStories([{ id: Date.now(), user: email || "You", type: storyType, content: storyType==="text"? storyContent || "Seven Sisters Voice!" : storyContent, bg: storyBg, filter: storyFilter, music: storyMusic, border: storyBorder, time: Date.now() },...stories]);
-    setShowStoryCreate(false); setStoryContent("");
-  };
-  const handleImage = (e:any) => {
-    const file = e.target.files[0]; if(file){ const reader = new FileReader(); reader.onload = (ev)=> setNewImage(ev.target?.result as string); reader.readAsDataURL(file); }
-  };
-  const handleVideo = (e:any) => {
-    const file = e.target.files[0]; if(!file) return;
-    const video = document.createElement("video"); video.preload = "metadata";
-    video.onloadedmetadata = () => { if(video.duration > 61){ alert(`Video too long! ${Math.round(video.duration)} sec. Only 60 sec allowed.`); return; } const reader = new FileReader(); reader.onload = (ev)=> setNewVideo(ev.target?.result as string); reader.readAsDataURL(file); };
-    video.src = URL.createObjectURL(file);
-  };
-  const createPost = () => {
-    if(!newText &&!newImage &&!newVideo) return;
-    setPosts([{ id: Date.now(), user: email, text: newText, image: newImage, video: newVideo, likes:0, liked:false, comments:[], time:"Just now" },...posts]);
-    setNewText(""); setNewImage(undefined); setNewVideo(undefined);
-  };
-  const like = (id:number) => setPosts(posts.map(p=> p.id===id? {...p, likes: p.liked? p.likes-1 : p.likes+1, liked:!p.liked} : p));
+  const handleLogin = (e:any)=>{ e.preventDefault(); if(view==="login" || view==="signup"){ if(email) setView("feed"); } else setView("login"); };
+  const acceptReq = (id:number)=>{ const req=friendReqs.find(r=>r.id===id); if(req){ setFriends([...friends, req.from]); setFriendReqs(friendReqs.map(r=>r.id===id?{...r,status:"accepted"}:r)); } };
+  const rejectReq = (id:number)=> setFriendReqs(friendReqs.map(r=>r.id===id?{...r,status:"rejected"}:r));
+  const sendReq = (to:string)=> { if(!friendReqs.find(r=>r.from===myEmail && r.to===to)) setFriendReqs([...friendReqs, {id:Date.now(), from:myEmail, to, status:"pending"}]); };
+  const createPost = ()=>{ if(!newText &&!newImage &&!newVideo) return; setPosts([{id:Date.now(), user:myEmail, text:newText, image:newImage, video:newVideo, likes:0, liked:false, comments:[], time:"Just now"},...posts]); setNewText(""); setNewImage(undefined); setNewVideo(undefined); };
+  const handleImage = (e:any)=>{ const f=e.target.files[0]; if(f){ const r=new FileReader(); r.onload=ev=>setNewImage(ev.target?.result as string); r.readAsDataURL(f);} };
+  const handleVideo = (e:any)=>{ const f=e.target.files[0]; if(f){ const vid=document.createElement("video"); vid.preload="metadata"; vid.onloadedmetadata=()=>{ if(vid.duration>61){ alert("Video max 60 sec!"); return; } const r=new FileReader(); r.onload=ev=>setNewVideo(ev.target?.result as string); r.readAsDataURL(f); }; vid.src=URL.createObjectURL(f);} };
+  const handleStoryFile = (e:any)=>{ const f=e.target.files[0]; if(f){ const r=new FileReader(); r.onload=ev=>{ const res=ev.target?.result as string; if(f.type.startsWith("video")){ const v=document.createElement("video"); v.onloadedmetadata=()=>{ if(v.duration>30){ alert("Story max 30 sec"); return; } setStoryContent(res); setStoryType("video"); }; v.src=res; } else { setStoryContent(res); setStoryType("photo"); } }; r.readAsDataURL(f);} };
+  const like = (id:number)=> setPosts(posts.map(p=>p.id===id?{...p, likes:p.liked?p.likes-1:p.likes+1, liked:!p.liked}:p));
 
   if(view!=="feed"){
     return (
-      <main className="min-h-screen flex items-center justify-center p-4" style={{background:"linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%)"}}>
-        <div className="w-full max-w-[1000px] flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1">
-            <h1 className="text-5xl font-black" style={{color:"#2d3436"}}>Seven Sisters Voice</h1>
-            <h2 className="text-xl mt-4 text-[#636e72] font-medium">A light, warm & beautiful voice for Northeast India. Share stories, photos & videos with friends.</h2>
+      <div className="min-h-screen flex flex-col" style={{background:"#fff5eb"}}>
+        <main className="flex-1 flex items-center justify-center p-4">
+          <div className="w-full max-w-[1100px] flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-24">
+            <div className="flex-1 text-center lg:text-left max-w-[520px]">
+              <h1 className="text-[44px] lg:text-[60px] font-black leading-[0.9] tracking-tight" style={{color:"#2d3436"}}>Seven Sisters Voice</h1>
+              <h2 className="text-[20px] lg:text-[24px] mt-4 leading-snug text-[#2d3436]/80">Connect with friends and the world around you on Seven Sisters Voice. A light and warm voice for Northeast India.</h2>
+            </div>
+            <div className="w-full max-w-[400px]">
+              <div className="bg-white rounded-[12px] shadow-[0_2px_20px_rgba(0,0,0,0.15)] p-4">
+                <div className="flex gap-2 mb-4 p-1 bg-[#fff9f0] rounded-full">
+                  <button onClick={()=>setView("login")} className={`flex-1 py-2.5 rounded-full font-bold text-[15px] ${view==="login"?"bg-[#2d3436] text-white":"text-[#2d3436]"}`}>Log in</button>
+                  <button onClick={()=>setView("signup")} className={`flex-1 py-2.5 rounded-full font-bold text-[15px] ${view==="signup"?"bg-[#2d3436] text-white":"text-[#2d3436]"}`}>Sign Up</button>
+                </div>
+                <form onSubmit={handleLogin} className="space-y-3">
+                  <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email address or phone number" className="w-full border border-[#dddfe2] rounded-[8px] px-4 py-3.5 text-[17px] focus:outline-none focus:border-[#fab1a0]" required/>
+                  {view!=="forgot" && <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password" className="w-full border border-[#dddfe2] rounded-[8px] px-4 py-3.5 text-[17px] focus:outline-none focus:border-[#fab1a0]" required/>}
+                  <button className="w-full text-[#2d3436] text-[20px] font-bold rounded-[8px] py-3" style={{background: currentTheme.btn}}>{view==="login"?"Log in":view==="signup"?"Sign Up":"Reset"}</button>
+                  {view==="login" && <>
+                    <div className="text-center"><button type="button" onClick={()=>setView("forgot")} className="text-[#ff6b6b] text-[14px]">Forgotten password?</button></div>
+                    <hr className="my-4"/><div className="text-center"><button type="button" onClick={()=>setView("signup")} className="bg-[#ffeaa7] text-[#2d3436] font-bold px-5 py-3 rounded-[8px] text-[17px]">Create new account</button></div>
+                    <div className="mt-3 bg-[#fff9f0] border border-[#ffeaa7] rounded-lg p-3"><p className="text-[11px] font-black">🔑 DEMO LOGIN:</p><p className="text-[11px] text-[#636e72]">Email: admin@test.com<br/>Password: 123456<br/>Or any email</p></div>
+                  </>}
+                </form>
+              </div>
+              <p className="text-center mt-5 text-[14px]"><b>Create a Page</b> for a celebrity, brand or business.</p>
+            </div>
           </div>
-          <div className="bg-white/90 backdrop-blur rounded-[16px] shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-6 w-full max-w-[400px]">
-            <form onSubmit={handleLogin} className="space-y-4">
-              <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" className="w-full border border-[#ffeaa7] rounded-xl px-4 py-3.5 bg-[#fff9f0] focus:outline-none focus:ring-2 focus:ring-[#ff9a9e]" required/>
-              <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password" className="w-full border border-[#ffeaa7] rounded-xl px-4 py-3.5 bg-[#fff9f0] focus:outline-none focus:ring-2 focus:ring-[#ff9a9e]" required/>
-              <button className="w-full text-white text-[18px] font-bold rounded-xl py-3.5 shadow-lg" style={{background:"linear-gradient(90deg,#ff9a9e,#fecfef,#fecfef)", color:"#2d3436"}}>Log in</button>
-              <div className="text-center"><span className="text-xs text-[#b2bec3]">Seven Sisters Voice • Light Theme</span></div>
-            </form>
-          </div>
-        </div>
-      </main>
+        </main>
+        <footer className="bg-white py-5 px-4 border-t mt-8"><div className="max-w-[1100px] mx-auto"><div className="flex flex-wrap gap-2 text-[12px] text-[#737373]"><span>English</span><span className="text-[#ff9a9e] border px-2">অসমীয়া</span><span>বাংলা</span><span>हिन्दी</span><span>Mizo</span><span>Nagamese</span><span>Meiteilon</span></div><hr className="my-3"/><div className="flex flex-wrap gap-3 text-[12px] text-[#737373]"><span>Sign Up</span><span>Log in</span><span>Messenger</span><span>Video</span><span>Marketplace</span><span>Groups</span><span>Privacy</span><span>Terms</span><span>Help</span></div><p className="text-[11px] text-[#737373] mt-3">Seven Sisters Voice © 2026 • Light Theme • No Blue • Made for Northeast ❤️</p></div></footer>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen" style={{background:"#fff5eb"}}>
-      <div className="sticky top-0 z-40 backdrop-blur bg-white/80 shadow-sm flex items-center justify-between px-4 py-3">
-        <h1 className="text-[22px] font-black tracking-tight" style={{color:"#2d3436"}}>Seven Sisters Voice</h1>
-        <div className="flex gap-2"><span className="text-xs bg-[#ffeaa7] px-3 py-1 rounded-full font-semibold text-[#2d3436]">12Hr Friends Story</span><button onClick={()=>setView("login")} className="bg-[#ffeaa7] rounded-full px-4 py-1 text-sm font-bold text-[#2d3436]">Logout</button></div>
+    <main className="min-h-screen pb-20" style={{background: currentTheme.bg}}>
+      <div className="sticky top-0 z-40 bg-white/90 backdrop-blur shadow-sm px-3 py-2 flex justify-between items-center">
+        <h1 className="font-black text-[18px]">Seven Sisters Voice</h1>
+        <div className="flex gap-1">
+          <button onClick={()=>setActiveTab("home")} className={`px-3 py-1.5 rounded-full text-xs font-bold ${activeTab==="home"?"bg-black text-white":"bg-gray-100"}`}>Home</button>
+          <button onClick={()=>setActiveTab("friends")} className={`px-3 py-1.5 rounded-full text-xs font-bold relative ${activeTab==="friends"?"bg-black text-white":"bg-gray-100"}`}>Friends {myIncomingReqs.length>0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full flex items-center justify-center text-[9px]">{myIncomingReqs.length}</span>}</button>
+          <button onClick={()=>setActiveTab("settings")} className={`px-3 py-1.5 rounded-full text-xs font-bold ${activeTab==="settings"?"bg-black text-white":"bg-gray-100"}`}>⚙️</button>
+          <button onClick={()=>setView("login")} className="ml-1 bg-[#ffeaa7] px-3 py-1.5 rounded-full text-xs font-bold">Logout</button>
+        </div>
       </div>
 
-      <div className="max-w-[680px] mx-auto pt-3 px-2 pb-20 space-y-4">
-        <div className="bg-white rounded-2xl shadow-sm p-3 border border-[#ffeaa7]/50">
-          <div className="flex gap-3 overflow-x-auto">
-            <div onClick={()=>setShowStoryCreate(true)} className="min-w-[110px] h-[190px] bg-[#fff9f0] rounded-2xl relative overflow-hidden cursor-pointer border border-[#ffeaa7] border-dashed">
-              <div className="h-[120px] bg-gradient-to-br from-[#ffecd2] to-[#fcb69f] flex items-center justify-center"><div className="w-10 h-10 bg-[#2d3436] text-white rounded-full flex items-center justify-center text-2xl">+</div></div>
-              <p className="text-xs font-bold text-center p-2 text-[#2d3436]">Create Story</p>
+      <div className="max-w-[680px] mx-auto p-2 space-y-3 pt-3">
+        {activeTab==="home" && <>
+          <div className="bg-white rounded-2xl p-3 border flex gap-2 overflow-x-auto">
+            <div onClick={()=>setShowStoryCreate(true)} className="min-w-[95px] h-[160px] bg-[#fff9f0] rounded-2xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer"><div className="w-9 h-9 bg-black text-white rounded-full flex items-center justify-center font-bold">+</div><p className="text-[11px] font-bold mt-1">Create Story</p><p className="text-[9px] text-gray-400">12Hr Friends Only</p></div>
+            {stories.filter(s=> [...friends, myEmail].includes(s.user)).map(s=>(
+              <div key={s.id} onClick={()=>setViewStory(s)} className={`min-w-[95px] h-[160px] rounded-2xl overflow-hidden cursor-pointer relative ${storyBorders[s.border]}`}>
+                {s.type==="photo" && <img src={s.content} className="w-full h-full object-cover"/>}
+                {s.type==="video" && <video src={s.content} className="w-full h-full object-cover"/>}
+                {s.type==="text" && <div style={{background:s.bg}} className="w-full h-full flex items-center justify-center p-2 text-sm font-bold text-center">{s.content}</div>}
+                <div className="absolute bottom-0 bg-black/50 w-full p-1"><p className="text-white text-[10px] truncate font-bold">{s.user.split("@")[0]}</p></div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border">
+            <div className="flex gap-2"><div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style={{background:"linear-gradient(90deg,#ff9a9e,#fecfef)"}}>{profileName[0]}</div><textarea value={newText} onChange={e=>setNewText(e.target.value)} placeholder={`What's on your mind, ${profileName}?`} className="flex-1 bg-[#fff9f0] rounded-2xl px-4 py-3 outline-none border min-h-[50px] text-sm"/></div>
+            {(newImage || newVideo) && <div className="mt-3 relative">{newImage && <img src={newImage} className="w-full rounded-xl"/>}{newVideo && <video src={newVideo} controls className="w-full rounded-xl"/>}<button onClick={()=>{setNewImage(undefined); setNewVideo(undefined);}} className="absolute top-2 right-2 bg-black text-white w-7 h-7 rounded-full text-xs">X</button></div>}
+            <div className="flex justify-between mt-3"><div className="flex gap-2"><button onClick={()=>imageRef.current?.click()} className="px-3 py-2 bg-gray-50 rounded-full text-xs font-bold border">🖼️ Photo</button><button onClick={()=>videoRef.current?.click()} className="px-3 py-2 bg-gray-50 rounded-full text-xs font-bold border">🎥 1Min Video</button></div><button onClick={createPost} className="px-6 py-2 rounded-full font-bold text-xs" style={{background: currentTheme.card}}>Post to Friends</button></div>
+            <input ref={imageRef} type="file" accept="image/*" onChange={handleImage} className="hidden"/><input ref={videoRef} type="file" accept="video/*" onChange={handleVideo} className="hidden"/>
+          </div>
+
+          {posts.map(p=>(
+            <div key={p.id} className="bg-white rounded-2xl border overflow-hidden">
+              <div className="p-3 flex gap-2"><div className="w-9 h-9 rounded-full bg-[#ffeaa7] flex items-center justify-center font-bold text-xs">{p.user[0].toUpperCase()}</div><div><p className="font-bold text-[14px]">{p.user===myEmail?profileName:p.user}</p><p className="text-[11px] text-gray-400">{p.time} • {myState} • Friends 🔒</p></div></div>
+              {p.text && <p className="px-4 pb-3 text-[14px]">{p.text}</p>}
+              {p.image && <img src={p.image} className="w-full"/>}{p.video && <video src={p.video} controls className="w-full bg-black"/>}
+              <div className="flex border-t"><button onClick={()=>like(p.id)} className={`flex-1 py-2.5 text-xs font-bold ${p.liked?"text-red-500":"text-gray-500"}`}>❤️ {p.likes} Like</button><button className="flex-1 py-2.5 text-xs text-gray-500">💬 Comment</button><button className="flex-1 py-2.5 text-xs text-gray-500">↗️ Share</button></div>
             </div>
-            {stories.map(s=>{
-              const hoursLeft = 12 - Math.floor((Date.now()-s.time)/(60*60*1000));
-              return (
-                <div key={s.id} onClick={()=>setViewStory(s)} className={`min-w-[110px] h-[190px] rounded-2xl relative overflow-hidden cursor-pointer ${storyBorders[s.border]}`}>
-                  {s.type==="photo" && <img src={s.content} style={{filter:s.filter}} className="w-full h-full object-cover"/>}
-                  {s.type==="video" && <video src={s.content} style={{filter:s.filter}} className="w-full h-full object-cover"/>}
-                  {s.type==="text" && <div style={{background:s.bg, filter:s.filter}} className="w-full h-full flex items-center justify-center p-2 text-[#2d3436] font-bold text-center text-sm">{s.content}</div>}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"/>
-                  <div className="absolute bottom-1 left-1 right-1"><p className="text-white text-[11px] font-bold truncate">{s.user.split(" ")[0]}</p><p className="text-[9px] text-white/80">🎵 {s.music} • {hoursLeft}h</p></div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+          ))}
+        </>}
 
-        <div className="bg-white rounded-2xl shadow-sm p-4 border border-[#ffeaa7]/50">
-          <div className="flex gap-3"><div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{background:"linear-gradient(135deg,#ff9a9e,#fecfef)"}}>{email[0]?.toUpperCase()}</div>
-          <textarea value={newText} onChange={e=>setNewText(e.target.value)} placeholder="What's on your mind?" className="flex-1 bg-[#fff9f0] rounded-2xl px-4 py-3 outline-none resize-none border border-[#ffeaa7]/50"/></div>
-          {(newImage || newVideo) && <div className="mt-3 relative">{newImage && <img src={newImage} className="w-full rounded-xl"/>}{newVideo && <video src={newVideo} controls className="w-full rounded-xl"/>}<button onClick={()=>{setNewImage(undefined); setNewVideo(undefined);}} className="absolute top-2 right-2 bg-[#2d3436] text-white rounded-full w-8 h-8">X</button></div>}
-          <div className="flex justify-between mt-3"><div className="flex gap-2"><button onClick={()=>imageRef.current?.click()} className="px-4 py-2 bg-[#fff9f0] rounded-full text-sm font-semibold border">🖼️ Photo</button><button onClick={()=>videoRef.current?.click()} className="px-4 py-2 bg-[#fff9f0] rounded-full text-sm font-semibold border">🎥 1Min Video</button></div><button onClick={createPost} className="text-[#2d3436] px-6 py-2 rounded-full font-bold shadow-sm" style={{background:"linear-gradient(90deg,#ffeaa7,#fab1a0)"}}>Post</button></div>
-          <input ref={imageRef} type="file" accept="image/*" onChange={handleImage} className="hidden"/><input ref={videoRef} type="file" accept="video/*" onChange={handleVideo} className="hidden"/>
-        </div>
-
-        {posts.map(post=>(
-          <div key={post.id} className="bg-white rounded-2xl shadow-sm border border-[#ffeaa7]/30">
-            <div className="p-3 flex gap-2"><div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-[#2d3436]" style={{background:"#ffeaa7"}}>{post.user[0]}</div><div><p className="font-bold text-[15px] text-[#2d3436]">{post.user}</p><p className="text-xs text-[#b2bec3]">{post.time} • Friends</p></div></div>
-            {post.text && <p className="px-4 pb-3 text-[#2d3436]">{post.text}</p>}
-            {post.image && <img src={post.image} className="w-full"/>}
-            {post.video && <video src={post.video} controls className="w-full bg-black"/>}
-            <div className="flex p-1 border-t border-[#ffeaa7]/30"><button onClick={()=>like(post.id)} className={`flex-1 py-2.5 rounded-xl font-semibold ${post.liked?"text-[#ff7675]":"text-[#636e72]"} hover:bg-[#fff9f0]`}>❤️ {post.likes} Like</button><button className="flex-1 py-2.5 rounded-xl font-semibold text-[#636e72] hover:bg-[#fff9f0]">💬 Comment</button><button className="flex-1 py-2.5 rounded-xl font-semibold text-[#636e72] hover:bg-[#fff9f0]">↗️ Share</button></div>
+        {activeTab==="friends" && (
+          <div className="space-y-3">
+            <div className="bg-white rounded-2xl p-4 border"><h2 className="font-black mb-3">Friend Requests ({myIncomingReqs.length})</h2>{myIncomingReqs.length===0?<p className="text-xs text-gray-400">No requests</p>:myIncomingReqs.map(r=><div key={r.id} className="flex justify-between items-center p-3 bg-[#fff9f0] rounded-xl mb-2 border"><div><p className="font-bold text-sm">{r.from}</p><p className="text-[11px] text-gray-500">Wants to be friends</p></div><div className="flex gap-2"><button onClick={()=>acceptReq(r.id)} className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-bold">Accept</button><button onClick={()=>rejectReq(r.id)} className="bg-gray-200 px-4 py-1.5 rounded-full text-xs font-bold">Reject</button></div></div>)}</div>
+            <div className="bg-white rounded-2xl p-4 border"><h2 className="font-black mb-3">My Friends ({friends.length})</h2><div className="flex flex-wrap gap-2">{friends.map(f=><span key={f} className="bg-[#ffeaa7] px-3 py-1 rounded-full text-xs font-bold">🟢 {f.split("@")[0]}</span>)}</div></div>
+            <div className="bg-white rounded-2xl p-4 border"><h2 className="font-black mb-3">People You May Know - 7 Sisters</h2>{allUsers.filter(u=>!friends.includes(u.email) && u.email!==myEmail).map(u=>{ const pending=!!friendReqs.find(r=>r.from===myEmail && r.to===u.email && r.status==="pending"); return <div key={u.email} className="flex justify-between items-center p-3 border rounded-xl mb-2 hover:bg-[#fff9f0]"><div><p className="font-bold text-sm">{u.name}</p><p className="text-[11px] text-gray-500 capitalize">{u.state} • 2 mutual</p></div><button disabled={pending} onClick={()=>sendReq(u.email)} className={`px-4 py-1.5 rounded-full text-xs font-bold ${pending?"bg-gray-200":"bg-[#ffeaa7]"}`}>{pending?"Requested":"Add Friend"}</button></div>; })}</div>
           </div>
-        ))}
+        )}
+
+        {activeTab==="settings" && (
+          <div className="bg-white rounded-2xl p-5 border space-y-5">
+            <h2 className="font-black text-xl">⚙️ Settings</h2>
+            <div><label className="text-xs font-bold text-gray-500">Display Name</label><input value={profileName} onChange={e=>setProfileName(e.target.value)} className="w-full border rounded-xl px-4 py-2.5 mt-1 bg-[#fffef5]"/></div>
+            <div><label className="text-xs font-bold text-gray-500">Your State</label><select value={myState} onChange={e=>setMyState(e.target.value)} className="w-full border rounded-xl px-4 py-2.5 mt-1 bg-[#fffef5]"><option value="assam">Assam</option><option value="meghalaya">Meghalaya</option><option value="nagaland">Nagaland</option><option value="mizoram">Mizoram</option><option value="manipur">Manipur</option><option value="arunachal">Arunachal Pradesh</option><option value="tripura">Tripura</option></select></div>
+            <div><label className="text-xs font-bold text-gray-500">Light Colour Theme - No Blue</label><div className="flex gap-2 mt-2">{Object.keys(themes).map(t=><button key={t} onClick={()=>setThemeColor(t)} className={`flex-1 py-3 rounded-xl capitalize font-bold border-2 text-xs ${themeColor===t?"border-black":"border-transparent"}`} style={{background: themes[t].card}}>{t}</button>)}</div></div>
+            <div className="pt-2 space-y-2"><button onClick={()=>alert("Settings Saved!")} className="w-full py-3 rounded-full font-black text-sm" style={{background: currentTheme.card}}>💾 Save Settings</button><button onClick={()=>setView("login")} className="w-full py-3 rounded-full font-bold text-sm bg-black text-white">Logout - Seven Sisters Voice</button><p className="text-[10px] text-center text-gray-400">Seven Sisters Voice © 2026 • Light Theme • v2.0 • {myEmail}</p></div>
+          </div>
+        )}
       </div>
 
       {showStoryCreate && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur flex items-center justify-center p-4">
-          <div className="bg-white rounded-[20px] w-full max-w-[380px] max-h-[90vh] overflow-y-auto p-5 space-y-3">
-            <div className="flex justify-between items-center"><h2 className="font-black text-[#2d3436]">Create Story - Seven Sisters Voice</h2><button onClick={()=>setShowStoryCreate(false)} className="w-8 h-8 bg-[#ffeaa7] rounded-full font-bold">X</button></div>
-            <div className="flex gap-2"><button onClick={()=>setStoryType("photo")} className={`flex-1 py-2.5 rounded-full font-bold ${storyType==="photo"?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>Photo</button><button onClick={()=>setStoryType("video")} className={`flex-1 py-2.5 rounded-full font-bold ${storyType==="video"?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>Video</button><button onClick={()=>setStoryType("text")} className={`flex-1 py-2.5 rounded-full font-bold ${storyType==="text"?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>Text</button></div>
-            {storyType!=="text"? (
-              <div onClick={()=>storyFileRef.current?.click()} className="h-[300px] bg-[#fff9f0] rounded-2xl flex flex-col items-center justify-center cursor-pointer overflow-hidden border border-dashed border-[#ffeaa7]">
-                {storyContent? (storyType==="photo"? <img src={storyContent} style={{filter:storyFilter}} className="w-full h-full object-cover"/> : <video src={storyContent} style={{filter:storyFilter}} className="w-full h-full object-cover"/> ) : <><span className="text-4xl">📸</span><p className="text-sm mt-2 font-semibold">Upload {storyType}</p></>}
-              </div>
-            ) : (
-              <div><div style={{background:storyBg}} className="h-[300px] rounded-2xl flex items-center justify-center p-4"><textarea value={storyContent} onChange={e=>setStoryContent(e.target.value)} placeholder="Seven Sisters Voice..." className="w-full bg-transparent text-[#2d3436] text-xl font-bold text-center outline-none placeholder-[#2d3436]/40"/></div><div className="flex gap-2 mt-2 overflow-x-auto">{["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#ffecd2,#fcb69f)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#d4fc79,#96e6a1)","linear-gradient(135deg,#ffeaa7,#fab1a0)"].map(bg=><div key={bg} onClick={()=>setStoryBg(bg)} style={{background:bg}} className="w-10 h-10 rounded-full cursor-pointer border-2 border-white shadow shrink-0"/> )}</div></div>
-            )}
-            <input ref={storyFileRef} type="file" accept={storyType==="video"?"video/*":"image/*"} onChange={handleStoryFile} className="hidden"/>
-            <div><p className="text-sm font-bold text-[#2d3436]">🎵 Add Music</p><div className="flex gap-2 overflow-x-auto mt-1">{musics.map(m=><button key={m} onClick={()=>setStoryMusic(m)} className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs border font-semibold ${storyMusic===m?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>{m}</button>)}</div></div>
-            <div><p className="text-sm font-bold text-[#2d3436]">✨ Filter</p><div className="flex gap-2 overflow-x-auto mt-1">{filters.map(f=><button key={f.name} onClick={()=>setStoryFilter(f.val)} className={`px-3 py-1.5 rounded-full text-xs border font-semibold ${storyFilter===f.val?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>{f.name}</button>)}</div></div>
-            <div><p className="text-sm font-bold text-[#2d3436]">🌈 7 Sisters Border</p><div className="grid grid-cols-4 gap-2 mt-1">{Object.keys(storyBorders).map(k=><button key={k} onClick={()=>setStoryBorder(k)} className={`py-2 rounded-full text-xs capitalize font-bold border ${storyBorder===k?"bg-[#2d3436] text-white":"bg-[#fff9f0]"}`}>{k}</button>)}</div></div>
-            <button onClick={addStory} className="w-full py-3 rounded-full font-black text-[#2d3436]" style={{background:"linear-gradient(90deg,#ffeaa7,#fab1a0)"}}>Share Story - 12Hr Friends Only</button>
-          </div>
-        </div>
-      )}
-
-      {viewStory && (
-        <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
-          <div className="relative w-full max-w-[400px] h-full md:h-[90vh] bg-black md:rounded-[20px] overflow-hidden">
-            {viewStory.type==="photo" && <img src={viewStory.content} style={{filter:viewStory.filter}} className="w-full h-full object-cover"/>}
-            {viewStory.type==="video" && <video src={viewStory.content} style={{filter:viewStory.filter}} autoPlay controls className="w-full h-full object-cover"/>}
-            {viewStory.type==="text" && <div style={{background:viewStory.bg, filter:viewStory.filter}} className="w-full h-full flex items-center justify-center p-6 text-[#2d3436] text-2xl font-black text-center">{viewStory.content}</div>}
-            <div className="absolute top-0 left-0 right-0 p-3 bg-gradient-to-b from-black/70 to-transparent flex justify-between items-center">
-              <div className="flex gap-2 items-center"><div className="w-8 h-8 bg-[#ffeaa7] rounded-full flex items-center justify-center font-bold text-xs text-[#2d3436]">{viewStory.user[0]}</div><div><p className="text-white text-sm font-bold">{viewStory.user}</p><p className="text-white/70 text-[11px]">🎵 {viewStory.music}</p></div></div>
-              <button onClick={()=>setViewStory(null)} className="w-8 h-8 bg-white/20 text-white rounded-full">X</button>
-            </div>
-            <div className={`absolute inset-0 pointer-events-none ${storyBorders[viewStory.border]} rounded-[20px]`}/>
-          </div>
-        </div>
-      )}
-    </main>
-  );
-  }
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+          <div className="bg-white rounded-[20px] w-full max-w-[360px] p-5 space-y-3">
+            <div className="flex justify-between"><h2 className="font-black">Create Story - 12Hr Friends Only</h2><button onClick={()=>setShowStoryCreate(false)} className="w-8 h-8 bg-gray-100 rounded-full font-bold">X</button></div>
+            <div className="flex gap-2"><button onClick={()=>setStoryType("photo")} className={`flex-1 py-2 rounded-full font-bold text-xs ${storyType==="photo"?
