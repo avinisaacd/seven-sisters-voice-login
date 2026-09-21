@@ -1,76 +1,65 @@
 "use client";
-import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient('https://dqmontzomebmbfdijlbc.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxbW9udHpvbWVibWJmZGlqbGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5NjU3NjIsImV4cCI6MjEwNTU0MTc2Mn0.cr3jaRqb5RjDGHEGV7gmII9VlpcuPWR1P8453OP3XL8');
-
-const TOPICS = ["All","Culture","Tourism","Food","Music","Politics","Sports","Breaking News"];
-const STATES = ["All","Assam","Meghalaya","Nagaland","Manipur","Mizoram","Tripura","Arunachal"];
+import { useState } from "react";
 
 export default function Home() {
-  const [posts,setPosts]=useState<any[]>([]);
-  const [content,setContent]=useState("");
-  const [username,setUsername]=useState("");
-  const [topic,setTopic]=useState("Culture");
-  const [state,setState]=useState("Assam");
-  const [imageFile,setImageFile]=useState<File|null>(null);
-  const [loading,setLoading]=useState(true);
-  const [showModal,setShowModal]=useState(false);
-  const [filterTopic,setFilterTopic]=useState("All");
-  const [filterState,setFilterState]=useState("All");
+  const [posts, setPosts] = useState([
+    { id: 1, name: "Assam Explorer", state: "Assam", topic: "Tourism", content: "Welcome to Seven Sisters Voice! 🌄 First post from Northeast!", likes: 12, time: "Just now" },
+    { id: 2, name: "Meghalaya Roots", state: "Meghalaya", topic: "Culture", content: "Cherrapunji is so beautiful today! Who's from Meghalaya?", likes: 8, time: "2h ago" },
+  ]);
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [show, setShow] = useState(false);
+  const [filter, setFilter] = useState("All");
 
-  async function loadPosts(){
-    const {data} = await supabase.from('posts').select('*,comments(*)').order('created_at',{ascending:false}).limit(100);
-    if(data) setPosts(data);
-    setLoading(false);
+  const filtered = posts.filter(p => filter === "All" || p.topic === filter || p.state === filter);
+
+  function addPost() {
+    if (!text.trim()) return;
+    setPosts([{ id: Date.now(), name: name || "Guest", state: "Assam", topic: "Culture", content: text, likes: 0, time: "Just now" },...posts]);
+    setText(""); setShow(false);
   }
-
-  useEffect(()=>{
-    if(typeof window!=='undefined'){
-      const s = localStorage.getItem('ssv_user');
-      if(s) setUsername(s);
-    }
-    loadPosts();
-  },[]);
-
-  async function createPost(){
-    if(!content.trim()) return;
-    const name = username.trim()||"Guest";
-    if(typeof window!=='undefined') localStorage.setItem('ssv_user',name);
-    let image_url=null;
-    if(imageFile){
-      const fName=Date.now()+"_"+imageFile.name;
-      const {error} = await supabase.storage.from('post-images').upload(fName,imageFile);
-      if(!error){
-        const {data} = supabase.storage.from('post-images').getPublicUrl(fName);
-        image_url=data.publicUrl;
-      }
-    }
-    setShowModal(false);
-    await supabase.from('posts').insert([{username:name,content,topic,state,image_url,likes:0}]);
-    setContent(""); setImageFile(null);
-    loadPosts();
-  }
-
-  const filtered = posts.filter((p:any)=>(filterTopic==="All"||p.topic===filterTopic)&&(filterState==="All"||p.state===filterState));
 
   return (
-    <div style={{ background: '#000', color: '#fff', minHeight: '100vh', fontFamily: 'system-ui' }}>
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, background: '#0a0a0a', borderBottom: '1px solid #222', padding: '12px 16px', zIndex: 100 }}>
-        <div style={{ maxWidth: 640, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div><div style={{ fontWeight: 900, fontSize: 18 }}>SEVEN SISTERS <span style={{ color: '#ff3b30' }}>VOICE</span></div><div style={{ fontSize: 10, color: '#666', letterSpacing: 2 }}>NORTHEAST REAL SOCIAL</div></div>
-          <div style={{ background: '#1a1a1a', border: '1px solid #333', padding: '6px 12px', borderRadius: 20, fontSize: 11 }}>{username||"Guest"} LIVE</div>
+    <div style={{ background: "#000", color: "#fff", minHeight: "100vh", fontFamily: "system-ui" }}>
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, background: "#0a0a0a", borderBottom: "1px solid #222", padding: "12px 16px", zIndex: 10 }}>
+        <div style={{ maxWidth: 600, margin: "0 auto", display: "flex", justifyContent: "space-between" }}>
+          <div><b>SEVEN SISTERS <span style={{ color: "#ff3b30" }}>VOICE</span></b><div style={{ fontSize: 10, color: "#666" }}>NORTHEAST FACEBOOK TYPE</div></div>
+          <div style={{ fontSize: 12, background: "#1a1a1a", padding: "6px 12px", borderRadius: 20, border: "1px solid #333" }}>{name || "Guest"} • LIVE</div>
         </div>
-        <div style={{ maxWidth: 640, margin: '12px auto 0', display: 'flex', gap: 8, overflowX: 'auto' }}>
-          {TOPICS.map(t=><button key={t} onClick={()=>setFilterTopic(t)} style={{ background: filterTopic===t?'#ff3b30':'#1a1a1a', color: '#fff', border: '1px solid #333', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap' }}>{t}</button>)}
-        </div>
-        <div style={{ maxWidth: 640, margin: '8px auto 0', display: 'flex', gap: 8, overflowX: 'auto' }}>
-          {STATES.map(s=><button key={s} onClick={()=>setFilterState(s)} style={{ background: filterState===s?'#fff':'#1a1a1a', color: filterState===s?'#000':'#fff', border: '1px solid #333', borderRadius: 20, padding: '6px 14px', fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap' }}>{s}</button>)}
+        <div style={{ maxWidth: 600, margin: "12px auto 0", display: "flex", gap: 8, overflowX: "auto" }}>
+          {["All", "Culture", "Tourism", "Food", "Music", "Assam", "Meghalaya"].map(f => (
+            <button key={f} onClick={() => setFilter(f)} style={{ background: filter === f? "#ff3b30" : "#1a1a1a", color: "#fff", border: "1px solid #333", borderRadius: 20, padding: "6px 14px", fontSize: 12, fontWeight: 600 }}>{f}</button>
+          ))}
         </div>
       </div>
 
-      <div style={{ padding: '150px 0 100px', maxWidth: 640, margin: '0 auto' }}>
-        <div style={{ background: '#111', border: '1px solid #222', borderRadius: 16, margin: 12, padding: 14, display: 'flex', gap: 12, alignItems: 'center' }}>
-          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#ff3b30', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>{username?.[0]?.toUpperCase()||"G"}</div>
-          <div onClick={()=>setShowModal(true)} style={{ flex: 1, background: '#000', border: '1px solid #333', borderRadius: 20, padding: '10px 16px', color: '#777', fontSize: 14 }}>What's happening in Northeast?</div>
-          <button onClick={()=>setShowModal(true)} style={{ background: '#ff3b30', border: 0, color: '#fff
+      <div style={{ padding: "120px 0 80px", maxWidth: 600, margin: "0 auto" }}>
+        <div style={{ background: "#111", border: "1px solid #222", borderRadius: 16, margin: 12, padding: 12, display: "flex", gap: 10 }}>
+          <div style={{ width: 40, height: 40, background: "#ff3b30", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>{(name || "G")[0]}</div>
+          <div onClick={() => setShow(true)} style={{ flex: 1, background: "#000", border: "1px solid #333", borderRadius: 20, padding: "10px 14px", color: "#777" }}>What's on your mind?</div>
+        </div>
+
+        {filtered.map(p => (
+          <div key={p.id} style={{ background: "#111", border: "1px solid #222", borderRadius: 16, margin: "0 12px 12px", padding: 12 }}>
+            <div style={{ display: "flex", gap: 10 }}><div style={{ width: 40, height: 40, background: "#ff3b30", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>{p.name[0]}</div><div><div style={{ fontWeight: 700, fontSize: 14 }}>{p.name} <span style={{ fontSize: 10, background: "#1a1a1a", border: "1px solid #333", padding: "2px 6px", borderRadius: 8, color: "#ff3b30" }}>{p.topic}</span></div><div style={{ fontSize: 11, color: "#777" }}>{p.state} • {p.time} • 🌎</div></div></div>
+            <div style={{ marginTop: 10, fontSize: 15, lineHeight: 1.4 }}>{p.content}</div>
+            <div style={{ display: "flex", borderTop: "1px solid #222", marginTop: 12 }}>
+              <button onClick={() => setPosts(posts.map(x => x.id === p.id? {...x, likes: x.likes + 1 } : x))} style={{ flex: 1, background: "transparent", border: 0, color: "#aaa", padding: 10, fontWeight: 600 }}>❤️ {p.likes} Like</button>
+              <button style={{ flex: 1, background: "transparent", border: 0, borderLeft: "1px solid #222", borderRight: "1px solid #222", color: "#aaa", padding: 10, fontWeight: 600 }}>💬 Comment</button>
+              <button onClick={() => { navigator.clipboard.writeText(window.location.href); alert("Link copied!"); }} style={{ flex: 1, background: "transparent", border: 0, color: "#aaa", padding: 10, fontWeight: 600 }}>↗️ Share</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div onClick={() => setShow(true)} style={{ position: "fixed", bottom: 20, right: 16, width: 56, height: 56, background: "#ff3b30", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>+</div>
+
+      {show && <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", zIndex: 20, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}><div style={{ background: "#111", border: "1px solid #333", borderRadius: 20, width: "100%", maxWidth: 400, padding: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}><b>Create Post</b><button onClick={() => setShow(false)} style={{ background: "#222", color: "#fff", border: 0, width: 28, height: 28, borderRadius: "50%" }}>X</button></div>
+        <input value={name} onChange={e => setName(e.target.value)} placeholder="Your name" style={{ width: "100%", background: "#000", border: "1px solid #333", borderRadius: 12, padding: 12, color: "#fff", marginTop: 14, boxSizing: "border-box" }} />
+        <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Share Northeast story..." style={{ width: "100%", height: 80, background: "#000", border: "1px solid #333", borderRadius: 12, padding: 12, color: "#fff", marginTop: 10, boxSizing: "border-box" }} />
+        <button onClick={addPost} style={{ width: "100%", marginTop: 12, padding: 14, background: "#ff3b30", border: 0, borderRadius: 20, color: "#fff", fontWeight: 800 }}>POST</button>
+      </div></div>}
+    </div>
+  );
+}
