@@ -1,1 +1,64 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Your Voice. Your Hills.</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}body{background:#0a0a0f;color:#fff;overflow-x:hidden}.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(1200px 600px at 50% 0%,#2a1f4a 0%,#1a1033 25%,#0a0a0f 65%)}h1{font-size:clamp(40px,8vw,68px);font-weight:900;line-height:.9;letter-spacing:-.03em}.grad{background:linear-gradient(90deg,#7c5cff,#ff6b9d,#feca57,#48dbfb,#1dd1a1,#ff9ff3,#5f27cd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.dots{display:flex;gap:8px;justify-content:center;margin:22px 0}.dot{width:12px;height:12px;border-radius:50%;box-shadow:0 0 12px currentColor}.sub{color:#9aa0b5;max-width:520px;margin:0 auto 28px;font-size:17px;line-height:1.5}.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.btn{padding:14px 30px;border-radius:99px;border:none;font-weight:800;font-size:16px;cursor:pointer}.b1{background:#fff;color:#000}.b2{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}.box{background:#171722;border:1px solid #2a2a3a;border-radius:22px;padding:26px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.6)}.box h2{margin-bottom:6px}.box p.small{color:#888;font-size:13px;margin-bottom:14px}.box input,.box textarea{width:100%;padding:13px 14px;border-radius:12px;background:#0f0f14;border:1px solid #2a2a3a;color:#fff;margin-top:11px;font-size:15px;outline:none}.box input:focus{border-color:#7c5cff}.btnF{width:100%;padding:14px;background:linear-gradient(90deg,#7c5cff,#a78bfa);color:#fff;border:none;border-radius:12px;margin-top:16px;font-weight:800;font-size:15px;cursor:pointer}.link{margin-top:14px;font-size:13px;color:#a78bfa;cursor:pointer}.close{margin-top:10px;font-size:13px;color:#666;cursor:pointer;text-align:center}#app{display:none;max-width:720px;margin:0 auto;padding:0 16px 80px}.top{position:sticky;top:0;z-index:10;background:rgba(10,10,15,.9);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1f1f2a;margin:0 -16px;padding-left:16px;padding-right:16px}.card{background:#171722;border:1px solid #232332;border-radius:18px;padding:16px;margin:16px 0}.avatar{width:76
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seven Sisters Voice</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#ffffff;color:#111;min-height:100vh}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+background:linear-gradient(180deg,#f8f5ff 0%,#ffffff 100%)}
+h1{font-size:58px;font-weight:900;line-height:0.9;color:#111}
+.grad{background:linear-gradient(90deg,#7c5cff,#ff3b9a,#ff8a00,#00d2d3,#00c853);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dots{display:flex;gap:8px;justify-content:center;margin:20px 0}
+.dot{width:14px;height:14px;border-radius:50%}
+.sub{color:#666;max-width:500px;margin:0 auto 28px;font-size:18px}
+.btn{padding:14px 28px;border-radius:99px;border:none;font-weight:800;font-size:16px;cursor:pointer}
+.b1{background:#111;color:#fff}
+.b2{background:#fff;color:#111;border:2px solid #111;margin-left:10px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:999}
+.box{background:#fff;border-radius:20px;padding:26px;width:100%;max-width:400px;color:#111}
+.box input{width:100%;padding:13px;border-radius:12px;border:2px solid #eee;margin-top:11px;font-size:15px}
+.btnF{width:100%;padding:14px;background:#7c5cff;color:#fff;border:none;border-radius:12px;margin-top:16px;font-weight:800;cursor:pointer}
+#app{display:none;max-width:700px;margin:0 auto;padding:16px;background:#fff;color:#111}
+.card{background:#f8f7ff;border:1px solid #eee;border-radius:16px;padding:16px;margin:16px 0}
+.avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #7c5cff}
+.post{border:1px solid #eee;border-radius:16px;overflow:hidden;margin:16px 0;background:#fff}
+.post img.main{width:100%}
+</style>
+</head>
+<body>
+<div id="hero" class="hero"><div>
+<h1>Your Voice.<br><span class="grad">Your Hills.</span></h1>
+<div class="dots">
+<div class="dot" style="background:#ff6b6b"></div>
+<div class="dot" style="background:#feca57"></div>
+<div class="dot" style="background:#48dbfb"></div>
+<div class="dot" style="background:#1dd1a1"></div>
+<div class="dot" style="background:#ff9ff3"></div>
+<div class="dot" style="background:#5f27cd"></div>
+<div class="dot" style="background:#00d2d3"></div>
+</div>
+<p class="sub">The first social voice for Seven Sisters. Share stories, songs & truth.</p>
+<button class="btn b1" onclick="document.getElementById('su').style.display='flex'">Join the Hills</button>
+<button class="btn b2" onclick="document.getElementById('li').style.display='flex'">Log In</button>
+<p style="margin-top:20px;color:#7c5cff;font-weight:700">↑ FRESH WHITE VERSION v2 ↑</p>
+</div></div>
+
+<div id="su" class="modal"><div class="box">
+<h2>Join the Hills</h2>
+<input id="sn" placeholder="Full Name">
+<input id="sd" type="date">
+<input id="se" placeholder="Email">
+<input id="sp" type="password" placeholder="Password">
+<button class="btnF" onclick="signup()">Sign Up & Enter</button>
+<p onclick="document.getElementById('su').style.display='none'" style="margin-top:10px;color:#888;text-align:center;cursor:pointer">Close</p>
+</div></div>
+
+<div id="li" class="modal"><div class="box">
+<h2>Login</h2>
+<input id="le" placeholder="Email">
+<input id="lp" type="password" placeholder="Password">
+<button class="btnF" onclick="login()">Login</button>
+<p onclick="document.getElementById('li').style.display='none'"
