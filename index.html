@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seven Sisters Voice - Northeast Facebook</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#000;color:#fff;font-family:system-ui}
+.top{position:fixed;top:0;left:0;right:0;background:#0a0a0a;border-bottom:1px solid #222;padding:12px;z-index:10}
+.card{background:#111;border:1px solid #222;border-radius:16px;margin:12px;padding:12px;max-width:600px;margin-left:auto;margin-right:auto}
+.btn{background:#ff3b30;color:#fff;border:0;padding:12px 20px;border-radius:20px;font-weight:700;width:100%;margin-top:10px}
+.tag{background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:6px 14px;font-size:12px;margin:4px;display:inline-block}
+input,textarea{width:100%;background:#000;border:1px solid #333;border-radius:12px;padding:12px;color:#fff;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="top">
+<div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-between">
+<div><b>SEVEN SISTERS <span style="color:#ff3b30">VOICE</span></b><div style="font-size:10px;color:#666">NORTHEAST FACEBOOK TYPE</div></div>
+<div style="font-size:12px;background:#1a1a1a;padding:6px 12px;border-radius:20px;border:1px solid #333">LIVE • Online</div>
+</div>
+<div style="max-width:600px;margin:12px auto 0"><span class="tag" style="background:#ff3b30">All</span><span class="tag">Culture</span><span class="tag">Tourism</span><span class="tag">Food</span><span class="tag">Music</span><span class="tag">Assam</span></div>
+</div>
+
+<div style="padding:110px 12px 80px;max-width:600px;margin:0 auto">
+<div class="card"><div style="display:flex;gap:10px"><div style="width:40px;height:40px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800">G</div><input id="postInput" placeholder="What's on your mind? Share Northeast story..."></div><input id="nameInput" placeholder="Your name"><button class="btn" onclick="addPost()">POST TO FACEBOOK</button></div>
+<div id="posts"></div>
+</div>
+
+<script>
+let posts=[
+{name:"Assam Explorer",state:"Assam",topic:"Tourism",text:"Welcome to Seven Sisters Voice! 🌄 First post from Northeast! Like, Comment, Share!",likes:12},
+{name:"Meghalaya Roots",state:"Meghalaya",topic:"Culture",text:"Cherrapunji is so beautiful today! Who's from Meghalaya? ❤️",likes:8}
+];
+function render(){document.getElementById("posts").innerHTML=posts.map((p,i)=>`<div class="card"><div style="display:flex;gap:10px"><div style="width:40px;height:40px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800">${p.name[0]}</div><div><b>${p.name}</b> <span class="tag" style="color:#ff3b30">${p.topic}</span><div style="font-size:11px;color:#777">${p.state} • Just now • 🌎</div></div></div><div style="margin-top:10px">${p.text}</div><div style="display:flex;border-top:1px solid #222;margin-top:12px"><button onclick="like(${i})" style="flex:1;background:transparent;border:0;color:#aaa;padding:10px;font-weight:600">❤️ ${p.likes} Like</button><button style="flex:1;background:transparent;border:0;border-left:1px solid #222;border-right:1px solid #222;color:#aaa;padding:10px;font-weight:600">💬 Comment</button><button onclick="share()" style="flex:1;background:transparent;border:0;color:#aaa;padding:10px;font-weight:600">↗️ Share</button></div></div>`).join("")}
+function addPost(){let t=document.getElementById("postInput").value;let n=document.getElementById("nameInput").value||"Guest";if(!t)return;posts.unshift({name:n,state:"Assam",topic:"Culture",text:t,likes:0});document.getElementById("postInput").value="";render()}
+function like(i){posts[i].likes++;render()}
+function share(){navigator.clipboard.writeText(location.href);alert("Link copied! Share on WhatsApp!")}
+render();
+</script>
+</body>
+</html>
