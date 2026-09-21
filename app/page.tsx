@@ -15,21 +15,20 @@ export default function Page() {
         <h1 className="text-3xl font-bold mb-2">Welcome! 🎉</h1>
         <p className="text-green-600 font-semibold mb-6">Login Successful</p>
 
-        <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="grid grid-cols-2 gap-3 mb-6">
           {states.map((s) => (
-            <div key={s.name} className={`${s.color} rounded-2xl p-4 font-medium text-black`}>
+            <div
+              key={s.name}
+              className={`${s.color} rounded-2xl p-4 font-medium text-black ${s.name === "Tripura"? "col-span-2" : ""}`}
+            >
               {s.name}
             </div>
           ))}
         </div>
 
-        <div className={`${states[6].color} rounded-2xl p-4 font-medium text-black mb-6`}>
-          {states[6].name}
-        </div>
-
-        <a href="https://github.com/avinisaacd/seven-sisters-voice-login" target="_blank" className="text-xs text-gray-400">
+        <p className="text-xs text-gray-400">
           seven-sisters-voice-login
-        </a>
+        </p>
       </div>
     </main>
   );
