@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Voice - Final v2.1</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
-<style>body{font-family:'Outfit',sans-serif; transition: all 0.3s}</style>
-</head>
-<body class="bg-[#fdf6ff]" id="mainBody">
-<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 HAPPY RONGALI BIHU! Seven Sisters Voice v2.1 LIVE 🌾</div>
-
-<div id="landing" class="min-h-screen flex flex-col items-center justify-center p-6 text-center relative">
-<div class="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-cyan-100"></div>
-<div class="relative z-10 w-full max-w-md">
-<h1 class="text-[52px] leading-[0.9] font-black">Your Voice.<br><span class="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">Your Hills.</span></h1>
-<button onclick="enterApp()" class="mt-8 bg-black text-white px-10 py-4 rounded-full font-bold">Enter Hills Final →</button>
-</div></div>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Seven Sisters Voice Fixed</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#fdf6ff]" id="mainBody">
+<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 BIHU FIXED VERSION - Enter Working! 🌾</div>
+<div id="landing" class="min-h-screen flex items-center justify-center p-6 text-center"><div><h1 class="text-[48px] font-black leading-none">Your Voice.<br>Your Hills.</h1><button id="enterBtn" class="mt-8 bg-black text-white px-10 py-4 rounded-full font-bold">Enter Hills →</button><p class="text-xs text-gray-500 mt-4">If button not work, click here</p></div></div>
 <div id="app" class="hidden max-w-[1200px] mx-auto min-h-screen flex flex-col md:flex-row">
-<div class="w-full md:w-[280px] p-3 space-y-3 bg-gray-50/50 border-r">
-<div class="bg-white p-4 rounded-2xl border"><div class="flex items-center gap-3"><div class="h-12 w-12 rounded-full bg-black text-white flex items-center justify-center font-black">A</div><div><p class="font-black text-sm">Assam User</p><p class="text-[11px] text-gray-500">🌾 Assam • Online</p></div></div></div>
-<div class="bg-white p-4 rounded-2xl border"><p class="font-black text-sm mb-3">🎨 Change Theme</p><div class="grid grid-cols-4 gap-2">
-<button onclick="changeTheme('purple')" class="h-8 w-8 rounded-full bg-purple-600 border-2 border-black"></button>
-<button onclick="changeTheme('bihu')" class="h-8 w-8 rounded-full bg-gradient-to-r from-red-600 to-yellow-400 border"></button>
-<button onclick="changeTheme('naga')" class="h-8 w-8 rounded-full bg-black border-2 border-red-600"></button>
-<button onclick="changeTheme('meghalaya')" class="h-8 w-8 rounded-full bg-green-600 border"></button>
-<button onclick="changeTheme('assam')" class="h-8 w-8 rounded-full bg-blue-600 border"></button>
-<button onclick="changeTheme('dark')" class
+<div class="w-full md:w-[280px] p-3 space-y-3 bg-gray-50 border-r"><div class="bg-white p-4 rounded-2xl border"><p class="font-black">🎨 Theme</p><div class="grid grid-cols-4 gap-2 mt-2"><button onclick="changeTheme('purple')" class="h-8 w-8 rounded-full bg-purple-600 border-2 border-black"></button><button onclick="changeTheme('bihu')" class="h-8 w-8 rounded-full bg-red-600"></button><button onclick="changeTheme('dark')" class="h-8 w-8 rounded-full bg-black"></button><button onclick="changeTheme('light')" class="h-8 w-8 rounded-full bg-white border-2"></button></div></div><div class="bg-white p-4 rounded-2xl border"><p class="font-black text-sm">🔥 Trending</p><p class="text-xs">#Bihu2026 #Assam</p></div></div>
+<div class="flex-1 bg-white"><div class="p-4 border-b flex justify-between"><h2 class="font-black">Seven Sisters Voice v2.1 FIXED</h2><button onclick="location.reload()" class="bg-gray-100 px-3 py-1 rounded-full text-xs">Logout</button></div><div class="p-4 border-b"><textarea id="postText" placeholder="Share something" class="w-full border p-3 rounded-xl text-sm" rows="2"></textarea><div id="preview" class="hidden mt-2 relative"><img id="previewImg" class="rounded-2xl"><button onclick="removePreview()" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs">✕ Delete</button></div><div class="flex justify-between mt-2"><label class="bg-gray-100 px-3 py-2 rounded-full text-xs font-bold">📸 Photo<input type="file" id="imgInput" accept="image/*" class="hidden" onchange="handleImg(this)"></label><button onclick="createPost()" class="bg-black text-white px-6 py-2 rounded-full text-xs font-bold">Post</button></div></div><div id="posts"></div></div>
+</div>
+<script>
+let currentImg='', postsData=[{name:'Rohit',state:'Assam',text:'Bihu test post 🌾',likes:2,time:new Date(Date.now()-3600000),img:''}];
+function timeAgo(d){let s=Math.floor((new Date()-d)/1000); if(s<60) return "Just now"; let m=Math.floor(s/60); if(m<60) return m+" min ago"; let h=Math.floor(m/60); if(h<24) return h+" hr ago"; return Math.floor(h/24)+" day ago";}
+document.getElementById('enterBtn').addEventListener('click', function(){
+ document.getElementById('landing').style.display='none';
+ document.getElementById('app').classList.remove('hidden');
+ renderPosts();
+ setInterval(()=>renderPosts(),60000);
+});
+function handleImg(i){let r=new FileReader(); r.onload=e=>{currentImg=e.target.result; document.getElementById('previewImg').src=currentImg; document.getElementById('preview').classList.remove('hidden');}; r.readAsDataURL(i.files[0]);}
+function removePreview(){currentImg=''; document.getElementById('preview').classList.add('hidden'); document.getElementById('imgInput').value='';}
+function createPost(){let t=document.getElementById('postText').value.trim(); if(!t&&!currentImg) return; postsData.unshift({name:'You - Assam',state:'Assam',text:t,img:currentImg,likes:0,time:new Date()}); document.getElementById('postText').value=''; currentImg=''; removePreview(); renderPosts();}
+function deletePost(i){if(confirm('Delete?')){postsData.splice(i,1); renderPosts();}}
+function renderPosts(){document.getElementById('posts').inner
