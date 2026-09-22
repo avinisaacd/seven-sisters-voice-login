@@ -1,85 +1,93 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Jobs</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#fbf5ff;font-family:Arial;color:#111}
 #exterior{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
 .box{background:white;border-radius:26px;padding:24px;width:100%;max-width:360px;box-shadow:0 18px 40px rgba(147,51,234,0.12);border:1px solid #eee}
 .hero{font-size:52px;font-weight:900;line-height:0.88;margin:0}.hero span{color:#9333ea}
-#enterBtn{width:100%;margin-top:12px;background:#111;color:white;padding:15px;border-radius:999px;font-weight:900;border:0;cursor:pointer;font-size:14px}
+#enterBtn{width:100%;margin-top:12px;background:#111;color:white;padding:15px;border-radius:999px;font-weight:900;border:0;cursor:pointer}
 #enterBtn:disabled{opacity:0.3}
-#interior{display:none;max-width:1100px;margin:0 auto;padding:10px}
+#interior{display:none;max-width:1200px;margin:0 auto;padding:10px}
 .card{background:white;border-radius:18px;padding:15px;margin-bottom:10px;border:1px solid #eee}
-.dot{height:36px;width:36px;border-radius:50%;display:inline-block;margin:4px;cursor:pointer;border:3px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.15)}
-textarea{width:100%;background:#f5f3ff;border:1px solid #ede9fe;padding:13px;border-radius:12px;margin-bottom:8px;font-size:14px;outline:none}
-.feed{background:white;border-radius:18px;border:1px solid #eee;overflow:hidden}
-@media(max-width:700px){.layout{flex-direction:column!important}.side{max-width:100%!important}}
+.tab{padding:11px 14px;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.tab.active{background:#111;color:white}
+textarea,input{width:100%;background:#f5f3ff;border:1px solid #ede9fe;padding:13px;border-radius:12px;margin-bottom:8px;font-size:14px;outline:none}
+.feed{background:white;border-radius:18px;border:1px solid #eee;overflow:hidden;min-height:600px}
 .inputName{width:100%;padding:14px;border-radius:14px;border:2px solid #e9d5ff;background:#fdfaff;font-size:14px;font-weight:700;outline:none;margin-bottom:10px;text-align:center}
-.inputName:focus{border-color:#9333ea;background:white}
+.jobCard{background:#fdfaff;border:1px solid #f3e8ff;border-radius:14px;padding:14px;margin-bottom:10px}
+.jobCard:hover{background:white;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+@media(max-width:800px){.layout{flex-direction:column!important}.side{max-width:100%!important}}
 </style></head><body>
 
 <div id="exterior"><div>
 <h1 class="hero">Your Voice.<br><span>Your Hills.</span></h1>
 <p style="color:#666;font-size:13px">Digital home for Northeast India</p>
 <div class="box">
-<p style="font-weight:900;margin:0 0 14px 0;font-size:14px" id="status">Enter your name to continue</p>
+<p id="status" style="font-weight:900;margin:0 0 14px 0">Enter your name</p>
 <input id="nameInput" class="inputName" placeholder="Your Name - e.g. Avin" oninput="checkName()">
 <button id="enterBtn" disabled onclick="enterApp()">Enter Hills →</button>
-<p style="font-size:11px;color:#666;margin-top:10px">No password needed - just your name</p>
 </div>
 </div></div>
 
 <div id="interior">
 <div class="layout" style="display:flex;gap:12px;align-items:flex-start">
-<div class="side" style="width:100%;max-width:300px">
-<div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>👋 <span id="sideName">Avin</span></b><button onclick="logout()" style="background:#f3f4f6;border:0;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Logout</button></div>
-<div class="card"><b style="font-size:13px">🎨 Theme</b><br><div style="margin-top:10px"><div class="dot" style="background:#9333ea" onclick="document.body.style.background='#fbf5ff'"></div><div class="dot" style="background:linear-gradient(45deg,red,orange)" onclick="document.body.style.background='#fff1f2'"></div><div class="dot" style="background:black" onclick="document.body.style.background='#111'"></div><div class="dot" style="background:white;border:3px solid black" onclick="document.body.style.background='white'"></div></div></div>
+<div class="side" style="width:100%;max-width:280px">
+<div class="card">
+<div class="tab active" id="tab-home" onclick="showTab('home')">🏠 Home</div>
+<div class="tab" id="tab-friends" onclick="showTab('friends')">👥 Friends</div>
+<div class="tab" id="tab-jobs" onclick="showTab('jobs')">💼 Jobs <span style="margin-left:auto;background:#22c55e;color:white;padding:2px 8px;border-radius:999px;font-size:11px">NEW</span></div>
+<div class="tab" id="tab-trending" onclick="showTab('trending')">🔥 Trending</div>
+<div class="tab" id="tab-profile" onclick="showTab('profile')">👤 Profile</div>
 </div>
-<div style="flex:1;min-width:280px" class="feed">
+<div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>👋 <span id="sideName">Avin</span></b><button onclick="logout()" style="background:#f3f4f6;border:0;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Logout</button></div>
+</div>
+
+<div style="flex:1;min-width:300px" class="feed">
+<!-- HOME -->
+<div id="content-home">
 <div style="padding:14px;border-bottom:1px solid #eee"><b>Seven Sisters Voice</b><br><span style="color:#9333ea;font-size:12px;font-weight:800">Welcome <span id="topName">Avin</span>!</span></div>
 <div style="padding:14px;background:#fdfaff;border-bottom:1px solid #eee">
 <textarea id="postInput" placeholder="What's happening in hills today?" rows="3"></textarea>
-<div id="preview" style="display:none;position:relative;margin-top:10px"><img id="previewImg" style="width:100%;border-radius:12px"><button onclick="removeImg()" style="position:absolute;top:8px;right:8px;background:red;color:white;border:0;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900;cursor:pointer">✕</button></div>
-<div style="display:flex;gap:8px;margin-top:12px"><label style="flex:1;background:#f3f4f6;text-align:center;padding:11px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer">📸 Photo<input type="file" id="fileInput" accept="image/*" style="display:none" onchange="pickImg(this)"></label><button onclick="createPost()" style="flex:1;background:black;color:white;padding:11px;border-radius:999px;border:0;font-weight:900;cursor:pointer">Post</button></div>
+<div style="display:flex;gap:8px;margin-top:12px"><button onclick="createPost()" style="flex:1;background:black;color:white;padding:11px;border-radius:999px;border:0;font-weight:900;cursor:pointer">Post</button></div>
 </div>
 <div id="posts"></div>
+</div>
+
+<!-- JOBS TAB - NEW -->
+<div id="content-jobs" style="display:none;padding:18px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="margin:0">💼 Jobs in Northeast</h3><button onclick="togglePostJob()" style="background:#111;color:white;border:0;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer">+ Post Job</button></div>
+
+<!-- POST JOB FORM -->
+<div id="postJobForm" style="display:none;background:#f5f3ff;padding:14px;border-radius:14px;margin-bottom:16px;border:1px solid #e9d5ff">
+<input id="jobTitle" placeholder="Job Title - e.g. Teacher"><input id="jobCompany" placeholder="Company - e.g. DPS Jorhat"><input id="jobLoc" placeholder="Location - e.g. Jorhat, Assam"><input id="jobSalary" placeholder="Salary - e.g. ₹25k/month"><textarea id="jobDesc" placeholder="Job description..." rows="2"></textarea>
+<div style="display:flex;gap:8px"><button onclick="postJob()" style="flex:1;background:#9333ea;color:white;border:0;padding:10px;border-radius:999px;font-weight:800;cursor:pointer">Post Job</button><button onclick="togglePostJob()" style="flex:1;background:#f3f4f6;border:0;padding:10px;border-radius:999px;font-weight:800;cursor:pointer">Cancel</button></div>
+</div>
+
+<!-- FILTER -->
+<div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto"><button onclick="filterJobs('all')" class="jobFilter active" data-f="all" style="padding:6px 12px;border-radius:999px;border:1px solid #e9d5ff;background:#111;color:white;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer">All</button><button onclick="filterJobs('Assam')" class="jobFilter" data-f="Assam" style="padding:6px 12px;border-radius:999px;border:1px solid #e9d5ff;background:white;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer">Assam</button><button onclick="filterJobs('Shillong')" class="jobFilter" data-f="Shillong" style="padding:6px 12px;border-radius:999px;border:1px solid #e9d5ff;background:white;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer">Shillong</button><button onclick="filterJobs('Teaching')" class="jobFilter" data-f="Teaching" style="padding:6px 12px;border-radius:999px;border:1px solid #e9d5ff;background:white;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer">Teaching</button></div>
+
+<div id="jobsList"></div>
+</div>
+
+<!-- FRIENDS -->
+<div id="content-friends" style="display:none;padding:18px"><h3>👥 Friends</h3><p style="color:#666;font-size:13px">5 friends from 7 sisters</p><div id="friendsList"></div></div>
+
+<!-- TRENDING -->
+<div id="content-trending" style="display:none;padding:18px"><h3>🔥 Trending</h3><div style="background:#fdfaff;padding:12px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between"><span>#AssamTea</span><b>2.3k</b></div></div>
+
+<!-- PROFILE -->
+<div id="content-profile" style="display:none;padding:18px;text-align:center"><div style="width:80px;height:80px;background:linear-gradient(135deg,#e9d5ff,#fbcfe8);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900" id="profileAv">A</div><h3 id="profileName">Avin</h3><p style="color:#666;font-size:13px">📍 Assam</p></div>
+
 </div>
 </div>
 </div>
 
 <script>
-let currentUser=null, curImg='', posts=[{name:'Rohit • Jorhat',text:'Hello from Assam!',time:'Just now',img:''}];
-
-function checkName(){
-let v=document.getElementById('nameInput').value.trim();
-let btn=document.getElementById('enterBtn');
-let st=document.getElementById('status');
-if(v.length>=2){btn.disabled=false; st.innerText='Welcome, '+v+'! Click Enter'; st.style.color='green';}
-else{btn.disabled=true; st.innerText='Enter your name to continue'; st.style.color='black';}
-}
-
-function enterApp(){
-let v=document.getElementById('nameInput').value.trim();
-if(v.length<2){alert('Please enter your name (min 2 letters)');return;}
-currentUser=v;
-document.getElementById('sideName').innerText=currentUser;
-document.getElementById('topName').innerText=currentUser;
-document.getElementById('exterior').style.display='none';
-document.getElementById('interior').style.display='block';
-render();
-}
-
-function logout(){
-document.getElementById('interior').style.display='none';
-document.getElementById('exterior').style.display='flex';
-document.getElementById('nameInput').value='';
-document.getElementById('enterBtn').disabled=true;
-document.getElementById('status').innerText='Enter your name to continue';
-document.getElementById('status').style.color='black';
-}
-
-function pickImg(i){let r=new FileReader(); r.onload=e=>{curImg=e.target.result; document.getElementById('previewImg').src=curImg; document.getElementById('preview').style.display='block';}; r.readAsDataURL(i.files[0]);}
-function removeImg(){curImg=''; document.getElementById('preview').style.display='none';}
-function createPost(){let t=document.getElementById('postInput').value.trim(); if(!t&&!curImg){alert('Write something');return;} posts.unshift({name:currentUser+' • Assam',text:t,time:'Just now',img:curImg}); document.getElementById('postInput').value=''; curImg=''; removeImg(); render();}
-function render(){document.getElementById('posts').innerHTML=posts.map(p=>`<div style="padding:14px;border-bottom:1px solid #eee"><b>${p.name}</b> • ${p.time}<div style="margin-top:8px">${p.text}</div>${p.img?`<img src="${p.img}" style="margin-top:10px;width:100%;border-radius:12px">`:''}</div>`).join('');}
-</script>
-</body></html>
+let currentUser=null, posts=[{name:'Rohit • Jorhat',text:'Hello from Assam!',time:'Just now'}];
+let friends=[{name:'Priya • Dibrugarh'},{name:'Manish • Kohima'}];
+let jobs=[
+{title:'Primary Teacher',company:'DPS Jorhat',loc:'Jorhat, Assam',salary:'₹25,000/month',type:'Teaching',desc:'Need English teacher for class 1-5',posted:'2h ago'},
+{title:'Delivery Executive',company:'Zomato',loc:'Guwahati, Assam',salary:'₹18k + Incentives',type:'Delivery',desc:'Bike + License needed',posted:'5h ago'},
+{title:'Content Creator',company:'Northeast Vibes',loc:'Shillong, Meghalaya',salary:'₹30k/month',type:'Creative',desc:'Make reels about Meghalaya culture',posted:'1d ago'},
+{title:'Nurse',company:'GNRC Hospital',loc:'Dibrugarh, Assam',salary:'₹35k/month',type:'Medical',desc:'BSc Nursing required',posted:'1d ago'},
+{title:'Tour Guide',company:'Kaziranga Tours',loc:'Kaziranga, Assam',salary:'₹
