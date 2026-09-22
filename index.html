@@ -1,51 +1,31 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
-<style>
-body{margin:0;background:#fdf6ff;font-family:Arial}
-#landing{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
-h1{font-size:48px;font-weight:900;line-height:1;margin:0} h1 span{color:#9333ea}
-.box{background:white;border:1px solid #ddd;padding:20px;border-radius:20px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
-.btn{padding:10px 20px;border-radius:30px;border:1px solid #e91e63;font-weight:bold;cursor:pointer}
-.btn-fill{background:#e91e63;color:white;border:0}
-#enterBtn{width:100%;margin-top:15px;background:black;color:white;padding:14px;border-radius:30px;font-weight:900;border:0;cursor:pointer}
-#enterBtn:disabled{opacity:0.3}
-#authModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99;justify-content:center;align-items:center;padding:20px}
-#authBox{background:white;padding:20px;border-radius:16px;width:100%;max-width:320px}
-input{width:100%;padding:12px;background:#f0f2f5;border:0;border-radius:10px;margin-bottom:8px;box-sizing:border-box}
-#app{display:none;max-width:1000px;margin:auto}
-</style></head><body>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Full Final</title><script src="https://cdn.tailwindcss.com"></script><style>#authModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center;padding:20px}</style></head><body class="bg-[#fdf6ff]" id="mainBody">
+<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-[11px] font-black tracking-widest">🌾 BIHU FULL DESIGN • GATE LOGIN ONLY • FINAL 🌾</div>
 
-<div id="authModal" onclick="if(event.target==this)closeAuth()"><div id="authBox">
-<h3 id="authTitle" style="margin:0 0 10px 0">Sign Up</h3>
-<input id="authName" placeholder="Your Name"><input id="authEmail" placeholder="Email"><input id="authPass" type="password" placeholder="Password">
-<button onclick="doAuth()" style="width:100%;background:#e91e63;color:white;padding:12px;border-radius:10px;border:0;font-weight:800">Continue</button>
-<p style="text-align:center;font-size:12px"><a href="#" onclick="toggleType();return false" id="switchLink">Log In</a></p>
-<button onclick="closeAuth()" style="width:100%;background:#eee;border:0;padding:8px;border-radius:8px;margin-top:5px">Cancel</button>
-</div></div>
+<!-- LOGIN GATE MODAL -->
+<div id="authModal" onclick="if(event.target==this)closeAuth()"><div class="bg-white p-6 rounded-[20px] w-full max-w-[340px] shadow-2xl"><h3 id="authTitle" class="font-black text-[18px] mb-3">Sign Up</h3><input id="authName" placeholder="Your Name - e.g. Avin" class="w-full p-3 bg-gray-100 rounded-xl mb-2 outline-none text-sm"><input id="authEmail" placeholder="Email" class="w-full p-3 bg-gray-100 rounded-xl mb-2 outline-none text-sm"><input id="authPass" type="password" placeholder="Password" class="w-full p-3 bg-gray-100 rounded-xl mb-2 outline-none text-sm"><button onclick="doAuth()" class="w-full bg-pink-600 text-white py-3 rounded-xl font-black text-sm">Continue</button><p class="text-center text-[12px] mt-3"><span id="switchText">Already have account?</span> <a href="#" onclick="toggleAuthType();return false" id="switchLink" class="text-pink-600 font-bold">Log In</a></p><button onclick="closeAuth()" class="w-full bg-gray-100 py-2 rounded-xl text-xs mt-2">Cancel</button></div></div>
 
-<div id="landing"><div>
-<h1>Your Voice.<br><span>Your Hills.</span></h1>
-<div class="box">
-<p id="gateUser" style="font-weight:bold;font-size:14px">Not logged in</p>
-<button class="btn" onclick="openAuth('login')">Log In</button> <button class="btn btn-fill" onclick="openAuth('signup')">Sign Up</button>
-<button id="enterBtn" disabled onclick="goInside()">🔒 Login to Enter Hills →</button>
-<p id="gateMsg" style="font-size:11px;color:red;margin-top:8px">Please Log In first</p>
+<!-- LANDING - GATE ONLY -->
+<div id="landing" class="min-h-[90vh] flex items-center justify-center p-6 text-center"><div class="w-full max-w-[380px]"><h1 class="text-[52px] font-black leading-[0.9] tracking-tight">Your Voice.<br><span class="text-purple-600">Your Hills.</span></h1><p class="text-xs text-gray-400 mt-3">The digital home for Northeast India • Login required</p><div class="mt-6 bg-white p-5 rounded-[24px] border shadow-[0_8px_30px_rgba(0,0,0,0.06)]"><p id="gateUser" class="text-sm font-black mb-3">Not logged in</p><div class="flex gap-2 justify-center"><button onclick="openAuth('login')" class="px-6 py-2.5 border border-pink-600 text-pink-600 rounded-full text-sm font-bold">Log In</button><button onclick="openAuth('signup')" class="px-6 py-2.5 bg-pink-600 text-white rounded-full text-sm font-bold shadow">Sign Up</button></div><button id="enterBtn" disabled class="mt-4 w-full bg-black text-white py-3.5 rounded-full font-black text-sm disabled:opacity-30">🔒 Login to Enter Hills →</button><p id="gateMsg" class="text-[11px] text-red-500 mt-2 font-bold">Please Log In / Sign Up first</p></div></div></div>
+
+<!-- INTERIOR - FULL DESIGN, NO LOGIN BUTTONS -->
+<div id="app" class="hidden max-w-[1200px] mx-auto flex flex-col md:flex-row min-h-screen">
+<!-- LEFT -->
+<div class="w-full md:w-[300px] p-3 space-y-3 bg-[#fdf6ff] md:bg-transparent">
+<div class="bg-white p-4 rounded-[20px] border flex justify-between items-center"><div><p class="font-black text-sm">👋 <span id="leftUser">Avin</span></p><p class="text-[11px] text-green-600 font-bold">● Online • Assam</p></div><button onclick="logout()" class="bg-gray-100 px-3 py-1.5 rounded-full text-[11px] font-bold">Logout</button></div>
+<div class="bg-white p-4 rounded-[20px] border"><p class="font-black text-sm mb-2">🎨 Change Theme</p><div class="grid grid-cols-4 gap-2"><button onclick="changeTheme('purple')" title="Purple" class="h-10 w-10 rounded-full bg-purple-600 border-2 border-black shadow"></button><button onclick="changeTheme('bihu')" title="Bihu" class="h-10 w-10 rounded-full bg-gradient-to-br from-red-600 to-yellow-400 shadow"></button><button onclick="changeTheme('dark')" title="Dark" class="h-10 w-10 rounded-full bg-black shadow"></button><button onclick="changeTheme('light')" title="Light" class="h-10 w-10 rounded-full bg-white border-2 shadow"></button></div><p class="text-[10px] text-gray-400 mt-2">Purple • Bihu • Dark • Light</p></div>
+<div class="bg-white p-4 rounded-[20px] border"><p class="font-black text-sm">🔥 Trending</p><div class="mt-2 space-y-1 text-xs"><p>#Bihu2026 • 2.3k</p><p>#AssamTea • 1.1k</p><p>#Guwahati • 890</p></div></div>
 </div>
-</div></div>
-
-<div id="app"><div style="padding:15px;border-bottom:1px solid #ddd;background:white;display:flex;justify-content:space-between"><b>🎙️ Seven Sisters' Voice</b> <span><span id="userTop"></span> <button onclick="logout()" style="padding:5px 10px;border-radius:20px;border:1px solid #ddd">Logout</button></span></div><div style="padding:15px"><textarea id="postText" placeholder="Share something" style="width:100%;background:#f0f2f5;border:0;border-radius:10px;padding:12px"></textarea><button onclick="createPost()" style="margin-top:8px;background:black;color:white;padding:10px 20px;border-radius:20px;border:0;font-weight:bold;width:100%">Post</button><div id="posts" style="margin-top:15px"></div></div></div>
+<!-- FEED -->
+<div class="flex-1 bg-white md:rounded-[20px] md:my-3 md:border overflow-hidden">
+<div class="p-4 border-b flex justify-between items-center"><div><h2 class="font-black">Seven Sisters Voice</h2><p class="text-xs text-purple-600 font-bold">Welcome <span id="welcomeName">Avin</span>! 🌾</p></div><span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded-full font-bold">● Live</span></div>
+<div class="p-4 border-b"><textarea id="postText" placeholder="Share Bihu vibe? What's happening in hills?" class="w-full p-3 bg-gray-100 rounded-xl text-sm outline-none focus:bg-white focus:ring-2 focus:ring-purple-200 transition" rows="2"></textarea><div id="preview" class="hidden mt-3 relative"><img id="previewImg" class="rounded-[16px] max-h-[320px] w-full object-cover"><button onclick="removePreview()" class="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow">✕ Delete Photo</button></div><div class="flex justify-between items-center mt-3"><label class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition">📸 Photo<input type="file" id="imgInput" accept="image/*" class="hidden" onchange="handleImg(this)"></label><button onclick="createPost()" class="bg-black hover:bg-gray-800 text-white px-7 py-2.5 rounded-full text-xs font-black transition">Post</button></div></div>
+<div id="posts"></div>
+</div>
+</div>
 
 <script>
-let currentUser=localStorage.getItem('ssv_user'), authType='signup', posts=[];
-function updateGate(){let logged=!!currentUser; document.getElementById('gateUser').textContent=logged?'Welcome, '+currentUser+'! 🎉':'Not logged in'; document.getElementById('gateMsg').textContent=logged?'Ready to enter!':'Please Log In first'; document.getElementById('gateMsg').style.color=logged?'green':'red'; document.getElementById('enterBtn').disabled=!logged; document.getElementById('enterBtn').textContent=logged?'Enter Hills →':'🔒 Login to Enter Hills →'; if(logged)document.getElementById('userTop').textContent=currentUser;}
-function openAuth(t){authType=t; document.getElementById('authModal').style.display='flex'; document.getElementById('authTitle').textContent=t=='signup'?'Sign Up':'Log In'; document.getElementById('authName').style.display=t=='signup'?'block':'none'; document.getElementById('switchLink').textContent=t=='signup'?'Already have account? Log In':'New? Sign Up';}
-function closeAuth(){document.getElementById('authModal').style.display='none';}
-function toggleType(){openAuth(authType=='signup'?'login':'signup');}
-function doAuth(){let n=document.getElementById('authName').value.trim(), e=document.getElementById('authEmail').value.trim(), p=document.getElementById('authPass').value.trim(); if(!e||!p){alert('Fill');return;} if(authType=='signup'&&!n){alert('Enter name');return;} let u=JSON.parse(localStorage.getItem('ssv_users')||'{}'); if(authType=='signup'){if(u[e]){alert('Exists');openAuth('login');return;} u[e]={name:n,pass:p}; localStorage.setItem('ssv_users',JSON.stringify(u)); currentUser=n;}else{if(!u[e]||u[e].pass!=p){alert('Wrong');return;} currentUser=u[e].name;} localStorage.setItem('ssv_user',currentUser); closeAuth(); updateGate();}
-function goInside(){if(!currentUser){alert('Login first'); openAuth('signup');return;} document.getElementById('landing').style.display='none'; document.getElementById('app').style.display='block';}
-function logout(){localStorage.removeItem('ssv_user'); currentUser=null; location.reload();}
-function createPost(){let t=document.getElementById('postText').value.trim(); if(!t)return; posts.unshift({name:currentUser,text:t,time:new Date()}); document.getElementById('postText').value=''; render();}
-function render(){document.getElementById('posts').innerHTML=posts.map(p=>`<div style="background:white;border:1px solid #ddd;padding:12px;border-radius:12px;margin-bottom:10px"><b>${p.name}</b> • just now<br><br>${p.text}</div>`).join('');}
-updateGate();
-</script>
-</body></html>
+let currentUser=localStorage.getItem('ssv_user'), authType='signup', currentImg='', postsData=[{name:'Rohit - Jorhat',state:'Assam',text:'Happy Bihu to all! 🌾 Magh Bihu vibes in Assam!',likes:23,time:new Date(Date.now()-2*3600*1000),img:''},{name:'Ananya - Shillong',state:'Meghalaya',text:'Cherrapunji morning today ☁️ #Meghalaya',likes:12,time:new Date(Date.now()-5*3600*1000),img:''}];
+function timeAgo(d){let s=Math.floor((new Date()-d)/1000); if(s<60) return "Just now"; let m=Math.floor(s/60); if(m<60) return m+" min ago"; let h=Math.floor(m/60); if(h<24) return h+" hr ago"; return Math.floor(h/24)+" day ago";}
+function updateGate(){let l=!!currentUser, b=document.getElementById('enterBtn'); document.getElementById('gateUser').textContent=l? 'Welcome, '+currentUser+'! 🎉':'Not logged in'; document.getElementById('gateMsg').textContent=l? 'Ready! Click Enter to go inside':'Please Log In / Sign Up first'; document.getElementById('gateMsg').className=l? 'text-[11px] text-green-600 mt-2 font-bold':'text-[11px] text-red-500 mt-2 font-bold'; b.disabled=!l; b.textContent=l? 'Enter Hills →':'🔒 Login to Enter Hills →'; if(l){document.getElementById('leftUser').textContent=currentUser; document.getElementById('welcomeName').textContent=currentUser;}}
+function openAuth(t){authType=t; document.getElementById('authModal').style.display='flex'; document.getElementById('authTitle').textContent=t=='signup'?'Sign Up':'Log In'; document.getElementById('authName').style.display=t=='signup'?'block':'none'; document.getElementById('switchText').textContent=t=='signup
