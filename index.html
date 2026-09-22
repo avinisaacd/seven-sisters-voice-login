@@ -6,7 +6,7 @@ h1{font-size:50px;font-weight:900;line-height:.9;padding-top:60px;text-align:cen
 h1 span{color:#9333ff;display:block}
 .sub{text-align:center;color:#666}
 .box{background:#fff;border-radius:28px;padding:24px;width:90%;max-width:360px;margin:30px auto;box-shadow:0 20px 40px rgba(0,0,0,.1);text-align:center}
-input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1.5px solid #e9d5ff;margin-top:8px;font-size:13px;outline:none}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1.5px solid #e9d5ff;margin-top:8px;font-size:13px;outline:none;box-sizing:border-box}
 input:focus,select:focus,textarea:focus{border-color:#9333ff}
 button{cursor:pointer}
 .btn{width:100%;margin-top:14px;background:#111;color:#fff;padding:16px;border-radius:999px;font-weight:900;border:0;font-size:16px}
@@ -14,8 +14,8 @@ button{cursor:pointer}
 .card{background:#fff;border-radius:16px;padding:14px;border:1px solid #eee;margin-bottom:10px}
 .sideTab{padding:12px;border-radius:12px;cursor:pointer;font-weight:700;margin-bottom:6px;display:flex;gap:8px}
 .sideTab.active{background:#111;color:#fff}
-.content{display:none}
-.content.active{display:block}
+.content{display:none !important}
+.content.active{display:block !important}
 .jobSubTab{padding:10px 18px;border-radius:999px;border:1.5px solid #e9d5ff;background:#fff;font-weight:800;font-size:13px;cursor:pointer;margin-right:6px}
 .jobSubTab.active{background:#9333ff;color:#fff;border-color:#9333ff}
 .jobCard{padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff;margin-top:10px}
@@ -44,39 +44,12 @@ button{cursor:pointer}
 </div>
 
 <div style="flex:1;min-width:300px">
+
 <div class="content active" id="content-home">
 <div class="card"><b>Welcome <span id="u2">Avin</span>! 🎉</b><p style="margin-top:8px;color:#555;font-size:13px">Share what's happening in hills</p><textarea id="postTxt" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px" rows="3" placeholder="What's happening?"></textarea><button onclick="addPost()" style="margin-top:8px;width:100%;background:#111;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post</button><div id="posts" style="margin-top:12px"></div></div>
 </div>
 
-<div <div class="content" id="content-jobs">
-<div class="card">
-<h3>💼 Jobs - Northeast</h3>
-<div style="margin-top:14px">
-<button style="padding:10px 18px;border-radius:999px;border:0;background:#9333ff;color:#fff;font-weight:800" onclick="document.getElementById('job-employer').style.display='block';document.getElementById('job-employee').style.display='none'">🏢 Employer</button>
-<button style="padding:10px 18px;border-radius:999px;border:0;background:#f3f4f6;font-weight:800;margin-left:6px" onclick="document.getElementById('job-employer').style.display='none';document.getElementById('job-employee').style.display='block'">👤 Employee</button>
-</div>
-
-<div id="job-employer" style="margin-top:16px;background:#f5f3ff;padding:16px;border-radius:16px;border:1.5px solid #e9d5ff">
-<b>🏢 Employer - Post Job</b><br>
-<input id="empIndustry" placeholder="Industry/Institution Name" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<input id="empPosition" placeholder="Position" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<textarea id="empRole" placeholder="Job Role" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px"></textarea>
-<input id="empSalary" placeholder="Salary" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<input id="empHours" placeholder="Working Hours" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<input id="empContact" placeholder="Contact Details" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<button onclick="alert('Job Posted: '+document.getElementById('empIndustry').value+' ✅')" style="margin-top:10px;width:100%;background:#9333ff;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post Job</button>
-<div id="employerJobsList" style="margin-top:12px"></div>
-</div>
-
-<div id="job-employee" style="display:none;margin-top:16px;background:#f0fdf4;padding:16px;border-radius:16px;border:1.5px solid #bbf7d0">
-<b>👤 Employee - Find Job</b><br>
-<input id="empSeek" placeholder="Job You Are Seeking" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px">
-<select id="empExp" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px"><option>Fresher</option><option>1 Year</option><option>2 Years</option><option>5+ Years</option></select>
-<button onclick="alert('Profile Updated: Seeking '+document.getElementById('empSeek').value+' with '+document.getElementById('empExp').value+' ✅')" style="margin-top:10px;width:100%;background:#16a34a;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Update Profile</button>
-</div>
-
-</div>
-</div>
+<div class="content" id="content-jobs">
 <div class="card">
 <h3>💼 Jobs - Northeast</h3>
 <div style="margin-top:14px">
@@ -84,20 +57,85 @@ button{cursor:pointer}
 <button class="jobSubTab" id="jobTab-employee" onclick="openJobSub('employee')">👤 Employee - Find Job</button>
 </div>
 
-<!-- EMPLOYER SECTION -->
 <div id="job-employer" style="display:block;margin-top:16px">
 <div style="background:#f5f3ff;padding:16px;border-radius:16px;border:1.5px solid #e9d5ff">
 <b style="font-size:14px">🏢 Post a Job (Employer)</b>
 <label class="label">Industry / Institution Name *</label>
-<input id="empIndustry" placeholder="e.g. DPS Jorhat, GNRC Hospital, Zomato">
+<input id="empIndustry" placeholder="e.g. DPS Jorhat, GNRC Hospital">
 <label class="label">Position *</label>
-<input id="empPosition" placeholder="e.g. Primary Teacher, Staff Nurse">
+<input id="empPosition" placeholder="e.g. Primary Teacher">
 <label class="label">Job Role / Description *</label>
-<textarea id="empRole" rows="2" placeholder="e.g. Teach Class 1-5, English subject, B.Ed required"></textarea>
+<textarea id="empRole" rows="2" placeholder="e.g. Teach Class 1-5, B.Ed required"></textarea>
 <label class="label">Salary *</label>
 <input id="empSalary" placeholder="e.g. ₹25,000/month">
 <label class="label">Working Hours *</label>
-<input id="empHours" placeholder="e.g. 9 AM - 4 PM, Mon-Sat">
+<input id="empHours" placeholder="e.g. 9 AM - 4 PM">
 <label class="label">Contact Details *</label>
-<input id="empContact" placeholder="e.g. 9876543210 / hr@dpsjorhat.com">
-<button onclick="postEmployerJob()" style="margin-top:14px;width:100%;background:#9333ff;color:#fff;padding:12px;border-radius:999px;border
+<input id="empContact" placeholder="e.g. 9876543210 / hr@dps.com">
+<button onclick="postEmployerJob()" style="margin-top:14px;width:100%;background:#9333ff;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post Job →</button>
+</div>
+<div id="employerJobsList" style="margin-top:16px"></div>
+</div>
+
+<div id="job-employee" style="display:none;margin-top:16px">
+<div style="background:#f0fdf4;padding:16px;border-radius:16px;border:1.5px solid #bbf7d0">
+<b style="font-size:14px">👤 Looking for Job? (Employee)</b>
+<label class="label">Job You Are Seeking *</label>
+<input id="empSeek" placeholder="e.g. Teaching, Delivery">
+<label class="label">Years of Experience *</label>
+<select id="empExp"><option value="">Select Experience</option><option>Fresher</option><option>1 Year</option><option>2 Years</option><option>3 Years</option><option>5+ Years</option></select>
+<label class="label">Location</label>
+<input id="empSeekLoc" placeholder="e.g. Jorhat">
+<label class="label">Contact / Skills</label>
+<input id="empSeekContact" placeholder="e.g. B.Ed, English">
+<button onclick="postEmployeeProfile()" style="margin-top:14px;width:100%;background:#16a34a;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Update Profile →</button>
+</div>
+<div id="employeeList" style="margin-top:16px"></div>
+</div>
+
+</div>
+</div>
+
+<div class="content" id="content-friends">
+<div class="card"><h3>👥 Friends</h3>
+<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:10px">Priya • Dibrugarh</div>
+<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px">Manish • Kohima</div>
+</div>
+</div>
+
+<div class="content" id="content-trending">
+<div class="card"><h3>🔥 Trending</h3>
+<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px">#AssamTea • 2.3k</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+var employerJobs=[];
+var employeeProfiles=[];
+function openTab(name){
+document.getElementById('content-home').className='content';
+document.getElementById('content-jobs').className='content';
+document.getElementById('content-friends').className='content';
+document.getElementById('content-trending').className='content';
+document.getElementById('tab-home').className='sideTab';
+document.getElementById('tab-jobs').className='sideTab';
+document.getElementById('tab-friends').className='sideTab';
+document.getElementById('tab-trending').className='sideTab';
+document.getElementById('content-'+name).className='content active';
+document.getElementById('tab-'+name).className='sideTab active';
+}
+function openJobSub(sub){
+document.getElementById('job-employer').style.display=(sub=='employer'?'block':'none');
+document.getElementById('job-employee').style.display=(sub=='employee'?'block':'none');
+document.getElementById('jobTab-employer').className=(sub=='employer'?'jobSubTab active':'jobSubTab');
+document.getElementById('jobTab-employee').className=(sub=='employee'?'jobSubTab active':'jobSubTab');
+}
+function addPost(){
+var v=document.getElementById('postTxt').value.trim();
+if(!v){alert('Write something');return;}
+document.getElementById('posts').innerHTML='<div style="padding:10px;border-bottom:1px solid #eee"><b>You</b>: '+v+'</div>'+document.getElementById('posts').innerHTML;
+document.getElementById
