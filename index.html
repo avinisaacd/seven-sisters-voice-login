@@ -2,78 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Voice</title>
+<title>Seven Sisters Voice v2 - Bihu</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 <style>body{font-family:'Outfit',sans-serif}</style>
 </head>
-<body class="bg-[#fcf8ff]">
+<body class="bg-[#fdf6ff]">
+<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 HAPPY RONGALI BIHU! Festival LIVE! 🌾</div>
+
 <div id="landing" class="min-h-screen flex flex-col items-center justify-center p-6 text-center relative">
 <div class="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-cyan-100"></div>
 <div class="relative z-10 w-full max-w-md">
 <h1 class="text-[52px] leading-[0.9] font-black">Your Voice.<br><span class="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">Your Hills.</span></h1>
-<p class="text-gray-600 mt-6 text-sm">Meghalaya • Assam • Nagaland • Manipur<br>Mizoram • Tripura • Arunachal</p>
-<div class="flex gap-3 mt-10 justify-center">
-<button onclick="document.getElementById('join').classList.remove('hidden')" class="bg-black text-white px-8 py-4 rounded-full font-bold">Join Now →</button>
-<button onclick="document.getElementById('login').classList.remove('hidden')" class="bg-white border-2 border-black px-8 py-4 rounded-full font-bold">Log In</button>
+<div class="flex justify-center gap-2 mt-4">
+<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">🔥 1.2k Posts</div>
+<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">💼 34 Jobs</div>
+<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">🎵 12 Songs</div>
 </div>
-<button onclick="localStorage.setItem('name','Guest');localStorage.setItem('email','guest@gmail.com');localStorage.setItem('state','Assam');localStorage.setItem('password','1234');showApp();" class="mt-6 text-xs text-purple-600 font-bold underline">⚡ Quick Enter (No Login Needed)</button>
+<button onclick="enter()" class="mt-8 bg-black text-white px-10 py-4 rounded-full font-bold">Enter Hills v2 →</button>
 </div>
 </div>
-<div id="join" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-[2rem] p-8 w-full max-w-md">
-<h2 class="text-3xl font-black">Join the Hills 🏔️</h2>
-<input id="jName" placeholder="Full Name" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-4">
-<input id="jEmail" placeholder="Email" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-2">
-<input id="jDob" type="date" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-2">
-<select id="jState" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-2"><option>Assam</option><option>Meghalaya</option><option>Manipur</option><option>Nagaland</option><option>Mizoram</option><option>Tripura</option><option>Arunachal Pradesh</option></select>
-<input id="jPass" type="password" placeholder="Create Password (min 4)" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-2 bg-yellow-50 border-yellow-200">
-<button onclick="doJoin()" class="w-full bg-black text-white py-4 rounded-2xl font-bold mt-4">Enter Hills →</button>
-<button onclick="this.parentElement.parentElement.classList.add('hidden')" class="w-full mt-2 text-gray-400 text-sm">Cancel</button>
-</div></div>
-<div id="login" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-[2rem] p-8 w-full max-w-md border-4 border-yellow-400">
-<h2 class="text-3xl font-black">Welcome Back 👋</h2>
-<p class="text-xs text-green-600 font-bold mt-1">✓ PASSWORD FIELD BELOW</p>
-<input id="lEmail" placeholder="Email" class="w-full border-2 border-gray-100 p-4 rounded-2xl mt-4">
-<input id="lPass" type="password" placeholder="PASSWORD HERE - Type your password" class="w-full border-2 border-yellow-400 p-4 rounded-2xl mt-2 bg-yellow-100">
-<button onclick="showForgot()" class="text-sm text-purple-600 font-black underline w-full text-left mt-2">🔑 Forgot Password? Click Here</button>
-<button onclick="doLogin()" class="w-full bg-black text-white py-4 rounded-2xl font-bold mt-4">Login</button>
-<button onclick="this.parentElement.parentElement.classList.add('hidden')" class="w-full mt-2 text-gray-400 text-sm">Cancel</button>
-</div></div>
-<div id="forgot" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[60]"><div class="bg-white rounded-[2rem] p-8 w-full max-w-md border-4 border-purple-500">
-<h2 class="text-2xl font-black">Reset Password 🔑</h2>
-<input id="fEmail" placeholder="Your registered email" class="w-full border-2 p-4 rounded-2xl my-4">
-<input id="fNewPass" type="password" placeholder="New Password" class="w-full border-2 p-4 rounded-2xl mb-4">
-<button onclick="doForgot()" class="w-full bg-purple-600 text-white py-4 rounded-2xl font-bold">Reset Password Now</button>
-<button onclick="document.getElementById('forgot').classList.add('hidden')" class="w-full mt-2 text-gray-400 text-sm">Cancel</button>
-</div></div>
+
 <div id="app" class="hidden max-w-[700px] mx-auto bg-white min-h-screen">
-<div class="p-5 border-b flex justify-between items-center"><div><h2 class="text-xl font-black">Seven Sisters Voice</h2><p class="text-xs text-gray-500" id="uInfo"></p></div><button onclick="logout()" class="bg-gray-100 px-4 py-2 rounded-full text-xs font-bold">Logout</button></div>
-<div class="flex border-b"><button onclick="switchTab('feed')" id="tab-feed" class="flex-1 py-4 font-black border-b-2 border-black text-sm">Feed</button><button onclick="switchTab('jobs')" id="tab-jobs" class="flex-1 py-4 text-gray-400 font-bold text-sm">Jobs</button><button onclick="switchTab('dm')" id="tab-dm" class="flex-1 py-4 text-gray-400 font-bold text-sm">DM - Private Chat</button></div>
-<div id="panel-feed"><div class="p-5 border-b"><textarea id="postText" placeholder="What's happening? Use #Bihu #Hornbill" class="w-full outline-none" rows="2"></textarea><div id="preview" class="hidden mt-3"><img id="previewImg" class="rounded-2xl max-h-60 w-full object-cover"><button onclick="clearImg()" class="mt-2 text-xs bg-black text-white px-3 py-1 rounded-full">Remove Photo</button></div><div class="flex justify-between items-center mt-3"><label class="bg-gray-100 px-4 py-2 rounded-full text-xs font-bold cursor-pointer">📸 Photo<input type="file" id="imgInput" accept="image/*" class="hidden" onchange="handleImg(this)"></label><button onclick="createPost()" class="bg-black text-white px-6 py-2 rounded-full font-bold text-sm">Post</button></div></div><div id="posts"></div></div>
-<div id="panel-jobs" class="hidden p-5"><input id="jobTitle" placeholder="Need Guitar Teacher Shillong" class="w-full border p-4 rounded-2xl"><button onclick="addJob()" class="mt-2 w-full bg-black text-white py-3 rounded-2xl font-bold">Post Job</button><div id="jobsList" class="mt-4 space-y-2"></div></div>
-<div id="panel-dm" class="hidden flex h-[60vh]"><div class="w-[35%] border-r p-2 bg-gray-50" id="dmUsers"></div><div class="flex-1 flex flex-col"><div id="dmHeader" class="p-3 border-b font-bold text-sm">Select user</div><div id="dmMessages" class="flex-1 p-3 space-y-2 overflow-y-auto"></div><div class="p-2 flex gap-2 border-t"><input id="dmInput" placeholder="Message..." class="flex-1 border p-2 rounded-full text-sm"><button onclick="sendDM()" class="bg-black text-white px-4 rounded-full text-sm">Send</button></div></div></div>
+<div class="p-4 border-b flex justify-between"><div><h2 class="text-xl font-black">Seven Sisters Voice</h2><p class="text-xs text-purple-600 font-bold">🌸 Bihu v2.0 - All Features</p></div><button onclick="location.reload()" class="bg-gray-100 px-3 py-2 rounded-full text-xs">Logout</button></div>
+<div class="p-2 border-b bg-gray-50 flex gap-2 overflow-x-auto">
+<button onclick="filterState('All')" class="bg-black text-white px-4 py-2 rounded-full text-xs font-bold">All</button>
+<button onclick="filterState('Assam')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">🌾 Assam</button>
+<button onclick="filterState('Meghalaya')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">⛰️ Meghalaya</button>
+<button onclick="filterState('Nagaland')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">🎸 Nagaland</button>
 </div>
-<script>
-let currentImg='', currentDM=null;
-function doJoin(){let n=jName.value.trim(),e=jEmail.value.trim(),p=jPass.value.trim();if(!n||!e||!p)return alert('Fill all!');localStorage.setItem('name',n);localStorage.setItem('email',e);localStorage.setItem('password',p);localStorage.setItem('state',jState.value);showApp();}
-function doLogin(){let e=lEmail.value.trim(),p=lPass.value.trim();if(e===localStorage.getItem('email')&&p===localStorage.getItem('password')){showApp();}else alert('Wrong! Saved: '+localStorage.getItem('email')+' / '+localStorage.getItem('password'));}
-function showForgot(){document.getElementById('forgot').classList.remove('hidden');fEmail.value=lEmail.value;}
-function doForgot(){let e=fEmail.value.trim(),np=fNewPass.value.trim();if(e!==localStorage.getItem('email'))return alert('Not found! Yours: '+localStorage.getItem('email'));localStorage.setItem('password',np);alert('Reset done! New: '+np);document.getElementById('forgot').classList.add('hidden');}
-function showApp(){landing.classList.add('hidden');join.classList.add('hidden');login.classList.add('hidden');document.getElementById('app').classList.remove('hidden');uInfo.innerText=localStorage.getItem('name')+' • '+localStorage.getItem('state');load();loadJobs();loadDMUsers();}
-function logout(){if(confirm('Logout?')){localStorage.clear();location.reload()}}
-function switchTab(t){['feed','jobs','dm'].forEach(x=>document.getElementById('panel-'+x).classList.add('hidden'));document.getElementById('panel-'+t).classList.remove('hidden');}
-function handleImg(input){let r=new FileReader();r.onload=e=>{let img=new Image();img.onload=()=>{let c=document.createElement('canvas'),max=600,w=img.width,h=img.height;if(w>h){if(w>max){h*=max/w;w=max}}else{if(h>max){w*=max/h;h=max}}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);currentImg=c.toDataURL('image/jpeg',0.6);previewImg.src=currentImg;preview.classList.remove('hidden');};img.src=e.target.result};r.readAsDataURL(input.files[0]);}
-function clearImg(){currentImg='';preview.classList.add('hidden');}
-function createPost(){let t=postText.value.trim();if(!t&&!currentImg)return;let p=JSON.parse(localStorage.getItem('posts')||'[]');p.unshift({id:Date.now(),name:localStorage.getItem('name'),state:localStorage.getItem('state'),text:t,img:currentImg,time:new Date().toLocaleTimeString(),likes:0});localStorage.setItem('posts',JSON.stringify(p));postText.value='';clearImg();load();}
-function load(){let p=JSON.parse(localStorage.getItem('posts')||'[]');posts.innerHTML=p.map(x=>`<div class="p-4 border-b"><b>${x.name}</b> <span class="text-xs bg-purple-100 px-2 py-1 rounded-full">${x.state}</span><p class="mt-2">${x.text}</p>${x.img?`<img src="${x.img}" class="mt-2 rounded-2xl">`:''}<div class="flex gap-4 mt-2 text-xs"><button onclick="likePost(${x.id})">❤️ ${x.likes}</button><button onclick="openDM('${x.name}')">↗️ DM - Private Chat</button>${x.name==localStorage.getItem('name')?`<button onclick="deletePost(${x.id})" class="text-red-500">Delete</button>`:''}</div></div>`).join('')}
-function likePost(id){let p=JSON.parse(localStorage.getItem('posts')||'[]');p.find(x=>x.id==id).likes++;localStorage.setItem('posts',JSON.stringify(p));load();}
-function deletePost(id){if(!confirm('Delete?'))return;let p=JSON.parse(localStorage.getItem('posts')||'[]');localStorage.setItem('posts',JSON.stringify(p.filter(x=>x.id!=id)));load();}
-function addJob(){let t=jobTitle.value.trim();if(!t)return;let j=JSON.parse(localStorage.getItem('jobs')||'[]');j.unshift({title:t,by:localStorage.getItem('name')});localStorage.setItem('jobs',JSON.stringify(j));jobTitle.value='';loadJobs();}
-function loadJobs(){let j=JSON.parse(localStorage.getItem('jobs')||'[]');jobsList.innerHTML=j.map(x=>`<div class="border p-3 rounded-xl"><b class="text-sm">${x.title}</b><p class="text-xs text-gray-500">${x.by}</p></div>`).join('')}
-function loadDMUsers(){let p=JSON.parse(localStorage.getItem('posts')||'[]');let names=[...new Set(p.map(x=>x.name))].filter(n=>n!=localStorage.getItem('name'));dmUsers.innerHTML=names.map(n=>`<div onclick="openDM('${n}')" class="p-2 bg-white border rounded-xl mb-2 text-sm font-bold cursor-pointer">${n}<br><span class="text-[10px] font-normal text-gray-400">Private Chat</span></div>`).join('')}
-function openDM(name){currentDM=name;dmHeader.innerText='Private Chat with '+name;switchTab('dm');loadDM();}
-function loadDM(){let all=JSON.parse(localStorage.getItem('dms')||'{}');let msgs=all[currentDM]||[];dmMessages.innerHTML=msgs.map(m=>`<div class="${m.me?'bg-black text-white ml-auto':'bg-white border'} max-w-[80%] p-2 rounded-2xl text-sm">${m.text}</div>`).join('')}
-function sendDM(){let txt=dmInput.value.trim();if(!txt||!currentDM)return;let all=JSON.parse(localStorage.getItem('dms')||'{}');if(!all[currentDM])all[currentDM]=[];all[currentDM].push({text:txt,me:true});localStorage.setItem('dms',JSON.stringify(all));dmInput.value='';loadDM();}
-</script>
-</body>
-</html>
+<div class="flex border-b"><button onclick="switchTab('feed')" id="tab-feed" class="flex-1 py-3 font-black border-b-2 border-black text-sm">Feed</button><button onclick="switchTab('music')" id="tab-music" class="flex-1 py-3 text-gray-400 font-bold text-sm">🎵 Music</button><button onclick="switchTab('jobs')" id="tab-jobs" class="flex-1 py-3 text-gray-400 font-bold text-sm">💼 Jobs</button></div>
+
+<div id="panel-feed"><div class="p-4 border-b"><textarea id="postText" placeholder="Share Bihu vibe? #Bihu" class="w-full outline-none text-sm
