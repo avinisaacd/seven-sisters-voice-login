@@ -1,27 +1,98 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
-<style>body{margin:0;background:#fdf4ff;font-family:Arial;text-align:center}h1{font-size:52px;font-weight:900;line-height:.9;padding-top:80px}h1 span{color:#9333ff;display:block}.box{background:#fff;border-radius:28px;padding:24px;width:90%;max-width:360px;margin:30px auto;box-shadow:0 20px 40px rgba(0,0,0,.1)}input{width:100%;padding:16px;border-radius:16px;border:2px solid #e9d5ff;text-align:center;font-weight:800}button{width:100%;margin-top:14px;background:#111;color:#fff;padding:16px;border-radius:999px;font-weight:900;border:0;font-size:16px;cursor:pointer}#main{display:none;text-align:left;max-width:900px;margin:0 auto;padding:14px}.card{background:#fff;border-radius:16px;padding:14px;border:1px solid #eee;margin-bottom:10px}</style></head><body>
+<style>
+body{margin:0;background:#fdf4ff;font-family:Arial}
+h1{font-size:50px;font-weight:900;line-height:.9;padding-top:60px;text-align:center}
+h1 span{color:#9333ff;display:block}
+.sub{text-align:center;color:#666}
+.box{background:#fff;border-radius:28px;padding:24px;width:90%;max-width:360px;margin:30px auto;box-shadow:0 20px 40px rgba(0,0,0,.1);text-align:center}
+input{width:100%;padding:16px;border-radius:16px;border:2px solid #e9d5ff;text-align:center;font-weight:800}
+button{cursor:pointer}
+.btn{width:100%;margin-top:14px;background:#111;color:#fff;padding:16px;border-radius:999px;font-weight:900;border:0;font-size:16px}
+#main{display:none;max-width:1100px;margin:0 auto;padding:14px}
+.card{background:#fff;border-radius:16px;padding:14px;border:1px solid #eee;margin-bottom:10px}
+.sideTab{padding:12px;border-radius:12px;cursor:pointer;font-weight:700;margin-bottom:6px;display:flex;gap:8px}
+.sideTab.active{background:#111;color:#fff}
+.content{display:none}
+.content.active{display:block}
+</style></head><body>
 
 <div id="login">
 <h1>Your Voice.<span>Your Hills.</span></h1>
-<p>Northeast India</p>
+<p class="sub">Northeast India</p>
 <div class="box">
 <input id="n" value="Avin">
-<button onclick="document.getElementById('login').style.display='none';document.getElementById('main').style.display='block';document.getElementById('u').innerText=document.getElementById('n').value">Enter Hills →</button>
+<button class="btn" onclick="document.getElementById('login').style.display='none';document.getElementById('main').style.display='block';var v=document.getElementById('n').value;document.getElementById('u').innerText=v;document.getElementById('u2').innerText=v">Enter Hills →</button>
 </div>
 </div>
 
 <div id="main">
-<div style="display:flex;gap:12px;flex-wrap:wrap">
-<div style="width:240px">
-<div class="card"><b>👋 <span id="u">Avin</span></b><br><button onclick="document.getElementById('main').style.display='none';document.getElementById('login').style.display='block'" style="margin-top:8px;background:#eee;border:0;padding:6px 12px;border-radius:20px;width:auto">Logout</button></div>
-<div class="card">🏠 Home<br>💼 Jobs<br>👥 Friends<br>🔥 Trending</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+<div style="width:260px">
+<div class="card">
+<div><b>👋 <span id="u">Avin</span></b> <button onclick="document.getElementById('main').style.display='none';document.getElementById('login').style.display='block'" style="float:right;background:#eee;border:0;padding:6px 12px;border-radius:20px;font-weight:800">Logout</button></div>
 </div>
-<div style="flex:1;min-width:280px">
-<div class="card"><h3>Welcome <span id="u2">Avin</span>!</h3><p style="margin-top:10px">Your app is working! 🎉</p><p style="margin-top:10px;color:#666;font-size:13px">Now you can add Jobs, Friends, Posts - all will work because Enter Hills button is fixed.</p><br><textarea style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd" rows="3" placeholder="What's happening?"></textarea><br><button style="margin-top:8px;background:#000;color:#fff;padding:10px 16px;border-radius:999px;border:0">Post</button></div>
-<div class="card"><b>💼 Jobs</b><br><br>Teacher - DPS Jorhat - ₹25k <button onclick="alert('Applied ✅')" style="background:#000;color:#fff;border:0;padding:5px 10px;border-radius:20px;width:auto;margin-left:8px">Apply</button></div>
+<div class="card">
+<div class="sideTab active" id="tab-home" onclick="openTab('home')">🏠 Home</div>
+<div class="sideTab" id="tab-jobs" onclick="openTab('jobs')">💼 Jobs</div>
+<div class="sideTab" id="tab-friends" onclick="openTab('friends')">👥 Friends</div>
+<div class="sideTab" id="tab-trending" onclick="openTab('trending')">🔥 Trending</div>
+</div>
+</div>
+
+<div style="flex:1;min-width:300px">
+<div class="content active" id="content-home">
+<div class="card"><b>Welcome <span id="u2">Avin</span>! 🎉</b><p style="margin-top:8px;color:#555;font-size:13px">Share what's happening in hills</p><textarea id="postTxt" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px" rows="3" placeholder="What's happening?"></textarea><button onclick="addPost()" style="margin-top:8px;width:100%;background:#111;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post</button><div id="posts" style="margin-top:12px"></div></div>
+</div>
+
+<div class="content" id="content-jobs">
+<div class="card"><h3>💼 Jobs in Northeast</h3>
+<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Teacher - DPS Jorhat</b><br>₹25,000 • Jorhat, Assam<br><button onclick="alert('Applied for Teacher ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
+<div style="margin-top:10px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Delivery - Zomato</b><br>₹18k + Tips • Guwahati<br><button onclick="alert('Applied for Delivery ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
+<div style="margin-top:10px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Content Creator - NE Vibes</b><br>₹30k • Shillong<br><button onclick="alert('Applied ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
+</div>
+</div>
+
+<div class="content" id="content-friends">
+<div class="card"><h3>👥 Friends from 7 Sisters</h3>
+<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Priya • Dibrugarh • Assam</span><span style="color:green">● Online</span></div>
+<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Manish • Kohima • Nagaland</span><span style="color:green">● Online</span></div>
+<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Tashi • Itanagar • Arunachal</span><span>○ Offline</span></div>
+<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Lily • Imphal • Manipur</span><span style="color:green">● Online</span></div>
+</div>
+</div>
+
+<div class="content" id="content-trending">
+<div class="card"><h3>🔥 Trending in Northeast</h3>
+<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#AssamTea</b> • 2.3k posts</span><span style="color:green">↑ 12%</span></div>
+<div style="margin-top:8px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#Bihu2026</b> • 1.9k posts</span><span style="color:green">↑ 34%</span></div>
+<div style="margin-top:8px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#ShillongVibes</b> • 1.5k posts</span><span style="color:green">↑ 8%</span></div>
+</div>
+</div>
+
 </div>
 </div>
 </div>
 
+<script>
+function openTab(name){
+var tabs=['home','jobs','friends','trending'];
+for(var i=0;i<tabs.length;i++){
+var c=document.getElementById('content-'+tabs[i]);
+var t=document.getElementById('tab-'+tabs[i]);
+if(c) c.className='content';
+if(t) t.className='sideTab';
+}
+document.getElementById('content-'+name).className='content active';
+document.getElementById('tab-'+name).className='sideTab active';
+}
+function addPost(){
+var txt=document.getElementById('postTxt');
+var v=txt.value.trim();
+if(!v){alert('Write something');return;}
+var p=document.getElementById('posts');
+p.innerHTML='<div style="padding:10px;border-bottom:1px solid #eee"><b>You</b>: '+v+'</div>'+p.innerHTML;
+txt.value='';
+}
+</script>
 </body></html>
