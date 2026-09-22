@@ -1,9 +1,51 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Gate Login</title><script src="https://cdn.tailwindcss.com"></script><style>#authModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center;padding:20px}</style></head><body class="bg-[#fdf6ff]" id="mainBody">
-<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 BIHU FINAL - LOGIN AT GATE ONLY 🌾</div>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
+<style>
+body{margin:0;background:#fdf6ff;font-family:Arial}
+#landing{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+h1{font-size:48px;font-weight:900;line-height:1;margin:0} h1 span{color:#9333ea}
+.box{background:white;border:1px solid #ddd;padding:20px;border-radius:20px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+.btn{padding:10px 20px;border-radius:30px;border:1px solid #e91e63;font-weight:bold;cursor:pointer}
+.btn-fill{background:#e91e63;color:white;border:0}
+#enterBtn{width:100%;margin-top:15px;background:black;color:white;padding:14px;border-radius:30px;font-weight:900;border:0;cursor:pointer}
+#enterBtn:disabled{opacity:0.3}
+#authModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99;justify-content:center;align-items:center;padding:20px}
+#authBox{background:white;padding:20px;border-radius:16px;width:100%;max-width:320px}
+input{width:100%;padding:12px;background:#f0f2f5;border:0;border-radius:10px;margin-bottom:8px;box-sizing:border-box}
+#app{display:none;max-width:1000px;margin:auto}
+</style></head><body>
 
-<!-- AUTH MODAL -->
-<div id="authModal" onclick="if(event.target==this)closeAuth()"><div class="bg-white p-6 rounded-2xl w-full max-w-[340px]"><h3 id="authTitle" class="font-black mb-3">Sign Up</h3><input id="authName" placeholder="Your Name - e.g. Avin" class="w-full p-3 bg-gray-100 rounded-xl mb-2"><input id="authEmail" placeholder="Email" class="w-full p-3 bg-gray-100 rounded-xl mb-2"><input id="authPass" type="password" placeholder="Password" class="w-full p-3 bg-gray-100 rounded-xl mb-2"><button onclick="doAuth()" class="w-full bg-pink-600 text-white py-3 rounded-xl font-bold">Continue</button><p class="text-center text-xs mt-3"><span id="switchText">Already have account?</span> <a href="#" onclick="toggleAuthType();return false" id="switchLink" class="text-pink-600 font-bold">Log In</a></p><button onclick="closeAuth()" class="w-full bg-gray-100 py-2 rounded-xl text-xs mt-2">Cancel</button></div></div>
+<div id="authModal" onclick="if(event.target==this)closeAuth()"><div id="authBox">
+<h3 id="authTitle" style="margin:0 0 10px 0">Sign Up</h3>
+<input id="authName" placeholder="Your Name"><input id="authEmail" placeholder="Email"><input id="authPass" type="password" placeholder="Password">
+<button onclick="doAuth()" style="width:100%;background:#e91e63;color:white;padding:12px;border-radius:10px;border:0;font-weight:800">Continue</button>
+<p style="text-align:center;font-size:12px"><a href="#" onclick="toggleType();return false" id="switchLink">Log In</a></p>
+<button onclick="closeAuth()" style="width:100%;background:#eee;border:0;padding:8px;border-radius:8px;margin-top:5px">Cancel</button>
+</div></div>
 
-<!-- LANDING = LOGIN GATE -->
-<div id="landing" class="min-h-[90vh] flex items-center justify-center p-6 text-center"><div class="w-full max-w-sm"><h1 class="text-[48px] font-black leading-none">Your Voice.<br><span class="text-purple-600">Your Hills.</span></h1><p class="text-xs text-gray-500 mt-3
+<div id="landing"><div>
+<h1>Your Voice.<br><span>Your Hills.</span></h1>
+<div class="box">
+<p id="gateUser" style="font-weight:bold;font-size:14px">Not logged in</p>
+<button class="btn" onclick="openAuth('login')">Log In</button> <button class="btn btn-fill" onclick="openAuth('signup')">Sign Up</button>
+<button id="enterBtn" disabled onclick="goInside()">🔒 Login to Enter Hills →</button>
+<p id="gateMsg" style="font-size:11px;color:red;margin-top:8px">Please Log In first</p>
+</div>
+</div></div>
+
+<div id="app"><div style="padding:15px;border-bottom:1px solid #ddd;background:white;display:flex;justify-content:space-between"><b>🎙️ Seven Sisters' Voice</b> <span><span id="userTop"></span> <button onclick="logout()" style="padding:5px 10px;border-radius:20px;border:1px solid #ddd">Logout</button></span></div><div style="padding:15px"><textarea id="postText" placeholder="Share something" style="width:100%;background:#f0f2f5;border:0;border-radius:10px;padding:12px"></textarea><button onclick="createPost()" style="margin-top:8px;background:black;color:white;padding:10px 20px;border-radius:20px;border:0;font-weight:bold;width:100%">Post</button><div id="posts" style="margin-top:15px"></div></div></div>
+
+<script>
+let currentUser=localStorage.getItem('ssv_user'), authType='signup', posts=[];
+function updateGate(){let logged=!!currentUser; document.getElementById('gateUser').textContent=logged?'Welcome, '+currentUser+'! 🎉':'Not logged in'; document.getElementById('gateMsg').textContent=logged?'Ready to enter!':'Please Log In first'; document.getElementById('gateMsg').style.color=logged?'green':'red'; document.getElementById('enterBtn').disabled=!logged; document.getElementById('enterBtn').textContent=logged?'Enter Hills →':'🔒 Login to Enter Hills →'; if(logged)document.getElementById('userTop').textContent=currentUser;}
+function openAuth(t){authType=t; document.getElementById('authModal').style.display='flex'; document.getElementById('authTitle').textContent=t=='signup'?'Sign Up':'Log In'; document.getElementById('authName').style.display=t=='signup'?'block':'none'; document.getElementById('switchLink').textContent=t=='signup'?'Already have account? Log In':'New? Sign Up';}
+function closeAuth(){document.getElementById('authModal').style.display='none';}
+function toggleType(){openAuth(authType=='signup'?'login':'signup');}
+function doAuth(){let n=document.getElementById('authName').value.trim(), e=document.getElementById('authEmail').value.trim(), p=document.getElementById('authPass').value.trim(); if(!e||!p){alert('Fill');return;} if(authType=='signup'&&!n){alert('Enter name');return;} let u=JSON.parse(localStorage.getItem('ssv_users')||'{}'); if(authType=='signup'){if(u[e]){alert('Exists');openAuth('login');return;} u[e]={name:n,pass:p}; localStorage.setItem('ssv_users',JSON.stringify(u)); currentUser=n;}else{if(!u[e]||u[e].pass!=p){alert('Wrong');return;} currentUser=u[e].name;} localStorage.setItem('ssv_user',currentUser); closeAuth(); updateGate();}
+function goInside(){if(!currentUser){alert('Login first'); openAuth('signup');return;} document.getElementById('landing').style.display='none'; document.getElementById('app').style.display='block';}
+function logout(){localStorage.removeItem('ssv_user'); currentUser=null; location.reload();}
+function createPost(){let t=document.getElementById('postText').value.trim(); if(!t)return; posts.unshift({name:currentUser,text:t,time:new Date()}); document.getElementById('postText').value=''; render();}
+function render(){document.getElementById('posts').innerHTML=posts.map(p=>`<div style="background:white;border:1px solid #ddd;padding:12px;border-radius:12px;margin-bottom:10px"><b>${p.name}</b> • just now<br><br>${p.text}</div>`).join('');}
+updateGate();
+</script>
+</body></html>
