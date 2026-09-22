@@ -6,7 +6,8 @@ h1{font-size:50px;font-weight:900;line-height:.9;padding-top:60px;text-align:cen
 h1 span{color:#9333ff;display:block}
 .sub{text-align:center;color:#666}
 .box{background:#fff;border-radius:28px;padding:24px;width:90%;max-width:360px;margin:30px auto;box-shadow:0 20px 40px rgba(0,0,0,.1);text-align:center}
-input{width:100%;padding:16px;border-radius:16px;border:2px solid #e9d5ff;text-align:center;font-weight:800}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1.5px solid #e9d5ff;margin-top:8px;font-size:13px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#9333ff}
 button{cursor:pointer}
 .btn{width:100%;margin-top:14px;background:#111;color:#fff;padding:16px;border-radius:999px;font-weight:900;border:0;font-size:16px}
 #main{display:none;max-width:1100px;margin:0 auto;padding:14px}
@@ -15,6 +16,10 @@ button{cursor:pointer}
 .sideTab.active{background:#111;color:#fff}
 .content{display:none}
 .content.active{display:block}
+.jobSubTab{padding:10px 18px;border-radius:999px;border:1.5px solid #e9d5ff;background:#fff;font-weight:800;font-size:13px;cursor:pointer;margin-right:6px}
+.jobSubTab.active{background:#9333ff;color:#fff;border-color:#9333ff}
+.jobCard{padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff;margin-top:10px}
+.label{font-size:11px;font-weight:800;color:#9333ff;margin-top:10px;display:block;text-align:left}
 </style></head><body>
 
 <div id="login">
@@ -29,9 +34,7 @@ button{cursor:pointer}
 <div id="main">
 <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
 <div style="width:260px">
-<div class="card">
-<div><b>👋 <span id="u">Avin</span></b> <button onclick="document.getElementById('main').style.display='none';document.getElementById('login').style.display='block'" style="float:right;background:#eee;border:0;padding:6px 12px;border-radius:20px;font-weight:800">Logout</button></div>
-</div>
+<div class="card"><div><b>👋 <span id="u">Avin</span></b> <button onclick="document.getElementById('main').style.display='none';document.getElementById('login').style.display='block'" style="float:right;background:#eee;border:0;padding:6px 12px;border-radius:20px;font-weight:800">Logout</button></div></div>
 <div class="card">
 <div class="sideTab active" id="tab-home" onclick="openTab('home')">🏠 Home</div>
 <div class="sideTab" id="tab-jobs" onclick="openTab('jobs')">💼 Jobs</div>
@@ -46,53 +49,27 @@ button{cursor:pointer}
 </div>
 
 <div class="content" id="content-jobs">
-<div class="card"><h3>💼 Jobs in Northeast</h3>
-<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Teacher - DPS Jorhat</b><br>₹25,000 • Jorhat, Assam<br><button onclick="alert('Applied for Teacher ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
-<div style="margin-top:10px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Delivery - Zomato</b><br>₹18k + Tips • Guwahati<br><button onclick="alert('Applied for Delivery ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
-<div style="margin-top:10px;padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff"><b>Content Creator - NE Vibes</b><br>₹30k • Shillong<br><button onclick="alert('Applied ✅')" style="margin-top:6px;background:#111;color:#fff;border:0;padding:8px 14px;border-radius:999px;font-weight:800">Apply Now</button></div>
-</div>
-</div>
-
-<div class="content" id="content-friends">
-<div class="card"><h3>👥 Friends from 7 Sisters</h3>
-<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Priya • Dibrugarh • Assam</span><span style="color:green">● Online</span></div>
-<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Manish • Kohima • Nagaland</span><span style="color:green">● Online</span></div>
-<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Tashi • Itanagar • Arunachal</span><span>○ Offline</span></div>
-<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px;display:flex;justify-content:space-between"><span>Lily • Imphal • Manipur</span><span style="color:green">● Online</span></div>
-</div>
+<div class="card">
+<h3>💼 Jobs - Northeast</h3>
+<div style="margin-top:14px">
+<button class="jobSubTab active" id="jobTab-employer" onclick="openJobSub('employer')">🏢 Employer - Post Job</button>
+<button class="jobSubTab" id="jobTab-employee" onclick="openJobSub('employee')">👤 Employee - Find Job</button>
 </div>
 
-<div class="content" id="content-trending">
-<div class="card"><h3>🔥 Trending in Northeast</h3>
-<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#AssamTea</b> • 2.3k posts</span><span style="color:green">↑ 12%</span></div>
-<div style="margin-top:8px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#Bihu2026</b> • 1.9k posts</span><span style="color:green">↑ 34%</span></div>
-<div style="margin-top:8px;padding:12px;background:#fdfaff;border-radius:12px;display:flex;justify-content:space-between"><span><b>#ShillongVibes</b> • 1.5k posts</span><span style="color:green">↑ 8%</span></div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-
-<script>
-function openTab(name){
-var tabs=['home','jobs','friends','trending'];
-for(var i=0;i<tabs.length;i++){
-var c=document.getElementById('content-'+tabs[i]);
-var t=document.getElementById('tab-'+tabs[i]);
-if(c) c.className='content';
-if(t) t.className='sideTab';
-}
-document.getElementById('content-'+name).className='content active';
-document.getElementById('tab-'+name).className='sideTab active';
-}
-function addPost(){
-var txt=document.getElementById('postTxt');
-var v=txt.value.trim();
-if(!v){alert('Write something');return;}
-var p=document.getElementById('posts');
-p.innerHTML='<div style="padding:10px;border-bottom:1px solid #eee"><b>You</b>: '+v+'</div>'+p.innerHTML;
-txt.value='';
-}
-</script>
-</body></html>
+<!-- EMPLOYER SECTION -->
+<div id="job-employer" style="display:block;margin-top:16px">
+<div style="background:#f5f3ff;padding:16px;border-radius:16px;border:1.5px solid #e9d5ff">
+<b style="font-size:14px">🏢 Post a Job (Employer)</b>
+<label class="label">Industry / Institution Name *</label>
+<input id="empIndustry" placeholder="e.g. DPS Jorhat, GNRC Hospital, Zomato">
+<label class="label">Position *</label>
+<input id="empPosition" placeholder="e.g. Primary Teacher, Staff Nurse">
+<label class="label">Job Role / Description *</label>
+<textarea id="empRole" rows="2" placeholder="e.g. Teach Class 1-5, English subject, B.Ed required"></textarea>
+<label class="label">Salary *</label>
+<input id="empSalary" placeholder="e.g. ₹25,000/month">
+<label class="label">Working Hours *</label>
+<input id="empHours" placeholder="e.g. 9 AM - 4 PM, Mon-Sat">
+<label class="label">Contact Details *</label>
+<input id="empContact" placeholder="e.g. 9876543210 / hr@dpsjorhat.com">
+<button onclick="postEmployerJob()" style="margin-top:14px;width:100%;background:#9333ff;color:#fff;padding:12px;border-radius:999px;border
