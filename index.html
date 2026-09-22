@@ -1,43 +1,52 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Final</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#fdf6ff;font-family:Arial;color:#111}
-#exterior{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:#fdf6ff}
-.hero{font-size:54px;font-weight:900;line-height:0.95;margin:0;color:#111;letter-spacing:-1px}
+*{box-sizing:border-box}body{margin:0;background:#fdf4ff;font-family:Arial,sans-serif;color:#111}
+#exterior{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;background:#fdf4ff}
+.hero{font-size:56px;font-weight:900;line-height:0.9;letter-spacing:-1.5px;margin:0}
 .hero span{color:#9333ff;display:block}
-.sub{color:#666;font-size:15px;margin-top:12px;letter-spacing:0.2px}
-.box{background:white;border-radius:22px;padding:22px;width:100%;max-width:340px;margin-top:28px;box-shadow:0 12px 30px rgba(147,51,234,0.12);border:1px solid #f0e6ff}
-.input{width:100%;padding:14px;border-radius:12px;border:2px solid #e9d5ff;background:#faf5ff;text-align:center;font-weight:700;font-size:15px;outline:none}
-.btn{width:100%;margin-top:12px;background:#111;color:white;padding:14px;border-radius:999px;font-weight:900;border:0;cursor:pointer;font-size:15px}
-.btn:disabled{opacity:0.3}
-#interior{display:none;max-width:1100px;margin:0 auto;padding:12px}
-.tab{padding:12px;border-radius:10px;cursor:pointer;font-weight:700;margin-bottom:6px;background:#f5f5f5}
-.tab.active{background:#111;color:white}
+.sub{color:#666;font-size:16px;margin-top:14px}
+.box{background:white;border-radius:28px;padding:24px;width:100%;max-width:360px;margin-top:32px;box-shadow:0 20px 50px rgba(147,51,234,0.15);border:1px solid #f3e8ff}
+.label{font-weight:800;font-size:15px;margin:0 0 14px 0}
+.input{width:100%;padding:16px;border-radius:16px;border:2px solid #e9d5ff;background:#faf5ff;text-align:center;font-weight:800;font-size:16px;outline:none}
+.input:focus{border-color:#9333ff;background:white}
+.btn{width:100%;margin-top:14px;background:#111;color:white;padding:16px;border-radius:999px;font-weight:900;border:0;cursor:pointer;font-size:16px;transition:0.2s}
+.btn:disabled{background:#bdbdbd;cursor:not-allowed;opacity:1}
+.btn.enabled{background:#111}
+#interior{display:none;max-width:1150px;margin:0 auto;padding:12px}
 .card{background:white;border-radius:16px;padding:14px;border:1px solid #eee;margin-bottom:10px}
-.feed{background:white;border-radius:16px;border:1px solid #eee;min-height:500px;overflow:hidden}
+.tab{padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:700;font-size:14px;margin-bottom:6px;background:#f5f5f5;display:flex;justify-content:space-between}
+.tab.active{background:#111;color:white}
+.feed{background:white;border-radius:18px;border:1px solid #eee;min-height:600px;overflow:hidden}
+.job{background:#fdfaff;border:1px solid #f3e8ff;border-radius:14px;padding:14px;margin-bottom:10px}
+@media(max-width:800px){.layout{flex-direction:column!important}.side{max-width:100%!important}}
 </style></head><body>
 
 <div id="exterior">
 <h1 class="hero">Your Voice.<span>Your Hills.</span></h1>
 <p class="sub">Northeast India</p>
-
 <div class="box">
-<p id="status" style="font-weight:800;margin:0 0 12px 0;font-size:14px">Enter your name to continue</p>
-<input id="nameInput" class="input" placeholder="Your Name" oninput="check()" autocomplete="off">
+<p class="label" id="status">Enter your name to continue</p>
+<input id="nameInput" class="input" placeholder="e.g. Avin" oninput="check()" onkeyup="check()" onchange="check()">
 <button id="enterBtn" class="btn" disabled onclick="enter()">Enter Hills →</button>
 </div>
 </div>
 
 <div id="interior">
-<div style="display:flex;gap:12px;flex-wrap:wrap">
-<div style="width:100%;max-width:260px">
+<div class="layout" style="display:flex;gap:12px;align-items:flex-start">
+<div class="side" style="width:100%;max-width:280px">
 <div class="card">
-<div class="tab active" id="t-home" onclick="showTab('home')">🏠 Home</div>
-<div class="tab" id="t-jobs" onclick="showTab('jobs')">💼 Jobs</div>
-<div class="tab" id="t-friends" onclick="showTab('friends')">👥 Friends</div>
+<div class="tab active" id="t-home" onclick="showTab('home')">🏠 Home <span>›</span></div>
+<div class="tab" id="t-friends" onclick="showTab('friends')">👥 Friends <span>5</span></div>
+<div class="tab" id="t-jobs" onclick="showTab('jobs')">💼 Jobs <span style="background:#22c55e;color:white;padding:2px 7px;border-radius:99px;font-size:11px">NEW</span></div>
+<div class="tab" id="t-trending" onclick="showTab('trending')">🔥 Trending <span>›</span></div>
+<div class="tab" id="t-profile" onclick="showTab('profile')">👤 Profile <span>›</span></div>
 </div>
-<div class="card"><b>👋 <span id="sName">User</span></b> <button onclick="logout()" style="float:right;background:#eee;border:0;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800">Logout</button></div>
+<div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>👋 <span id="sName">User</span></b><button onclick="logout()" style="background:#f3f4f6;border:0;padding:7px 12px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer">Logout</button></div>
 </div>
+
 <div style="flex:1;min-width:300px" class="feed">
-<div id="c-home"><div style="padding:14px;border-bottom:1px solid #eee"><b>Seven Sisters Voice</b> - Hi <span id="topName">User</span>!</div><div style="padding:14px"><textarea id="postInput" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd" rows="3" placeholder="What's happening?"></textarea><button onclick="post()" style="margin-top:8px;width:100%;background:black;color:white;padding:12px;border-radius:999px;border:0;font-weight:900">Post</button></div><div id="posts"></div></div>
-<div id="c-jobs" style="display:none;padding:14px"><h3>💼 Jobs in Northeast</h3><div id="jobsList"><div style="background:#fdfaff;padding:12px;border-radius:10px;margin-bottom:8px;border:1px solid #eee"><b>Teacher - DPS Jorhat</b><br>₹25k - Jorhat, Assam<br><button onclick="alert('Applied!')" style="margin-top:6px;background:black
+<div id="c-home">
+<div style="padding:14px;border-bottom:1px solid #eee"><b>Seven Sisters Voice</b><br><span style="color:#9333ff;font-size:13px;font-weight:800">Welcome <span id="topName">User</span>! 🌾</span></div>
+<div style="padding:14px;background:#fdfaff;border-bottom:1px solid #eee">
+<textarea id="postInput" placeholder="What's happening in hills today?" style="width
