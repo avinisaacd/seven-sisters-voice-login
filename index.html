@@ -2,35 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Voice v2 - Bihu</title>
+<title>Seven Sisters Voice - Final v2.1</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
-<style>body{font-family:'Outfit',sans-serif}</style>
+<style>body{font-family:'Outfit',sans-serif; transition: all 0.3s}</style>
 </head>
-<body class="bg-[#fdf6ff]">
-<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 HAPPY RONGALI BIHU! Festival LIVE! 🌾</div>
+<body class="bg-[#fdf6ff]" id="mainBody">
+<div class="bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 text-white text-center py-2 text-xs font-black">🌾 HAPPY RONGALI BIHU! Seven Sisters Voice v2.1 LIVE 🌾</div>
 
 <div id="landing" class="min-h-screen flex flex-col items-center justify-center p-6 text-center relative">
 <div class="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-cyan-100"></div>
 <div class="relative z-10 w-full max-w-md">
 <h1 class="text-[52px] leading-[0.9] font-black">Your Voice.<br><span class="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">Your Hills.</span></h1>
-<div class="flex justify-center gap-2 mt-4">
-<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">🔥 1.2k Posts</div>
-<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">💼 34 Jobs</div>
-<div class="bg-white px-3 py-1 rounded-full text-[10px] font-bold border">🎵 12 Songs</div>
-</div>
-<button onclick="enter()" class="mt-8 bg-black text-white px-10 py-4 rounded-full font-bold">Enter Hills v2 →</button>
-</div>
-</div>
+<button onclick="enterApp()" class="mt-8 bg-black text-white px-10 py-4 rounded-full font-bold">Enter Hills Final →</button>
+</div></div>
 
-<div id="app" class="hidden max-w-[700px] mx-auto bg-white min-h-screen">
-<div class="p-4 border-b flex justify-between"><div><h2 class="text-xl font-black">Seven Sisters Voice</h2><p class="text-xs text-purple-600 font-bold">🌸 Bihu v2.0 - All Features</p></div><button onclick="location.reload()" class="bg-gray-100 px-3 py-2 rounded-full text-xs">Logout</button></div>
-<div class="p-2 border-b bg-gray-50 flex gap-2 overflow-x-auto">
-<button onclick="filterState('All')" class="bg-black text-white px-4 py-2 rounded-full text-xs font-bold">All</button>
-<button onclick="filterState('Assam')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">🌾 Assam</button>
-<button onclick="filterState('Meghalaya')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">⛰️ Meghalaya</button>
-<button onclick="filterState('Nagaland')" class="bg-white border px-4 py-2 rounded-full text-xs font-bold">🎸 Nagaland</button>
-</div>
-<div class="flex border-b"><button onclick="switchTab('feed')" id="tab-feed" class="flex-1 py-3 font-black border-b-2 border-black text-sm">Feed</button><button onclick="switchTab('music')" id="tab-music" class="flex-1 py-3 text-gray-400 font-bold text-sm">🎵 Music</button><button onclick="switchTab('jobs')" id="tab-jobs" class="flex-1 py-3 text-gray-400 font-bold text-sm">💼 Jobs</button></div>
-
-<div id="panel-feed"><div class="p-4 border-b"><textarea id="postText" placeholder="Share Bihu vibe? #Bihu" class="w-full outline-none text-sm
+<div id="app" class="hidden max-w-[1200px] mx-auto min-h-screen flex flex-col md:flex-row">
+<div class="w-full md:w-[280px] p-3 space-y-3 bg-gray-50/50 border-r">
+<div class="bg-white p-4 rounded-2xl border"><div class="flex items-center gap-3"><div class="h-12 w-12 rounded-full bg-black text-white flex items-center justify-center font-black">A</div><div><p class="font-black text-sm">Assam User</p><p class="text-[11px] text-gray-500">🌾 Assam • Online</p></div></div></div>
+<div class="bg-white p-4 rounded-2xl border"><p class="font-black text-sm mb-3">🎨 Change Theme</p><div class="grid grid-cols-4 gap-2">
+<button onclick="changeTheme('purple')" class="h-8 w-8 rounded-full bg-purple-600 border-2 border-black"></button>
+<button onclick="changeTheme('bihu')" class="h-8 w-8 rounded-full bg-gradient-to-r from-red-600 to-yellow-400 border"></button>
+<button onclick="changeTheme('naga')" class="h-8 w-8 rounded-full bg-black border-2 border-red-600"></button>
+<button onclick="changeTheme('meghalaya')" class="h-8 w-8 rounded-full bg-green-600 border"></button>
+<button onclick="changeTheme('assam')" class="h-8 w-8 rounded-full bg-blue-600 border"></button>
+<button onclick="changeTheme('dark')" class
