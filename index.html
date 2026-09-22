@@ -1,22 +1,21 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice - Final</title>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
 <style>
-body{margin:0;background:#fbf5ff;font-family:Arial;color:#111}
-.top{background:linear-gradient(90deg,#be123c,#fde047,#be123c);color:white;text-align:center;padding:7px;font-size:11px;font-weight:900}
-#exterior{min-height:90vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+*{box-sizing:border-box}body{margin:0;background:#fbf5ff;font-family:Arial;color:#111}
+#exterior{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
 .box{background:white;border-radius:26px;padding:24px;width:100%;max-width:360px;box-shadow:0 18px 40px rgba(147,51,234,0.12);border:1px solid #eee}
-.hero{font-size:54px;font-weight:900;line-height:0.88;margin:0}.hero span{color:#9333ea}
+.hero{font-size:52px;font-weight:900;line-height:0.88;margin:0}.hero span{color:#9333ea}
 .btn{border-radius:999px;padding:12px 22px;font-weight:800;font-size:13px;cursor:pointer;border:1.5px solid #f9a8d4;background:white;color:#be185d;margin:3px}
 .btn-pink{background:#ec4899;color:white;border:0}
-#enterBtn{width:100%;margin-top:16px;background:#111;color:white;padding:15px;border-radius:999px;font-weight:900;border:0;cursor:pointer;font-size:14px}
+#enterBtn{width:100%;margin-top:16px;background:#111;color:white;padding:15px;border-radius:999px;font-weight:900;border:0;cursor:pointer}
 #enterBtn:disabled{opacity:0.25}
-#interior{display:none;max-width:1100px;margin:0 auto;padding:12px}
+#interior{display:none;max-width:1100px;margin:0 auto;padding:10px}
 .card{background:white;border-radius:18px;padding:15px;margin-bottom:10px;border:1px solid #eee}
-.dot{height:38px;width:38px;border-radius:50%;display:inline-block;margin:4px;cursor:pointer;border:3px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.15)}
-input,textarea{width:100%;background:#f5f3ff;border:1px solid #ede9fe;padding:12px;border-radius:12px;margin-bottom:8px}
-</style></head><body id="body">
-
-<div class="top">🌾 FINAL - BUTTONS WITH POPUP - ALWAYS WORKS 🌾</div>
+.dot{height:36px;width:36px;border-radius:50%;display:inline-block;margin:4px;cursor:pointer;border:3px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.15)}
+textarea{width:100%;background:#f5f3ff;border:1px solid #ede9fe;padding:13px;border-radius:12px;margin-bottom:8px;font-size:14px;outline:none}
+.feed{background:white;border-radius:18px;border:1px solid #eee;overflow:hidden}
+@media(max-width:700px){.layout{flex-direction:column!important}.side{max-width:100%!important}}
+</style></head><body>
 
 <div id="exterior"><div>
 <h1 class="hero">Your Voice.<br><span>Your Hills.</span></h1>
@@ -30,55 +29,7 @@ input,textarea{width:100%;background:#f5f3ff;border:1px solid #ede9fe;padding:12
 </div>
 </div></div>
 
-<div id="interior"><div style="display:flex;flex-wrap:wrap;gap:12px">
-<div style="width:300px">
-<div class="card" style="display:flex;justify-content:space-between"><b>👋 <span id="sideName">Avin</span></b><button onclick="logout()" style="background:#eee;border:0;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Logout</button></div>
-<div class="card"><b>🎨 Theme</b><br><div style="margin-top:8px"><div class="dot" style="background:#9333ea" onclick="document.getElementById('body').style.background='#fbf5ff'"></div><div class="dot" style="background:linear-gradient(45deg,red,yellow)" onclick="document.getElementById('body').style.background='#fff1f2'"></div><div class="dot" style="background:black" onclick="document.getElementById('body').style.background='#111'"></div><div class="dot" style="background:white;border:3px solid black" onclick="document.getElementById('body').style.background='white'"></div></div></div>
-</div>
-<div style="flex:1;min-width:320px;background:white;border-radius:18px;border:1px solid #eee">
-<div style="padding:14px;border-bottom:1px solid #eee"><b>Seven Sisters Voice</b><br><span style="color:#9333ea;font-size:12px;font-weight:800">Welcome <span id="topName">Avin</span>! 🌾</span></div>
-<div style="padding:14px;border-bottom:1px solid #eee"><textarea id="postInput" placeholder="Share something..." rows="2"></textarea><div style="display:flex;justify-content:space-between;margin-top:10px"><label style="background:#f3f4f6;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">📸 Photo<input type="file" id="fileInput" accept="image/*" style="display:none" onchange="pickImg(this)"></label><button onclick="createPost()" style="background:black;color:white;padding:8px 18px;border-radius:20px;border:0;font-weight:900;cursor:pointer">Post</button></div><div id="preview" style="display:none;margin-top:10px"><img id="previewImg" style="width:100%;border-radius:12px"></div></div>
-<div id="posts"></div>
-</div>
-</div></div>
-
-<script>
-let currentUser=null, curImg='', posts=[{name:'Rohit • Jorhat',text:'Happy Bihu 🌾',time:'Just now',img:''}];
-
-function loginNow(){
-let n=prompt('Enter your name - e.g. Avin');
-if(!n||n.trim()==''){alert('Please enter name');return;}
-currentUser=n.trim();
-document.getElementById('gateUser').innerText='Welcome, '+currentUser+'! 🎉';
-document.getElementById('gateMsg').innerText='✅ Ready! Now click Enter Hills';
-document.getElementById('gateMsg').style.color='green';
-document.getElementById('enterBtn').disabled=false;
-document.getElementById('enterBtn').innerText='Enter Hills →';
-document.getElementById('sideName').innerText=currentUser;
-document.getElementById('topName').innerText=currentUser;
-alert('Welcome '+currentUser+'! Now click Enter Hills button');
-}
-
-function enterApp(){
-if(!currentUser){alert('Click Log In first'); loginNow(); return;}
-document.getElementById('exterior').style.display='none';
-document.getElementById('interior').style.display='block';
-render();
-}
-
-function logout(){
-currentUser=null;
-document.getElementById('interior').style.display='none';
-document.getElementById('exterior').style.display='flex';
-document.getElementById('gateUser').innerText='Not logged in';
-document.getElementById('gateMsg').innerText='Click Log In / Sign Up first';
-document.getElementById('gateMsg').style.color='red';
-document.getElementById('enterBtn').disabled=true;
-document.getElementById('enterBtn').innerText='🔒 Login to Enter Hills →';
-}
-
-function pickImg(i){let r=new FileReader(); r.onload=e=>{curImg=e.target.result; document.getElementById('previewImg').src=curImg; document.getElementById('preview').style.display='block';}; r.readAsDataURL(i.files[0]);}
-function createPost(){let t=document.getElementById('postInput').value.trim(); if(!t&&!curImg){alert('Write something');return;} posts.unshift({name:currentUser,text:t,time:'Just now',img:curImg}); document.getElementById('postInput').value=''; curImg=''; document.getElementById('preview').style.display='none'; render();}
-function render(){document.getElementById('posts').innerHTML=posts.map((p,i)=>`<div style="padding:14px;border-bottom:1px solid #eee"><b>${p.name}</b> • ${p.time}<div style="margin-top:8px">${p.text}</div>${p.img?`<img src="${p.img}" style="margin-top:8px;width:100%;border-radius:12px">`:''}</div>`).join('');}
-</script>
-</body></html>
+<div id="interior">
+<div class="layout" style="display:flex;gap:12px;align-items:flex-start">
+<div class="side" style="width:100%;max-width:300px">
+<div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>👋 <span id="
