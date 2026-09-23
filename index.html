@@ -11,12 +11,12 @@ body{background:#f4f6f8}
 .logo{font-weight:800;font-size:15px}.logo span{color:#ff6b35}
 .searchBar{background:#fff;padding:10px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:20}
 .stateTabs,.catTabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px}
-.stateTabs button,.catTabs button{white-space:nowrap;padding:7px 12px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
+.stateTabs button,.catTabs button{white-space:nowrap;padding:6px 11px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:10px;font-weight:700;cursor:pointer}
 .stateTabs button.active{background:#111827;color:#fff}
 .catTabs button.active{background:#ff6b35;color:#fff;border-color:#ff6b35}
 .row{display:flex;gap:6px;margin-top:6px}.row input,.row select{flex:1;padding:8px;border:1px solid #ddd;border-radius:8px;font-size:12px}
-.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:8px;width:fit-content}
-.switch button{padding:6px 14px;border-radius:16px;border:none;font-weight:700;font-size:11px;background:transparent;color:#666;cursor:pointer}
+.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:6px;width:fit-content}
+.switch button{padding:5px 12px;border-radius:16px;border:none;font-weight:700;font-size:11px;background:transparent;color:#666}
 .switch button.active{background:#111827;color:#fff}
 .container{padding:10px;max-width:700px;margin:0 auto}
 .card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
@@ -24,16 +24,15 @@ body{background:#f4f6f8}
 input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5db;border-radius:8px;font-size:13px}
 .warn{background:#eff6ff;border:1px solid #dbeafe;color:#1e40af;padding:8px;border-radius:8px;font-size:11px;margin-bottom:8px}
 .job{border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px;background:#fff}
-.badge{font-size:9px;padding:3px 7px;border-radius:10px;font-weight:700}
+.badge{font-size:9px;padding:2px 6px;border-radius:10px;font-weight:700}
 .safe{background:#dcfce7;color:#166534}.reported{background:#fee2e2;color:#991b1b}
-.catBadge{background:#f3f4f6;color:#111827}.catSchool{background:#dbeafe;color:#1e40af}
 .rbtn{float:right;background:#fff;border:1px solid #fecaca;color:#dc2626;padding:3px 7px;border-radius:15px;font-size:10px;cursor:pointer;margin-left:4px}
 .delOwn{float:right;background:#111827;color:#fff;border:none;padding:3px 8px;border-radius:15px;font-size:10px;cursor:pointer;margin-left:4px}
 .small{font-size:10px;color:#6b7280}
 .stateLabel{display:inline-block;background:#111827;color:#fff;padding:2px 6px;border-radius:8px;font-size:9px}
 .myPostTag{background:#f59e0b;color:#fff;padding:2px 6px;border-radius:8px;font-size:9px;margin-left:4px}
 #reportModal,#myModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center}
-#reportBox,#myBox{background:#fff;width:92%;max-width:420px;padding:16px;border-radius:14px;max-height:85vh;overflow-y:auto}
+#reportBox,#myBox{background:#fff;width:92%;max-width:380px;padding:16px;border-radius:14px;max-height:80vh;overflow-y:auto}
 .reasonBtn{padding:6px 9px;border:1px solid #e5e7eb;border-radius:20px;background:#f9fafb;margin:3px;font-size:11px;cursor:pointer}
 .reasonBtn.selected{background:#111827;color:#fff}
 </style>
@@ -42,21 +41,20 @@ input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5
 <div class="header">
 <div class="logo">Seven Sisters <span>Jobs</span></div>
 <div style="display:flex;gap:6px">
-<button onclick="openMyPosts()" style="background:#f59e0b;color:#fff;border:none;padding:6px 10px;border-radius:15px;font-size:10px;font-weight:700">My Posts</button>
+<button onclick="openMyPosts()" style="background:#f59e0b;color:#fff;border:none;padding:5px 9px;border-radius:15px;font-size:10px;font-weight:700">My Posts</button>
 <button onclick="document.getElementById('adminCard').style.display='block'" style="background:#ff6b35;color:#fff;border:none;padding:5px 9px;border-radius:15px;font-size:10px">Admin</button>
 </div>
 </div>
 
 <div class="searchBar">
 <div class="stateTabs" id="stateTabs"></div>
-<!-- CLEAN TOP SUBCATEGORIES LIKE BEFORE -->
-<div class="catTabs" id="catTabs">
+<div class="catTabs">
 <button class="active" onclick="filterCat('All',this)">All Jobs</button>
 <button onclick="filterCat('School',this)">🏫 School</button>
-<button onclick="filterCat('Sales',this)">🛍️ Sales/Shop</button>
-<button onclick="filterCat('Driver',this)">🚚 Driver/Delivery</button>
+<button onclick="filterCat('Sales',this)">🛍️ Sales</button>
+<button onclick="filterCat('Driver',this)">🚚 Driver</button>
 <button onclick="filterCat('Office',this)">💼 Office</button>
-<button onclick="filterCat('Service',this)">🔧 Services</button>
+<button onclick="filterCat('Other',this)">Other</button>
 </div>
 <div class="row">
 <input id="searchInput" placeholder="Search..." onkeyup="showJobs()">
@@ -71,22 +69,22 @@ input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5
 <div class="container">
 <div class="card">
 <h3 id="postTitle">Post Job</h3>
-<div class="warn">Top filter is clean (like before). But posting form has 20+ categories inside.</div>
+<div class="warn">Original simple version - State + District + Category</div>
 <div id="hireForm">
-<select id="catSel"></select>
-<select id="aState" onchange="updateDist('aState','aDist')"><option value="">State *</option></select>
-<select id="aDist"><option value="">District *</option></select>
-<input id="a1" placeholder="Company / School / Shop Name *">
-<input id="a2" placeholder="Role *">
+<select id="catSel"><option value="General">Category: General</option><option value="School">🏫 School / Teacher</option><option value="Sales">🛍️ Sales / Shop</option><option value="Driver">🚚 Driver / Delivery</option><option value="Office">💼 Office</option><option value="Other">Other</option></select>
+<select id="aState" onchange="updateDist('aState','aDist')"><option value="">Select State *</option></select>
+<select id="aDist"><option value="">Select District *</option></select>
+<input id="a1" placeholder="Company / School Name *">
+<input id="a2" placeholder="Job Role *">
 <textarea id="a4" placeholder="Salary + Timing *"></textarea>
-<input id="a5" placeholder="WhatsApp *">
+<input id="a5" placeholder="WhatsApp Number *">
 </div>
 <div id="needForm" style="display:none">
-<select id="bCat"></select>
-<select id="bState" onchange="updateDist('bState','bDist')"><option value="">State *</option></select>
-<select id="bDist"><option value="">District *</option></select>
+<select id="bCat"><option value="General">General</option><option value="School">🏫 Teacher</option><option value="Sales">Sales</option><option value="Driver">Driver</option><option value="Office">Office</option><option value="Other">Other</option></select>
+<select id="bState" onchange="updateDist('bState','bDist')"><option value="">Select State *</option></select>
+<select id="bDist"><option value="">Select District *</option></select>
 <input id="b1" placeholder="Your Name *">
-<input id="b2" placeholder="Your Skill *">
+<input id="b2" placeholder="Skill *">
 <textarea id="b4" placeholder="Experience *"></textarea>
 <input id="b5" placeholder="WhatsApp *">
 </div>
@@ -103,26 +101,13 @@ input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5
 </div>
 </div>
 
-<div id="reportModal"><div id="reportBox"><h3 style="text-align:center">Report</h3><div id="reasonContainer" style="text-align:center;margin:8px 0"></div><textarea id="reportText"></textarea><button class="btn" onclick="submitReport()">Submit</button><button class="btn" style="background:#e5e7eb;color:#111" onclick="document.getElementById('reportModal').style.display='none'">Cancel</button></div></div>
+<div id="reportModal"><div id="reportBox"><h3 style="text-align:center">Report</h3><div id="reasonContainer" style="text-align:center;margin:8px 0"></div><textarea id="reportText" placeholder="Reason"></textarea><button class="btn" onclick="submitReport()">Submit</button><button class="btn" style="background:#e5e7eb;color:#111" onclick="document.getElementById('reportModal').style.display='none'">Cancel</button></div></div>
 
-<div id="myModal"><div id="myBox"><h3 style="text-align:center">My Posted Jobs</h3><input id="myPhoneSearch" placeholder="Enter WhatsApp to find old posts"><button class="btn" style="background:#f59e0b" onclick="findByPhone()">Find My Old Posts</button><div id="myList" style="margin-top:10px"></div><button class="btn" style="background:#111827" onclick="document.getElementById('myModal').style.display='none'">Close</button></div></div>
+<div id="myModal"><div id="myBox"><h3 style="text-align:center">My Posts</h3><input id="myPhoneSearch" placeholder="Enter WhatsApp to find old posts"><button class="btn" style="background:#f59e0b" onclick="findByPhone()">Find Old Posts</button><div id="myList" style="margin-top:10px"></div><button class="btn" style="background:#111827" onclick="document.getElementById('myModal').style.display='none'">Close</button></div></div>
 
 <script>
-var detailedCategories=[
-"General","🏫 School / Teacher","📚 Tuition / Coaching","🛍️ Sales / Shop Staff","💻 Computer / Data Entry","💼 Office / Admin","📞 Telecaller / Receptionist","🚚 Driver","📦 Delivery Boy","🔧 Electrician / Plumber","✂️ Tailor / Boutique","💇 Beauty Parlour / Spa","👨‍🍳 Cook / Kitchen","☕ Waiter / Cafe","🛡️ Security Guard","🏥 Nurse / Health","📸 Photo / Video","🚧 Labour / Mistri","Other"
-];
-// Group mapping for top filters
-var groupMap={
- "School":["🏫 School / Teacher","📚 Tuition / Coaching"],
- "Sales":["🛍️ Sales / Shop Staff"],
- "Driver":["🚚 Driver","📦 Delivery Boy"],
- "Office":["💻 Computer / Data Entry","💼 Office / Admin","📞 Telecaller / Receptionist","📸 Photo / Video"],
- "Service":["🔧 Electrician / Plumber","✂️ Tailor / Boutique","💇 Beauty Parlour / Spa","👨‍🍳 Cook / Kitchen","☕ Waiter / Cafe","🛡️ Security Guard","🏥 Nurse / Health","🚧 Labour / Mistri","General","Other"]
-};
-
 var states={"Assam":["Bajali","Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Dima Hasao","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup","Kamrup Metropolitan","Karbi Anglong","Karimganj (Sribhumi)","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Sivasagar","Sonitpur","South Salmara-Mankachar","Tamulpur","Tinsukia","Udalguri","West Karbi Anglong"],"Meghalaya":["East Garo Hills","East Jaintia Hills","East Khasi Hills","Eastern West Khasi Hills (Mairang)","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"],"Mizoram":["Aizawl","Champhai","Hnahthial","Khawzawl","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Saitual","Serchhip"],"Manipur":["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"],"Nagaland":["Chumoukedima","Dimapur","Kiphire","Kohima","Longleng","Meluri","Mokokchung","Mon","Niuland","Noklak","Peren","Phek","Shamator","Tseminyu","Tuensang","Wokha","Zunheboto"],"Tripura":["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"],"Arunachal Pradesh":["Anjaw","Bichom","Changlang","Dibang Valley","East Kameng","East Siang","Itanagar Capital Complex","Kamle","Keyi Panyor","Kra Daadi","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"]};
-
-var reasons=["Asking money","Fake company","Telegram/Crypto","Wrong details","Filled/Spam"];
+var reasons=["Asking money","Fake company/school","Telegram/Crypto","Wrong details","Filled"];
 var selectedState="All",selectedCat="All",mode="hire",currentReportId=null;
 
 function migrate(){
@@ -136,21 +121,18 @@ function migrate(){
 }
 function init(){
  migrate();
- var opts=""; for(var i=0;i<detailedCategories.length;i++) opts+="<option value='"+detailedCategories[i]+"'>"+detailedCategories[i]+"</option>";
- document.getElementById("catSel").innerHTML=opts;
- document.getElementById("bCat").innerHTML=opts;
  var tabs=document.getElementById("stateTabs");
  var html="<button class='active' onclick='filterState(\"All\",this)'>All NE</button>";
  for(var s in states) html+="<button onclick='filterState(\""+s+"\",this)'>"+s+"</button>";
  tabs.innerHTML=html;
- var stOpts="<option value=''>State *</option>"; for(var s in states) stOpts+="<option>"+s+"</option>";
+ var stOpts="<option value=''>Select State *</option>"; for(var s in states) stOpts+="<option>"+s+"</option>";
  aState.innerHTML=stOpts; bState.innerHTML=stOpts;
 }
 function updateDist(sid,did){
  var st=document.getElementById(sid).value;
  var ds=document.getElementById(did);
- if(!st){ds.innerHTML="<option value=''>District *</option>";return;}
- var list=states[st];var h="<option value=''>District *</option>";
+ if(!st){ds.innerHTML="<option value=''>Select District *</option>";return;}
+ var list=states[st];var h="<option value=''>Select District *</option>";
  for(var i=0;i<list.length;i++) h+="<option>"+list[i]+"</option>";
  ds.innerHTML=h;
 }
@@ -200,16 +182,7 @@ function addJob(){
   myIds.push(id);localStorage.setItem("myPostedIds",JSON.stringify(myIds));localStorage.setItem("myLastPhone",d5);
   b1.value="";b2.value="";b4.value="";b5.value="";
  }
- showJobs();alert("Posted!");
-}
-function matchesTopFilter(jobCat,topCat){
- if(topCat=="All") return true;
- if(topCat=="School") return groupMap["School"].indexOf(jobCat)>-1;
- if(topCat=="Sales") return groupMap["Sales"].indexOf(jobCat)>-1;
- if(topCat=="Driver") return groupMap["Driver"].indexOf(jobCat)>-1;
- if(topCat=="Office") return groupMap["Office"].indexOf(jobCat)>-1;
- if(topCat=="Service") return groupMap["Service"].indexOf(jobCat)>-1;
- return jobCat==topCat;
+ showJobs();alert("Posted in "+selectedState+" / "+cat);
 }
 function showJobs(){
  var q=searchInput.value.toLowerCase();
@@ -218,30 +191,30 @@ function showJobs(){
  var div=document.getElementById("jobList");
  var jobs=JSON.parse(localStorage.getItem(mode=="hire"?"hireJobs":"needJobs")||"[]");
  var filtered=jobs.filter(function(j){
-  if(!j.cat || j.cat=="undefined") j.cat="General";
+  if(!j.cat) j.cat="General";
   var okState=selectedState=="All"||j.state==selectedState;
   var okDist=dFil==""||j.dist==dFil;
-  var okCat=matchesTopFilter(j.cat,selectedCat);
-  var txt=(j.role||j.skill||""+" "+(j.company||j.name||"")+" "+j.cat).toLowerCase();
+  var okCat=selectedCat=="All"||j.cat==selectedCat;
+  var txt=(j.role||j.skill||""+" "+(j.company||j.name||"")).toLowerCase();
   return okState && okDist && okCat && (q==""||txt.indexOf(q)>-1);
  });
- div.innerHTML="<p class='small'>Showing "+filtered.length+" | "+selectedState+" / "+selectedCat+"</p>";
+ div.innerHTML="<p class='small'>Showing "+filtered.length+" | State: "+selectedState+" | Cat: "+selectedCat+(dFil?" | Dist: "+dFil:"")+"</p>";
  for(var i=0;i<filtered.length;i++){
   var j=filtered[i];
   var isMine=myIds.indexOf(j.id)>-1;
   var badge=j.reports>=1?"<span class='badge reported'>Reported</span>":"<span class='badge safe'>✓ Safe</span>";
-  var catBadge=j.cat.indexOf("School")>-1?"<span class='badge catSchool'>"+j.cat+"</span>":"<span class='badge catBadge'>"+j.cat+"</span>";
+  var catBadge="<span class='badge' style='background:#f3f4f6'>"+j.cat+"</span>";
   var delBtn=isMine?"<button class='delOwn' onclick='delOwnJob("+j.id+")'>Delete</button>":"";
   var mineTag=isMine?"<span class='myPostTag'>My Post</span>":"";
   if(mode=="hire"){
-   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
+   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
   } else {
    div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
   }
  }
 }
 function delOwnJob(id){
- if(!confirm("Delete?")) return;
+ if(!confirm("Delete your post?")) return;
  var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");
  var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
  localStorage.setItem("hireJobs",JSON.stringify(h.filter(function(x){return x.id!=id})));
@@ -275,12 +248,12 @@ function findByPhone(){
 }
 function renderMyList(list){
  var div=document.getElementById("myList");
- if(list.length==0){div.innerHTML="<p class='small'>No posts. Enter number and Find.</p>";return;}
+ if(list.length==0){div.innerHTML="<p class='small'>No posts from this phone. Enter WhatsApp and click Find.</p>";return;}
  div.innerHTML="";
  for(var i=0;i<list.length;i++){
   var j=list[i];
   var title=j.role?j.role+" at "+j.company:j.name+" - "+j.skill;
-  div.innerHTML+="<div class='job'><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> <span class='badge catBadge'>"+(j.cat||"")+"</span><br><b>"+title+"</b><br><span class='small'>"+j.phone+"</span><br><button onclick='delOwnJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:6px 8px;border-radius:6px;margin-top:6px;width:100%'>Delete</button></div>";
+  div.innerHTML+="<div class='job'><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> <span class='badge' style='background:#f3f4f6'>"+(j.cat||"")+"</span><br><b>"+title+"</b><br><span class='small'>"+j.phone+"</span><br><button onclick='delOwnJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:6px 8px;border-radius:6px;margin-top:6px;width:100%'>Delete This Post</button></div>";
  }
 }
 function openReport(id){currentReportId=id;reportText.value="";var cont=document.getElementById("reasonContainer");var html="";for(var i=0;i<reasons.length;i++){html+="<button class='reasonBtn' onclick='selReason(this,\""+reasons[i]+"\")'>"+reasons[i]+"</button>";}cont.innerHTML=html;document.getElementById("reportModal").style.display="flex";}
@@ -296,4 +269,13 @@ function submitReport(){
 }
 function login(){if(adminPass.value=="1234"){adminBox.style.display="block";showAdmin();}else alert("Wrong");}
 function showAdmin(){
- var div=
+ var div=document.getElementById("adminList");
+ var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
+ var all=h.concat(n);div.innerHTML="";
+ for(var i=0;i<all.length;i++){var j=all[i];div.innerHTML+="<div class='job'><b>"+(j.role||j.name)+"</b> - "+j.state+" - "+j.phone+"<br><button onclick='delJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:4px 8px;border-radius:6px;margin-top:4px'>Delete</button></div>";}
+}
+function delJob(id){var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");localStorage.setItem("hireJobs",JSON.stringify(h.filter(function(x){return x.id!=id})));localStorage.setItem("needJobs",JSON.stringify(n.filter(function(x){return x.id!=id})));showJobs();showAdmin();}
+init();showJobs();
+</script>
+</body>
+</html>
