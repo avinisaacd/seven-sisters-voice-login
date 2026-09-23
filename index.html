@@ -7,36 +7,39 @@
 <style>
 body{margin:0;font-family:Arial;background:#fdf6f0}
 .header{background:#ff6b35;color:#fff;padding:18px;text-align:center;font-weight:bold;font-size:20px}
-.tabs{display:flex;background:#fff}
+.tabs{display:flex;background:#fff;position:sticky;top:0;z-index:10}
 .tabs button{flex:1;padding:14px;border:none;background:#fff;font-weight:bold;color:#888}
 .tabs button.active{color:#ff6b35;border-bottom:3px solid #ff6b35}
 .tab{display:none;padding:15px}
 .tab.active{display:block}
 .card{background:#fff;border-radius:12px;padding:15px;margin-bottom:15px}
 input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
-.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:20px;font-weight:bold;margin-top:8px}
+.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:20px;font-weight:bold;margin-top:8px;cursor:pointer}
 .warn{background:#fff3cd;padding:10px;border-radius:8px;font-size:13px;border:1px solid #ffcc00;margin-bottom:10px}
 .job{border:1px solid #ffd5b5;background:#fffaf5;padding:12px;border-radius:10px;margin-top:10px}
 .small{font-size:11px;color:#777}
-.rbtn{float:right;background:#ffdddd;color:red;border:none;padding:4px 8px;border-radius:10px;font-size:11px}
+.rbtn{float:right;background:#ffdddd;color:red;border:none;padding:4px 8px;border-radius:10px;font-size:11px;cursor:pointer}
+#reportModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center}
+#reportBox{background:#fff;width:90%;max-width:350px;padding:20px;border-radius:16px}
+.reasonBtn{padding:8px 10px;border:1px solid #ddd;border-radius:20px;background:#f5f5f5;margin:4px;font-size:12px;cursor:pointer}
+.reasonBtn.selected{background:#ff6b35;color:#fff;border-color:#ff6b35}
+.reportReason{background:#ffe0e0;padding:6px 8px;border-radius:6px;margin-top:5px;font-size:12px;color:#a00}
 </style>
 </head>
 <body>
 <div class="header">Seven Sisters Voice</div>
 <div class="tabs">
 <button id="t1" class="active" onclick="openTab(1)">Enter</button>
-<button id="t2" onclick="openTab(2)">Home</button>
-<button id="t3" onclick="openTab(3)">Jobs</button>
+<button id="t3" class="active" onclick="openTab(3)">Jobs</button>
 <button id="t4" onclick="openTab(4)">Admin</button>
 </div>
 
-<div id="tab1" class="tab active"><div class="card"><h3>Welcome</h3><p>Safe Jobs for NE</p><br><button class="btn" onclick="openTab(3)">Go to Jobs</button></div></div>
-<div id="tab2" class="tab"><div class="card">Home coming soon</div></div>
+<div id="tab1" class="tab active"><div class="card"><h3>Welcome</h3><p>Safe Jobs NE</p><button class="btn" onclick="openTab(3)">Go to Jobs</button></div></div>
 
 <div id="tab3" class="tab">
 <div class="card">
 <h3 style="text-align:center">Safe Jobs</h3>
-<div class="warn"><b>SCAM PROTECTION ON:</b> Never pay money for job. If anyone asks fee, press Report button.</div>
+<div class="warn"><b>SCAM PROTECTION:</b> Never pay money. Press Report if asking fee.</div>
 <input id="a1" placeholder="Company Name">
 <input id="a2" placeholder="Job Role">
 <input id="a3" placeholder="Location">
@@ -50,74 +53,75 @@ input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border
 <div id="tab4" class="tab">
 <div class="card">
 <h3>Admin Panel</h3>
-<input id="p" type="password" placeholder="Password is 1234">
+<input id="p" type="password" placeholder="Password 1234">
 <button class="btn" onclick="login()">Login</button>
 <div id="adminBox" style="display:none;margin-top:15px">
-<p>All Jobs - Delete scam jobs here</p>
+<h4>🚩 Reported Jobs with Reasons</h4>
 <div id="adminList"></div>
-<button class="btn" style="background:black" onclick="clearJobs()">Clear All</button>
+<button class="btn" style="background:black;margin-top:15px" onclick="clearJobs()">Clear All Jobs</button>
 </div>
 </div>
 </div>
 
+<div id="reportModal">
+<div id="reportBox">
+<h3 style="text-align:center">🚩 Report Job</h3>
+<p class="small" style="text-align:center">Select reason:</p>
+<div style="text-align:center;margin:10px 0">
+<button class="reasonBtn" onclick="selectReason(this,'Asking for money/fee')">Asking money</button>
+<button class="reasonBtn" onclick="selectReason(this,'Fake company')">Fake company</button>
+<button class="reasonBtn" onclick="selectReason(this,'Telegram/Crypto task')">Telegram/Crypto</button>
+<button class="reasonBtn" onclick="selectReason(this,'Wrong location/salary')">Wrong details</button>
+<button class="reasonBtn" onclick="selectReason(this,'Other scam')">Other scam</button>
+</div>
+<textarea id="reportText" placeholder="Write reason..."></textarea>
+<button class="btn" onclick="submitReport()">Confirm Report</button>
+<button class="btn" style="background:#eee;color:#333" onclick="closeReport()">Cancel</button>
+</div>
+</div>
+
 <script>
-var blocked = ["fee","crypto","investment","telegram","forex","pay to join","security deposit"];
-function openTab(n){
- var tabs = document.querySelectorAll(".tab");
- for(var i=0;i<tabs.length;i++){ tabs[i].classList.remove("active"); }
- var btns = document.querySelectorAll(".tabs button");
- for(var i=0;i<btns.length;i++){ btns[i].classList.remove("active"); }
- document.getElementById("tab"+n).classList.add("active");
- document.getElementById("t"+n).classList.add("active");
- if(n==3) showJobs();
- if(n==4 && localStorage.getItem("admin")=="yes"){ document.getElementById("adminBox").style.display="block"; showAdmin(); }
-}
-function addJob(){
- var c1=document.getElementById("a1").value;
- var c2=document.getElementById("a2").value;
- var c3=document.getElementById("a3").value;
- var c4=document.getElementById("a4").value;
- var c5=document.getElementById("a5").value;
- if(c1==""||c2==""||c3==""||c4==""||c5==""){ alert("Fill all"); return; }
- var full = (c1+" "+c2+" "+c4).toLowerCase();
- for(var i=0;i<blocked.length;i++){ if(full.indexOf(blocked[i])>-1){ alert("BLOCKED: Scam word found: "+blocked[i]); return; } }
- var jobs = JSON.parse(localStorage.getItem("jobs")||"[]");
- jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0});
+var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit"];
+var currentReportId=null;var selectedReasonText="";
+function openTab(n){var tabs=document.querySelectorAll(".tab");for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");var btns=document.querySelectorAll(".tabs button");for(var i=0;i<btns.length;i++)btns[i].classList.remove("active");document.getElementById("tab"+n).classList.add("active");document.getElementById("t"+n).classList.add("active");if(n==3)showJobs();}
+function addJob(){var c1=document.getElementById("a1").value;var c2=document.getElementById("a2").value;var c3=document.getElementById("a3").value;var c4=document.getElementById("a4").value;var c5=document.getElementById("a5").value;if(c1==""||c2==""||c3==""||c4==""||c5==""){alert("Fill all");return;}var full=(c1+" "+c2+" "+c4).toLowerCase();for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: "+blocked[i]);return;}}var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});localStorage.setItem("jobs",JSON.stringify(jobs));document.getElementById("a1").value="";document.getElementById("a2").value="";document.getElementById("a3").value="";document.getElementById("a4").value="";document.getElementById("a5").value="";showJobs();}
+function showJobs(){var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");var div=document.getElementById("jobList");div.innerHTML="";if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}div.innerHTML="<h4>Jobs: "+jobs.length+"</h4>";for(var i=0;i<jobs.length;i++){var j=jobs[i];div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br>"+j.details+"<br><b>Phone: "+j.phone+"</b></div>";}}
+function openReport(id){currentReportId=id;selectedReasonText="";document.getElementById("reportText").value="";var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");document.getElementById("reportModal").style.display="flex";}
+function closeReport(){document.getElementById("reportModal").style.display="none";currentReportId=null;}
+function selectReason(el,text){var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");el.classList.add("selected");selectedReasonText=text;document.getElementById("reportText").value=text;}
+function submitReport(){
+ var reason=document.getElementById("reportText").value;
+ if(reason==""){alert("Please select or write reason");return;}
+ var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
+ for(var i=0;i<jobs.length;i++){
+  if(jobs[i].id==currentReportId){
+   jobs[i].reports++;
+   if(!jobs[i].reasons) jobs[i].reasons=[];
+   jobs[i].reasons.push(reason+" ("+new Date().toLocaleString()+")");
+   if(jobs[i].reports>=3){ jobs.splice(i,1); }
+   break;
+  }
+ }
  localStorage.setItem("jobs",JSON.stringify(jobs));
- document.getElementById("a1").value="";document.getElementById("a2").value="";document.getElementById("a3").value="";document.getElementById("a4").value="";document.getElementById("a5").value="";
- showJobs();
- alert("Posted! Scam protection active.");
+ closeReport();showJobs();showAdmin();
+ alert("Thank you for reporting, we will look into the matter.");
 }
-function showJobs(){
- var jobs = JSON.parse(localStorage.getItem("jobs")||"[]");
- var div = document.getElementById("jobList");
- div.innerHTML="";
- if(jobs.length==0){ div.innerHTML="<p class='small'>No jobs yet</p>"; return; }
- div.innerHTML="<h4>Jobs Found: "+jobs.length+"</h4>";
+function login(){if(document.getElementById("p").value=="1234"){localStorage.setItem("admin","yes");document.getElementById("adminBox").style.display="block";showAdmin();}else alert("Wrong");}
+function showAdmin(){
+ var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
+ var div=document.getElementById("adminList");div.innerHTML="";
+ if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}
  for(var i=0;i<jobs.length;i++){
   var j=jobs[i];
-  div.innerHTML += "<div class='job'><button class='rbtn' onclick='report("+j.id+")'>Report "+j.reports+"</button><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br>"+j.details+"<br><b>Phone: "+j.phone+"</b></div>";
+  var reasonHtml="";
+  if(j.reasons && j.reasons.length>0){
+   for(var k=0;k<j.reasons.length;k++){ reasonHtml+="<div class='reportReason'>🚩 "+j.reasons[k]+"</div>"; }
+  } else { reasonHtml="<div class='small'>No reports yet</div>"; }
+  div.innerHTML+="<div class='job'><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | Reports: "+j.reports+"</span><br>"+reasonHtml+"<br><button onclick='del("+j.id+")' style='background:red;color:#fff;border:none;padding:6px 12px;border-radius:8px;margin-top:8px'>Delete This Job</button></div>";
  }
 }
-function report(id){
- if(!confirm("Report as scam?")) return;
- var jobs = JSON.parse(localStorage.getItem("jobs")||"[]");
- for(var i=0;i<jobs.length;i++){ if(jobs[i].id==id){ jobs[i].reports++; if(jobs[i].reports>=3){ jobs.splice(i,1); alert("3 reports - job removed"); } break; } }
- localStorage.setItem("jobs",JSON.stringify(jobs));
- showJobs();
- showAdmin();
-}
-function login(){
- if(document.getElementById("p").value=="1234"){ localStorage.setItem("admin","yes"); document.getElementById("adminBox").style.display="block"; showAdmin(); } else alert("Wrong password");
-}
-function showAdmin(){
- var jobs = JSON.parse(localStorage.getItem("jobs")||"[]");
- var div=document.getElementById("adminList");
- div.innerHTML="";
- for(var i=0;i<jobs.length;i++){ var j=jobs[i]; div.innerHTML+="<div class='job'><b>"+j.role+"</b> at "+j.company+" - Reports: "+j.reports+"<br><button onclick='del("+j.id+")' style='background:red;color:#fff;border:none;padding:5px 10px;border-radius:8px;margin-top:5px'>Delete</button></div>"; }
-}
-function del(id){ var jobs=JSON.parse(localStorage.getItem("jobs")||"[]"); jobs=jobs.filter(function(x){return x.id!=id}); localStorage.setItem("jobs",JSON.stringify(jobs)); showJobs(); showAdmin(); }
-function clearJobs(){ if(confirm("Delete all?")){ localStorage.removeItem("jobs"); showJobs(); showAdmin(); } }
+function del(id){var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");jobs=jobs.filter(function(x){return x.id!=id});localStorage.setItem("jobs",JSON.stringify(jobs));showJobs();showAdmin();}
+function clearJobs(){if(confirm("Delete all?")){localStorage.removeItem("jobs");showJobs();showAdmin();}}
 showJobs();
 </script>
 </body>
