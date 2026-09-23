@@ -1,108 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seven Sisters Voice</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#fdf6f0; color:#333;}
-.header{background:linear-gradient(90deg,#ff6b35,#ff8c42); color:white; padding:18px; text-align:center; font-size:22px; font-weight:700; letter-spacing:0.5px; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-.tabs{display:flex; background:white; box-shadow:0 2px 5px rgba(0,0,0,0.05); position:sticky; top:0; z-index:10;}
-.tabs button{flex:1; padding:14px 5px; border:none; background:white; font-size:13px; font-weight:600; color:#666; cursor:pointer; border-bottom:3px solid transparent; transition:0.3s;}
-.tabs button.active{color:#ff6b35; border-bottom:3px solid #ff6b35; background:#fff5f0;}
-.tab-content{display:none; padding:20px; animation:fade 0.3s;}
-.tab-content.active{display:block;}
-@keyframes fade{from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);}}
-.card{background:white; border-radius:16px; padding:20px; box-shadow:0 4px 15px rgba(0,0,0,0.06); margin-bottom:15px;}
-h2{font-size:22px; margin-bottom:8px; color:#222;}
-p{color:#666; font-size:14px; line-height:1.5;}
-.btn-main{background:linear-gradient(90deg,#ff6b35,#ff8c42); color:white; border:none; padding:12px 28px; border-radius:25px; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(255,107,53,0.3);}
-.job-switch{display:flex; background:#eee; border-radius:30px; padding:4px; width:fit-content; margin:20px auto;}
-.job-switch button{padding:10px 25px; border-radius:25px; border:none; font-weight:600; cursor:pointer; transition:0.3s;}
-.job-switch button.active{background:#ff6b35; color:white; box-shadow:0 2px 8px rgba(255,107,53,0.3);}
-.job-switch button:not(.active){background:transparent; color:#666;}
-input, textarea{width:100%; padding:12px 15px; margin:8px 0; border:1.5px solid #eee; border-radius:12px; background:#fafafa; font-size:14px; outline:none;}
-input:focus, textarea:focus{border-color:#ff6b35; background:white;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#fdf6f0}
+.header{background:#ff6b35;color:#fff;padding:18px;text-align:center;font-size:20px;font-weight:700}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #eee}
+.tabs button{flex:1;padding:14px;border:none;background:#fff;font-weight:700;color:#888}
+.tabs button.active{color:#ff6b35;border-bottom:3px solid #ff6b35;background:#fff5f0}
+.tab{display:none;padding:15px}
+.tab.active{display:block}
+.card{background:#fff;border-radius:16px;padding:20px}
+.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:25px;margin-top:10px;font-weight:700}
+input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
+.switch{display:flex;background:#eee;border-radius:30px;padding:4px;width:fit-content;margin:15px auto}
+.switch button{padding:10px 20px;border-radius:25px;border:none;font-weight:700}
+.switch button.active{background:#ff6b35;color:#fff}
 </style>
 </head>
 <body>
-
-<div class="header">Seven Sisters Voice - NE India</div>
-
+<div class="header">Seven Sisters Voice</div>
 <div class="tabs">
-  <button class="tabBtn active" onclick="openTab(event,'enter')">Enter Hills</button>
-  <button class="tabBtn" onclick="openTab(event,'home')">Home</button>
-  <button class="tabBtn" onclick="openTab(event,'jobs')">Jobs</button>
-  <button class="tabBtn" onclick="openTab(event,'friends')">Friends</button>
+<button id="b1" class="active" onclick="show('p1')">Enter Hills</button>
+<button id="b2" onclick="show('p2')">Home</button>
+<button id="b3" onclick="show('p3')">Jobs</button>
+<button id="b4" onclick="show('p4')">Friends</button>
 </div>
 
-<div id="enter" class="tab-content active">
-  <div class="card" style="text-align:center; padding:40px 20px;">
-    <h2 style="font-size:26px;">Welcome to<br>Seven Sisters</h2>
-    <p style="margin:10px 0 20px;">Voice of Northeast India - Connect, Share, Grow</p>
-    <button class="btn-main" onclick="openTab(event,'home')">Enter Home →</button>
-  </div>
+<div id="p1" class="tab active"><div class="card"><h2>Welcome</h2><br><button class="btn" style="width:auto;padding:12px 30px" onclick="show('p2')">Enter Home</button></div></div>
+<div id="p2" class="tab"><div class="card">Home Feed</div></div>
+<div id="p3" class="tab">
+<div class="card">
+<h2 style="text-align:center">Jobs</h2>
+<div class="switch">
+<button id="e1" class="active" onclick="job('hire')">I Want to Hire</button>
+<button id="e2" onclick="job('need')">I Need a Job</button>
 </div>
-
-<div id="home" class="tab-content">
-  <div class="card"><h2>Home Feed</h2><p>Latest stories from Arunachal, Assam, Meghalaya, Manipur, Mizoram, Nagaland, Tripura & Sikkim</p></div>
+<div id="hire">
+<input id="c1" placeholder="Company Name">
+<input id="c2" placeholder="Job Role">
+<input id="c3" placeholder="Location">
+<textarea id="c4" placeholder="Details"></textarea>
+<input id="c5" placeholder="Phone">
+<button class="btn" onclick="post1()">Post Job</button>
 </div>
-
-<div id="jobs" class="tab-content">
-  <div class="card">
-    <h2 style="text-align:center;">💼 Jobs in Northeast</h2>
-    <p style="text-align:center;">Find talent or find work near you</p>
-    
-    <div class="job-switch">
-      <button id="employerBtn" class="active" onclick="switchJob('employer')">I Want to Hire</button>
-      <button id="employeeBtn" onclick="switchJob('employee')">I Need a Job</button>
-    </div>
-
-    <div id="employerForm">
-      <input type="text" placeholder="Company / Shop Name">
-      <input type="text" placeholder="Job Role (e.g. Sales Girl, Driver)">
-      <input type="text" placeholder="Location (e.g. Guwahati, GS Road)">
-      <textarea rows="3" placeholder="Job Details & Salary"></textarea>
-      <input type="text" placeholder="WhatsApp / Phone Number">
-      <button class="btn-main" style="width:100%; margin-top:10px;">Post Job</button>
-    </div>
-
-    <div id="employeeForm" style="display:none;">
-      <input type="text" placeholder="Your Full Name">
-      <input type="text" placeholder="Skills (e.g. Cooking, Driving, Computer)">
-      <input type="text" placeholder="Your Location">
-      <textarea rows="3" placeholder="About You & Experience"></textarea>
-      <input type="text" placeholder="WhatsApp / Phone Number">
-      <button class="btn-main" style="width:100%; margin-top:10px;">Post My Profile</button>
-    </div>
-  </div>
+<div id="need" style="display:none">
+<input id="s1" placeholder="Your Name">
+<input id="s2" placeholder="Skills">
+<input id="s3" placeholder="Location">
+<textarea id="s4" placeholder="About You"></textarea>
+<input id="s5" placeholder="Phone">
+<button class="btn" onclick="post2()">Post Profile</button>
 </div>
-
-<div id="friends" class="tab-content">
-  <div class="card"><h2>Friends</h2><p>Meet people from Seven Sisters states</p></div>
 </div>
+</div>
+<div id="p4" class="tab"><div class="card">Friends</div></div>
 
 <script>
-function openTab(e, name){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  e.currentTarget.classList.add('active');
+function show(id){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.getElementById('b'+id[1]).classList.add('active');
 }
-function switchJob(type){
-  const eForm = document.getElementById('employerForm');
-  const jForm = document.getElementById('employeeForm');
-  const eBtn = document.getElementById('employerBtn');
-  const jBtn = document.getElementById('employeeBtn');
-  if(type==='employer'){
-    eForm.style.display='block'; jForm.style.display='none';
-    eBtn.classList.add('active'); jBtn.classList.remove('active');
-  }else{
-    eForm.style.display='none'; jForm.style.display='block';
-    jBtn.classList.add('active'); eBtn.classList.remove('active');
-  }
+function job(t){
+if(t=='hire'){
+document.getElementById('hire').style.display='block';
+document.getElementById('need').style.display='none';
+document.getElementById('e1').classList.add('active');
+document.getElementById('e2').classList.remove('active');
+}else{
+document.getElementById('hire').style.display='none';
+document.getElementById('need').style.display='block';
+document.getElementById('e2').classList.add('active');
+document.getElementById('e1').classList.remove('active');
+}
+}
+function post1(){
+if(!c1.value||!c2.value){alert('Fill Company & Role');return;}
+alert('Job Posted: '+c2.value);
+c1.value='';c2.value='';c3.value='';c4.value='';c5.value='';
+}
+function post2(){
+if(!s1.value||!s2.value){alert('Fill Name & Skills');return;}
+alert('Profile Posted: '+s1.value);
+s1.value='';s2.value='';s3.value='';s4.value='';s5.value='';
 }
 </script>
 </body>
