@@ -7,7 +7,7 @@
 <style>
 body{margin:0;font-family:Arial;background:#fdf6f0}
 .header{background:#ff6b35;color:#fff;padding:18px;text-align:center;font-weight:bold;font-size:20px}
-.tabs{display:flex;background:#fff;position:sticky;top:0;z-index:10}
+.tabs{display:flex;background:#fff;position:sticky;top:0}
 .tabs button{flex:1;padding:14px;border:none;background:#fff;font-weight:bold;color:#888}
 .tabs button.active{color:#ff6b35;border-bottom:3px solid #ff6b35}
 .tab{display:none;padding:15px}
@@ -23,14 +23,14 @@ input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border
 #reportBox{background:#fff;width:90%;max-width:350px;padding:20px;border-radius:16px}
 .reasonBtn{padding:8px 10px;border:1px solid #ddd;border-radius:20px;background:#f5f5f5;margin:4px;font-size:12px;cursor:pointer}
 .reasonBtn.selected{background:#ff6b35;color:#fff;border-color:#ff6b35}
-.reportReason{background:#ffe0e0;padding:6px 8px;border-radius:6px;margin-top:5px;font-size:12px;color:#a00}
+.reportReason{background:#ffe0e0;padding:6px 8px;border-radius:6px;margin-top:6px;font-size:12px;color:#900;border-left:4px solid red}
 </style>
 </head>
 <body>
 <div class="header">Seven Sisters Voice</div>
 <div class="tabs">
 <button id="t1" class="active" onclick="openTab(1)">Enter</button>
-<button id="t3" class="active" onclick="openTab(3)">Jobs</button>
+<button id="t3" onclick="openTab(3)">Jobs</button>
 <button id="t4" onclick="openTab(4)">Admin</button>
 </div>
 
@@ -52,11 +52,11 @@ input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border
 
 <div id="tab4" class="tab">
 <div class="card">
-<h3>Admin Panel</h3>
+<h3>Admin Panel - See Reports Here</h3>
 <input id="p" type="password" placeholder="Password 1234">
 <button class="btn" onclick="login()">Login</button>
 <div id="adminBox" style="display:none;margin-top:15px">
-<h4>🚩 Reported Jobs with Reasons</h4>
+<h4>All Jobs + Report Reasons:</h4>
 <div id="adminList"></div>
 <button class="btn" style="background:black;margin-top:15px" onclick="clearJobs()">Clear All Jobs</button>
 </div>
@@ -65,8 +65,8 @@ input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border
 
 <div id="reportModal">
 <div id="reportBox">
-<h3 style="text-align:center">🚩 Report Job</h3>
-<p class="small" style="text-align:center">Select reason:</p>
+<h3 style="text-align:center">Report Job</h3>
+<p class="small" style="text-align:center">Why reporting?</p>
 <div style="text-align:center;margin:10px 0">
 <button class="reasonBtn" onclick="selectReason(this,'Asking for money/fee')">Asking money</button>
 <button class="reasonBtn" onclick="selectReason(this,'Fake company')">Fake company</button>
@@ -82,44 +82,110 @@ input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border
 
 <script>
 var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit"];
-var currentReportId=null;var selectedReasonText="";
-function openTab(n){var tabs=document.querySelectorAll(".tab");for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");var btns=document.querySelectorAll(".tabs button");for(var i=0;i<btns.length;i++)btns[i].classList.remove("active");document.getElementById("tab"+n).classList.add("active");document.getElementById("t"+n).classList.add("active");if(n==3)showJobs();}
-function addJob(){var c1=document.getElementById("a1").value;var c2=document.getElementById("a2").value;var c3=document.getElementById("a3").value;var c4=document.getElementById("a4").value;var c5=document.getElementById("a5").value;if(c1==""||c2==""||c3==""||c4==""||c5==""){alert("Fill all");return;}var full=(c1+" "+c2+" "+c4).toLowerCase();for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: "+blocked[i]);return;}}var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});localStorage.setItem("jobs",JSON.stringify(jobs));document.getElementById("a1").value="";document.getElementById("a2").value="";document.getElementById("a3").value="";document.getElementById("a4").value="";document.getElementById("a5").value="";showJobs();}
-function showJobs(){var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");var div=document.getElementById("jobList");div.innerHTML="";if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}div.innerHTML="<h4>Jobs: "+jobs.length+"</h4>";for(var i=0;i<jobs.length;i++){var j=jobs[i];div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br>"+j.details+"<br><b>Phone: "+j.phone+"</b></div>";}}
-function openReport(id){currentReportId=id;selectedReasonText="";document.getElementById("reportText").value="";var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");document.getElementById("reportModal").style.display="flex";}
+var currentReportId=null;
+
+function openTab(n){
+ var tabs=document.querySelectorAll(".tab");
+ for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
+ var btns=document.querySelectorAll(".tabs button");
+ for(var i=0;i<btns.length;i++) btns[i].classList.remove("active");
+ document.getElementById("tab"+n).classList.add("active");
+ document.getElementById("t"+n).classList.add("active");
+ if(n==3) showJobs();
+ if(n==4){
+   if(localStorage.getItem("admin")=="yes"){
+     document.getElementById("adminBox").style.display="block";
+     showAdmin();
+   }
+ }
+}
+
+function addJob(){
+ var c1=document.getElementById("a1").value;
+ var c2=document.getElementById("a2").value;
+ var c3=document.getElementById("a3").value;
+ var c4=document.getElementById("a4").value;
+ var c5=document.getElementById("a5").value;
+ if(c1==""||c2==""||c3==""||c4==""||c5==""){alert("Fill all");return;}
+ var full=(c1+" "+c2+" "+c4).toLowerCase();
+ for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: "+blocked[i]);return;}}
+ var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
+ jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
+ localStorage.setItem("jobs",JSON.stringify(jobs));
+ document.getElementById("a1").value="";document.getElementById("a2").value="";document.getElementById("a3").value="";document.getElementById("a4").value="";document.getElementById("a5").value="";
+ showJobs();
+}
+
+function showJobs(){
+ var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
+ var div=document.getElementById("jobList");
+ div.innerHTML="";
+ if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}
+ div.innerHTML="<h4>Jobs: "+jobs.length+"</h4>";
+ for(var i=0;i<jobs.length;i++){
+  var j=jobs[i];
+  var warn="";
+  if(j.reports>=1) warn=" <span style='color:red'>(Reported "+j.reports+"x)</span>";
+  div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><b>"+j.role+"</b> at "+j.company+warn+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br>"+j.details+"<br><b>Phone: "+j.phone+"</b></div>";
+ }
+}
+
+function openReport(id){
+ currentReportId=id;
+ document.getElementById("reportText").value="";
+ var btns=document.querySelectorAll(".reasonBtn");
+ for(var i=0;i<btns.length;i++) btns[i].classList.remove("selected");
+ document.getElementById("reportModal").style.display="flex";
+}
 function closeReport(){document.getElementById("reportModal").style.display="none";currentReportId=null;}
-function selectReason(el,text){var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");el.classList.add("selected");selectedReasonText=text;document.getElementById("reportText").value=text;}
+function selectReason(el,text){var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");el.classList.add("selected");document.getElementById("reportText").value=text;}
+
 function submitReport(){
  var reason=document.getElementById("reportText").value;
  if(reason==""){alert("Please select or write reason");return;}
  var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
  for(var i=0;i<jobs.length;i++){
   if(jobs[i].id==currentReportId){
-   jobs[i].reports++;
+   jobs[i].reports = (jobs[i].reports||0)+1;
    if(!jobs[i].reasons) jobs[i].reasons=[];
-   jobs[i].reasons.push(reason+" ("+new Date().toLocaleString()+")");
-   if(jobs[i].reports>=3){ jobs.splice(i,1); }
+   jobs[i].reasons.push(reason);
    break;
   }
  }
  localStorage.setItem("jobs",JSON.stringify(jobs));
- closeReport();showJobs();showAdmin();
+ closeReport();
+ showJobs();
+ showAdmin();
  alert("Thank you for reporting, we will look into the matter.");
 }
-function login(){if(document.getElementById("p").value=="1234"){localStorage.setItem("admin","yes");document.getElementById("adminBox").style.display="block";showAdmin();}else alert("Wrong");}
+
+function login(){
+ if(document.getElementById("p").value=="1234"){
+   localStorage.setItem("admin","yes");
+   document.getElementById("adminBox").style.display="block";
+   showAdmin();
+ } else alert("Wrong password");
+}
+
 function showAdmin(){
  var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
- var div=document.getElementById("adminList");div.innerHTML="";
+ var div=document.getElementById("adminList");
+ div.innerHTML="";
  if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}
  for(var i=0;i<jobs.length;i++){
   var j=jobs[i];
   var reasonHtml="";
   if(j.reasons && j.reasons.length>0){
-   for(var k=0;k<j.reasons.length;k++){ reasonHtml+="<div class='reportReason'>🚩 "+j.reasons[k]+"</div>"; }
-  } else { reasonHtml="<div class='small'>No reports yet</div>"; }
-  div.innerHTML+="<div class='job'><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | Reports: "+j.reports+"</span><br>"+reasonHtml+"<br><button onclick='del("+j.id+")' style='background:red;color:#fff;border:none;padding:6px 12px;border-radius:8px;margin-top:8px'>Delete This Job</button></div>";
+   for(var k=0;k<j.reasons.length;k++){
+     reasonHtml+="<div class='reportReason'>REASON "+(k+1)+": "+j.reasons[k]+"</div>";
+   }
+  } else {
+   reasonHtml="<div class='small'>No reports yet</div>";
+  }
+  div.innerHTML+="<div class='job'><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | Total Reports: "+j.reports+"</span><br><div style='margin-top:8px'>"+reasonHtml+"</div><br><button onclick='del("+j.id+")' style='background:red;color:#fff;border:none;padding:6px 12px;border-radius:8px;margin-top:8px'>Delete This Job</button></div>";
  }
 }
+
 function del(id){var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");jobs=jobs.filter(function(x){return x.id!=id});localStorage.setItem("jobs",JSON.stringify(jobs));showJobs();showAdmin();}
 function clearJobs(){if(confirm("Delete all?")){localStorage.removeItem("jobs");showJobs();showAdmin();}}
 showJobs();
