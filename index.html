@@ -3,49 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Jobs - State Wise NE Jobs</title>
+<title>Seven Sisters Jobs - All Districts</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f4f6f8}
 .header{background:#111827;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:18px}.logo span{color:#ff6b35}
-.searchBar{background:#fff;padding:12px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:17px}.logo span{color:#ff6b35}
+.searchBar{background:#fff;padding:10px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:20}
 .stateTabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
-.stateTabs button{white-space:nowrap;padding:7px 14px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:700;cursor:pointer}
-.stateTabs button.active{background:#111827;color:#fff;border-color:#111827}
-.row{display:flex;gap:8px;margin-top:10px}
-.row input,.row select{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px}
-.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:10px;width:fit-content}
-.switch button{padding:7px 16px;border-radius:16px;border:none;font-weight:700;font-size:12px;background:transparent;color:#666;cursor:pointer}
+.stateTabs button{white-space:nowrap;padding:7px 12px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:11px;font-weight:700}
+.stateTabs button.active{background:#111827;color:#fff}
+.row{display:flex;gap:6px;margin-top:8px}
+.row input,.row select{flex:1;padding:9px;border:1px solid #ddd;border-radius:8px;font-size:12px}
+.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:8px;width:fit-content}
+.switch button{padding:6px 14px;border-radius:16px;border:none;font-weight:700;font-size:11px;background:transparent;color:#666}
 .switch button.active{background:#111827;color:#fff}
-.container{padding:12px;max-width:650px;margin:0 auto}
-.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+.container{padding:10px;max-width:700px;margin:0 auto}
+.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
 .btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:700;margin-top:8px;cursor:pointer}
 input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d5db;border-radius:8px;font-size:13px}
-.warn{background:#fff7ed;border:1px solid #ffedd5;color:#9a3412;padding:8px;border-radius:8px;font-size:11px;margin-bottom:10px}
-.job{border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:10px;background:#fff}
-.badge{font-size:10px;padding:3px 7px;border-radius:10px;font-weight:700}
+.warn{background:#fff7ed;border:1px solid #ffedd5;color:#9a3412;padding:8px;border-radius:8px;font-size:11px;margin-bottom:8px}
+.job{border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px;background:#fff}
+.badge{font-size:9px;padding:2px 6px;border-radius:10px;font-weight:700}
 .safe{background:#dcfce7;color:#166534}.reported{background:#fee2e2;color:#991b1b}
-.rbtn{float:right;background:#fff;border:1px solid #fecaca;color:#dc2626;padding:4px 8px;border-radius:15px;font-size:11px;cursor:pointer}
-.small{font-size:11px;color:#6b7280}
-.stateLabel{display:inline-block;background:#111827;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;margin-bottom:4px}
+.rbtn{float:right;background:#fff;border:1px solid #fecaca;color:#dc2626;padding:3px 7px;border-radius:15px;font-size:10px;cursor:pointer}
+.small{font-size:10px;color:#6b7280}
+.stateLabel{display:inline-block;background:#111827;color:#fff;padding:2px 6px;border-radius:8px;font-size:9px}
 #reportModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center}
-#reportBox{background:#fff;width:92%;max-width:380px;padding:18px;border-radius:16px}
-.reasonBtn{padding:6px 10px;border:1px solid #e5e7eb;border-radius:20px;background:#f9fafb;margin:3px;font-size:11px;cursor:pointer}
+#reportBox{background:#fff;width:92%;max-width:380px;padding:16px;border-radius:14px}
+.reasonBtn{padding:6px 9px;border:1px solid #e5e7eb;border-radius:20px;background:#f9fafb;margin:3px;font-size:11px}
 .reasonBtn.selected{background:#111827;color:#fff}
-.reportReason{background:#fef2f2;border-left:4px solid #dc2626;padding:5px 7px;border-radius:6px;margin-top:5px;font-size:11px;color:#7f1d1d}
+.reportReason{background:#fef2f2;border-left:3px solid #dc2626;padding:5px 6px;border-radius:5px;margin-top:5px;font-size:11px;color:#7f1d1d}
 </style>
 </head>
 <body>
 <div class="header">
 <div class="logo">Seven Sisters <span>Jobs</span></div>
-<button onclick="document.getElementById('adminCard').style.display='block';window.scrollTo(0,0)" style="background:#ff6b35;color:#fff;border:none;padding:7px 12px;border-radius:20px;font-size:11px;font-weight:700">Admin</button>
+<button onclick="document.getElementById('adminCard').style.display='block'" style="background:#ff6b35;color:#fff;border:none;padding:6px 10px;border-radius:15px;font-size:10px">Admin</button>
 </div>
 
 <div class="searchBar">
 <div class="stateTabs" id="stateTabs"></div>
 <div class="row">
-<input id="searchInput" placeholder="Search: driver, sales..." onkeyup="showJobs()">
+<input id="searchInput" placeholder="Search job..." onkeyup="showJobs()">
 <select id="distFilter" onchange="showJobs()"><option value="">All Districts</option></select>
 </div>
 <div class="switch">
@@ -55,16 +55,16 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 </div>
 
 <div class="container">
-<div class="card" id="postCard">
-<h3 id="postTitle">Post Job</h3>
-<div class="warn">Select State + District. No fee jobs. Report with reason goes to Admin.</div>
+<div class="card">
+<h3 id="postTitle">Post Job - All Districts</h3>
+<div class="warn">🛡️ Full district list added. Report reason goes to Admin with State/District.</div>
 <div id="hireForm">
 <select id="aState" onchange="updateDist('aState','aDist')"><option value="">Select State *</option></select>
 <select id="aDist"><option value="">Select District *</option></select>
 <input id="a1" placeholder="Company / Shop Name *">
 <input id="a2" placeholder="Job Role *">
-<textarea id="a4" placeholder="Salary + Timing + Details *"></textarea>
-<input id="a5" placeholder="WhatsApp Number *">
+<textarea id="a4" placeholder="Salary + Timing *"></textarea>
+<input id="a5" placeholder="WhatsApp *">
 </div>
 <div id="needForm" style="display:none">
 <select id="bState" onchange="updateDist('bState','bDist')"><option value="">Select State *</option></select>
@@ -72,7 +72,7 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <input id="b1" placeholder="Your Name *">
 <input id="b2" placeholder="Skill *">
 <textarea id="b4" placeholder="About You *"></textarea>
-<input id="b5" placeholder="WhatsApp Number *">
+<input id="b5" placeholder="WhatsApp *">
 </div>
 <button class="btn" onclick="addJob()">Post Now</button>
 </div>
@@ -80,11 +80,11 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <div id="jobList"></div>
 
 <div class="card" id="adminCard" style="display:none">
-<h3>Admin - Statewise Reports</h3>
+<h3>Admin - All States & Reports</h3>
 <input id="adminPass" type="password" placeholder="Password 1234">
-<button class="btn" onclick="login()">Login Admin</button>
-<div id="adminBox" style="display:none;margin-top:12px">
-<div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:10px" id="adminStateTabs"></div>
+<button class="btn" onclick="login()">Login</button>
+<div id="adminBox" style="display:none;margin-top:10px">
+<div style="display:flex;gap:5px;overflow-x:auto;margin-bottom:8px" id="adminStateTabs"></div>
 <div id="adminList"></div>
 <button class="btn" style="background:#111827" onclick="document.getElementById('adminCard').style.display='none'">Close</button>
 </div>
@@ -94,15 +94,14 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <div id="reportModal">
 <div id="reportBox">
 <h3 style="text-align:center">Report Job</h3>
-<p class="small" style="text-align:center">Reason goes to Admin state-wise</p>
-<div style="text-align:center;margin:8px 0">
+<div style="text-align:center;margin:6px 0">
 <button class="reasonBtn" onclick="selReason(this,'Asking for money/fee')">Asking money</button>
 <button class="reasonBtn" onclick="selReason(this,'Fake company')">Fake company</button>
-<button class="reasonBtn" onclick="selReason(this,'Telegram/Crypto scam')">Telegram/Crypto</button>
+<button class="reasonBtn" onclick="selReason(this,'Telegram/Crypto')">Telegram/Crypto</button>
 <button class="reasonBtn" onclick="selReason(this,'Wrong details')">Wrong details</button>
 <button class="reasonBtn" onclick="selReason(this,'Other scam')">Other</button>
 </div>
-<textarea id="reportText" placeholder="Write reason..."></textarea>
+<textarea id="reportText" placeholder="Reason..."></textarea>
 <button class="btn" onclick="submitReport()">Confirm Report</button>
 <button class="btn" style="background:#e5e7eb;color:#111" onclick="closeReport()">Cancel</button>
 </div>
@@ -110,33 +109,28 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 
 <script>
 var states={
-"Assam":["Guwahati","Dibrugarh","Jorhat","Silchar","Tezpur","Nagaon","Tinsukia","Barpeta","Dhubri","Goalpara"],
-"Meghalaya":["Shillong","Tura","Jowai","Nongpoh"],
-"Manipur":["Imphal","Thoubal","Bishnupur","Churachandpur"],
-"Nagaland":["Dimapur","Kohima","Mokokchung","Tuensang"],
-"Mizoram":["Aizawl","Lunglei","Champhai"],
-"Tripura":["Agartala","Dharmanagar","Udaipur"],
-"Arunachal":["Itanagar","Tawang","Pasighat","Ziro"]
+"Assam":["Bajali","Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Dima Hasao","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup","Kamrup Metropolitan","Karbi Anglong","Karimganj (Sribhumi)","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Sivasagar","Sonitpur","South Salmara-Mankachar","Tamulpur","Tinsukia","Udalguri","West Karbi Anglong"],
+"Meghalaya":["East Garo Hills","East Jaintia Hills","East Khasi Hills","Eastern West Khasi Hills (Mairang)","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"],
+"Mizoram":["Aizawl","Champhai","Hnahthial","Khawzawl","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Saitual","Serchhip"],
+"Manipur":["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"],
+"Nagaland":["Chumoukedima","Dimapur","Kiphire","Kohima","Longleng","Meluri","Mokokchung","Mon","Niuland","Noklak","Peren","Phek","Shamator","Tseminyu","Tuensang","Wokha","Zunheboto"],
+"Tripura":["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"],
+"Arunachal Pradesh":["Anjaw","Bichom","Changlang","Dibang Valley","East Kameng","East Siang","Itanagar Capital Complex","Kamle","Keyi Panyor","Kra Daadi","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"]
 };
-var selectedState="All";
-var selectedAdminState="All";
-var mode="hire";
-var currentReportId=null;
+var selectedState="All",selectedAdminState="All",mode="hire",currentReportId=null;
 var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit","registration"];
 
 function initStates(){
  var tabs=document.getElementById("stateTabs");
  var html="<button class='active' onclick='filterState(\"All\",this)'>All NE</button>";
- for(var s in states){html+="<button onclick='filterState(\""+s+"\",this)'>"+s+"</button>";}
+ for(var s in states) html+="<button onclick='filterState(\""+s+"\",this)'>"+s+"</button>";
  tabs.innerHTML=html;
  var opts="<option value=''>Select State *</option>";
  for(var s in states) opts+="<option>"+s+"</option>";
- document.getElementById("aState").innerHTML=opts;
- document.getElementById("bState").innerHTML=opts;
-
+ aState.innerHTML=opts; bState.innerHTML=opts;
  var adminTabs=document.getElementById("adminStateTabs");
  var html2="<button class='reasonBtn selected' onclick='filterAdminState(\"All\",this)'>All</button>";
- for(var s in states){html2+="<button class='reasonBtn' onclick='filterAdminState(\""+s+"\",this)'>"+s+"</button>";}
+ for(var s in states) html2+="<button class='reasonBtn' onclick='filterAdminState(\""+s+"\",this)'>"+s+"</button>";
  adminTabs.innerHTML=html2;
 }
 function updateDist(stateId,distId){
@@ -147,13 +141,6 @@ function updateDist(stateId,distId){
  var html="<option value=''>Select District *</option>";
  for(var i=0;i<list.length;i++) html+="<option>"+list[i]+"</option>";
  distSel.innerHTML=html;
- // update top district filter if state selected
- if(stateId=="aState" || selectedState==st || selectedState=="All"){
-   var topDist=document.getElementById("distFilter");
-   var html2="<option value=''>All Districts in "+st+"</option>";
-   for(var i=0;i<list.length;i++) html2+="<option>"+list[i]+"</option>";
-   if(selectedState!="All") topDist.innerHTML=html2;
- }
 }
 function filterState(st,el){
  selectedState=st;
@@ -161,10 +148,9 @@ function filterState(st,el){
  for(var i=0;i<btns.length;i++) btns[i].classList.remove("active");
  el.classList.add("active");
  var topDist=document.getElementById("distFilter");
- if(st=="All"){topDist.innerHTML="<option value=''>All Districts</option>";}
+ if(st=="All") topDist.innerHTML="<option value=''>All Districts</option>";
  else {
-  var list=states[st];
-  var html="<option value=''>All in "+st+"</option>";
+  var list=states[st]; var html="<option value=''>All in "+st+"</option>";
   for(var i=0;i<list.length;i++) html+="<option>"+list[i]+"</option>";
   topDist.innerHTML=html;
  }
@@ -179,13 +165,11 @@ function filterAdminState(st,el){
 }
 function setMode(m){
  mode=m;
- document.getElementById("btnHire").classList.remove("active");
- document.getElementById("btnNeed").classList.remove("active");
- document.getElementById("btnHire").classList.add(m=="hire"?"active":"");
- document.getElementById("btnNeed").classList.add(m=="need"?"active":"");
- document.getElementById("hireForm").style.display=m=="hire"?"block":"none";
- document.getElementById("needForm").style.display=m=="need"?"block":"none";
- document.getElementById("postTitle").innerText=m=="hire"?"Post Job - State Wise":"Post Profile - State Wise";
+ btnHire.classList.remove("active");btnNeed.classList.remove("active");
+ document.getElementById(m=="hire"?"btnHire":"btnNeed").classList.add("active");
+ hireForm.style.display=m=="hire"?"block":"none";
+ needForm.style.display=m=="need"?"block":"none";
+ postTitle.innerText=m=="hire"?"Post Job - All Districts":"Post Profile - All Districts";
  showJobs();
 }
 function addJob(){
@@ -193,7 +177,7 @@ function addJob(){
   var st=aState.value,dt=aDist.value,c1=a1.value,c2=a2.value,c4=a4.value,c5=a5.value;
   if(st==""||dt==""||c1==""||c2==""||c4==""||c5==""){alert("Fill all *");return;}
   var full=(c1+" "+c2+" "+c4).toLowerCase();
-  for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED scam word: "+blocked[i]);return;}}
+  for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: "+blocked[i]);return;}}
   var jobs=JSON.parse(localStorage.getItem("hireJobs")||"[]");
   jobs.unshift({id:Date.now(),state:st,dist:dt,company:c1,role:c2,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
   localStorage.setItem("hireJobs",JSON.stringify(jobs));
@@ -221,24 +205,23 @@ function showJobs(){
   return okState && okDist && okQ;
  });
  div.innerHTML="<p class='small'>Showing "+filtered.length+" in "+selectedState+(dFil?" - "+dFil:"")+"</p>";
- if(filtered.length==0){div.innerHTML+="<div class='card' style='text-align:center'>No jobs in this state. Post first job!</div>";return;}
- // group by state
+ if(filtered.length==0){div.innerHTML+="<div class='card' style='text-align:center'>No jobs here. Be first to post!</div>";return;}
  var byState={};
  for(var i=0;i<filtered.length;i++){var j=filtered[i];if(!byState[j.state])byState[j.state]=[];byState[j.state].push(j);}
  for(var st in byState){
-  div.innerHTML+="<h4 style='margin:14px 0 6px'>📍 "+st+" ("+byState[st].length+")</h4>";
+  div.innerHTML+="<h4 style='margin:10px 0 4px'>📍 "+st+" ("+byState[st].length+")</h4>";
   for(var k=0;k<byState[st].length;k++){
    var j=byState[st][k];
    var badge=j.reports>=1?"<span class='badge reported'>Reported "+j.reports+"</span>":"<span class='badge safe'>✓ Safe</span>";
    if(mode=="hire"){
-    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:6px 0;font-size:13px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:15px;font-size:12px;text-decoration:none'>WhatsApp "+j.phone+"</a></div>";
+    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
    } else {
-    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.name+"</b> - "+j.skill+"<br><span class='small'>"+j.date+"</span><br><div style='margin:6px 0;font-size:13px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:15px;font-size:12px;text-decoration:none'>WhatsApp "+j.phone+"</a></div>";
+    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
    }
   }
  }
 }
-function openReport(id){currentReportId=id;reportText.value="";var b=document.querySelectorAll("#reportBox.reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");reportModal.style.display="flex";}
+function openReport(id){currentReportId=id;reportText.value="";reportModal.style.display="flex";}
 function closeReport(){reportModal.style.display="none";}
 function selReason(el,t){var b=document.querySelectorAll("#reportBox.reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");el.classList.add("selected");reportText.value=t;}
 function submitReport(){
@@ -254,16 +237,16 @@ function submitReport(){
 function login(){if(adminPass.value=="1234"){localStorage.setItem("admin","yes");adminBox.style.display="block";showAdmin();}else alert("Wrong");}
 function showAdmin(){
  var div=document.getElementById("adminList");
- var h=JSON.parse(localStorage.getItem("hireJobs")||"[]"); var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
+ var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
  var all=h.concat(n);
  if(selectedAdminState!="All") all=all.filter(function(j){return j.state==selectedAdminState;});
  all.sort(function(a,b){return (b.reports||0)-(a.reports||0);});
  div.innerHTML="";
  if(all.length==0){div.innerHTML="<p class='small'>No posts in "+selectedAdminState+"</p>";return;}
  for(var i=0;i<all.length;i++){
-  var j=all[i]; var title=j.role?j.role+" at "+j.company:j.name+" - "+j.skill;
-  var reasonHtml=""; if(j.reasons && j.reasons.length>0){for(var k=0;k<j.reasons.length;k++) reasonHtml+="<div class='reportReason'>REASON "+(k+1)+": "+j.reasons[k]+"</div>";} else reasonHtml="<div class='small'>No reports</div>";
-  div.innerHTML+="<div class='job' style='border:2px solid "+(j.reports>0?"#fecaca":"#e5e7eb")+"'><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> Reports: "+j.reports+"<br><b>"+title+"</b><br><span class='small'>"+j.phone+"</span><div style='margin-top:6px'>"+reasonHtml+"</div><button onclick='delJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:5px 10px;border-radius:6px;margin-top:6px;font-size:11px'>Delete</button></div>";
+  var j=all[i];var title=j.role?j.role+" at "+j.company:j.name+" - "+j.skill;
+  var reasonHtml="";if(j.reasons && j.reasons.length>0){for(var k=0;k<j.reasons.length;k++) reasonHtml+="<div class='reportReason'>REASON "+(k+1)+": "+j.reasons[k]+"</div>";} else reasonHtml="<div class='small'>No reports - Safe</div>";
+  div.innerHTML+="<div class='job'><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> Reports: "+j.reports+"<br><b>"+title+"</b><br><span class='small'>"+j.phone+"</span><div style='margin-top:5px'>"+reasonHtml+"</div><button onclick='delJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:5px 8px;border-radius:6px;margin-top:5px;font-size:11px'>Delete</button></div>";
  }
 }
 function delJob(id){var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");localStorage.setItem("hireJobs",JSON.stringify(h.filter(function(x){return x.id!=id})));localStorage.setItem("needJobs",JSON.stringify(n.filter(function(x){return x.id!=id})));showJobs();showAdmin();}
