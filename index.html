@@ -40,20 +40,16 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <body>
 <div class="header">
 <div class="logo">
-<!-- LOGO SVG EMBEDDED - NO EXTERNAL FILE NEEDED -->
-<svg width="38" height="42" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19 0C8.5 0 0 8.2 0 18.2C0 28.5 19 42 19 42C19 42 38 28.5 38 18.2C38 8.2 29.5 0 19 0ZM19 36.5C15.5 32.8 3.5 20.5 3.5 18.2C3.5 10.1 10.4 3.5 19 3.5C27.6 3.5 34.5 10.1 34.5 18.2C34.5 20.5 22.5 32.8 19 36.5Z" fill="#FF6B35"/>
-<path d="M4 19 Q6 15 8 19 T12 19 T16 17 T20 19 T24 19 T28 19 T32 19" stroke="#FF6B35" stroke-width="1.2" fill="none"/>
-</svg>
-<div>Seven Sisters <span>Jobs</span><div style="font-size:9px;font-weight:400;color:#9CA3AF;margin-top:1px">No Scam. Only Real NE Jobs.</div></div>
+<svg width="38" height="42" viewBox="0 0 38 42" fill="none"><path d="M19 0C8.5 0 0 8.2 0 18.2C0 28.5 19 42 19 42C19 42 38 28.5 38 18.2C38 8.2 29.5 0 19 0ZM19 36.5C15.5 32.8 3.5 20.5 3.5 18.2C3.5 10.1 10.4 3.5 19 3.5C27.6 3.5 34.5 10.1 34.5 18.2C34.5 20.5 22.5 32.8 19 36.5Z" fill="#FF6B35"/></svg>
+<div>Seven Sisters <span>Jobs</span><div style="font-size:9px;font-weight:400;color:#9CA3AF">No Scam. Only Real NE Jobs.</div></div>
 </div>
-<button onclick="document.getElementById('adminCard').style.display='block';window.scrollTo(0,0)" style="background:#ff6b35;color:#fff;border:none;padding:6px 10px;border-radius:15px;font-size:10px;font-weight:700">Admin</button>
+<button onclick="document.getElementById('adminCard').style.display='block'" style="background:#ff6b35;color:#fff;border:none;padding:6px 10px;border-radius:15px;font-size:10px;font-weight:700">Admin</button>
 </div>
 
 <div class="searchBar">
 <div class="stateTabs" id="stateTabs"></div>
 <div class="row">
-<input id="searchInput" placeholder="Search: driver, sales, computer..." onkeyup="showJobs()">
+<input id="searchInput" placeholder="Search..." onkeyup="showJobs()">
 <select id="distFilter" onchange="showJobs()"><option value="">All Districts</option></select>
 </div>
 <div class="switch">
@@ -65,22 +61,22 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <div class="container">
 <div class="card">
 <h3 id="postTitle">Post Job - State & District Wise</h3>
-<div class="warn">✅ All 115+ districts added. Select State → District auto loads. Report reason goes to Admin.</div>
+<div class="warn">All districts added. Report reasons now correct for Hiring vs Seekers.</div>
 <div id="hireForm">
 <select id="aState" onchange="updateDist('aState','aDist')"><option value="">Select State *</option></select>
 <select id="aDist"><option value="">Select District *</option></select>
 <input id="a1" placeholder="Company / Shop Name *">
-<input id="a2" placeholder="Job Role * eg: Sales Boy, Driver, Teacher">
-<textarea id="a4" placeholder="Salary + Timing + Work Details *"></textarea>
-<input id="a5" placeholder="WhatsApp Number *">
+<input id="a2" placeholder="Job Role *">
+<textarea id="a4" placeholder="Salary + Timing *"></textarea>
+<input id="a5" placeholder="WhatsApp *">
 </div>
 <div id="needForm" style="display:none">
 <select id="bState" onchange="updateDist('bState','bDist')"><option value="">Select State *</option></select>
 <select id="bDist"><option value="">Select District *</option></select>
 <input id="b1" placeholder="Your Full Name *">
-<input id="b2" placeholder="Skill * eg: Driving, Computer, Sales">
-<textarea id="b4" placeholder="Your Experience *"></textarea>
-<input id="b5" placeholder="WhatsApp Number *">
+<input id="b2" placeholder="Skill *">
+<textarea id="b4" placeholder="About You *"></textarea>
+<input id="b5" placeholder="WhatsApp *">
 </div>
 <button class="btn" onclick="addJob()">Post Now</button>
 </div>
@@ -88,28 +84,22 @@ input,textarea,select{width:100%;padding:10px;margin:5px 0;border:1px solid #d1d
 <div id="jobList"></div>
 
 <div class="card" id="adminCard" style="display:none">
-<h3>Admin - See All Reports State-wise</h3>
+<h3>Admin - Reports with Correct Reason</h3>
 <input id="adminPass" type="password" placeholder="Password 1234">
-<button class="btn" onclick="login()">Login Admin</button>
+<button class="btn" onclick="login()">Login</button>
 <div id="adminBox" style="display:none;margin-top:10px">
 <div style="display:flex;gap:5px;overflow-x:auto;margin-bottom:8px" id="adminStateTabs"></div>
 <div id="adminList"></div>
-<button class="btn" style="background:#111827" onclick="document.getElementById('adminCard').style.display='none'">Close Admin</button>
+<button class="btn" style="background:#111827" onclick="document.getElementById('adminCard').style.display='none'">Close</button>
 </div>
 </div>
 </div>
 
 <div id="reportModal">
 <div id="reportBox">
-<h3 style="text-align:center">🚩 Report Job</h3>
-<p class="small" style="text-align:center">Reason will be shown in Admin with State/District</p>
-<div style="text-align:center;margin:8px 0">
-<button class="reasonBtn" onclick="selReason(this,'Asking for money/fee')">Asking money</button>
-<button class="reasonBtn" onclick="selReason(this,'Fake company/shop')">Fake company</button>
-<button class="reasonBtn" onclick="selReason(this,'Telegram / Crypto / Task scam')">Telegram/Crypto</button>
-<button class="reasonBtn" onclick="selReason(this,'Wrong salary/location')">Wrong details</button>
-<button class="reasonBtn" onclick="selReason(this,'Other scam')">Other scam</button>
-</div>
+<h3 id="reportTitle" style="text-align:center">Report</h3>
+<p id="reportSub" class="small" style="text-align:center"></p>
+<div id="reasonContainer" style="text-align:center;margin:8px 0"></div>
 <textarea id="reportText" placeholder="Write reason..."></textarea>
 <button class="btn" onclick="submitReport()">Confirm Report</button>
 <button class="btn" style="background:#e5e7eb;color:#111" onclick="closeReport()">Cancel</button>
@@ -126,7 +116,9 @@ var states={
 "Tripura":["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"],
 "Arunachal Pradesh":["Anjaw","Bichom","Changlang","Dibang Valley","East Kameng","East Siang","Itanagar Capital Complex","Kamle","Keyi Panyor","Kra Daadi","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"]
 };
-var selectedState="All",selectedAdminState="All",mode="hire",currentReportId=null;
+var hireReasons=["Asking for money/fee","Fake company/shop","Telegram / Crypto / Task scam","Wrong salary/location","Job already filled - not picking"];
+var seekerReasons=["Fake seeker profile","Spam / Duplicate posting","Wrong phone number","Inappropriate / Abusive content","Asking for money","Not actually looking for job"];
+var selectedState="All",selectedAdminState="All",mode="hire",currentReportId=null,currentReportType="hire";
 var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit","registration"];
 
 function initStates(){
@@ -223,22 +215,38 @@ function showJobs(){
    var j=byState[st][k];
    var badge=j.reports>=1?"<span class='badge reported'>Reported "+j.reports+"</span>":"<span class='badge safe'>✓ Safe</span>";
    if(mode=="hire"){
-    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
+    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+",\"hire\")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
    } else {
-    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
+    div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+",\"need\")'>Report "+j.reports+"</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+badge+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
    }
   }
  }
 }
-function openReport(id){currentReportId=id;reportText.value="";reportModal.style.display="flex";}
+function openReport(id,type){
+ currentReportId=id;
+ currentReportType=type;
+ reportText.value="";
+ var list=type=="hire"?hireReasons:seekerReasons;
+ var title=type=="hire"?"Report This Job":"Report This Seeker Profile";
+ var sub=type=="hire"?"Company posting issue:":"Seeker profile issue:";
+ document.getElementById("reportTitle").innerText=title;
+ document.getElementById("reportSub").innerText=sub;
+ var cont=document.getElementById("reasonContainer");
+ var html="";
+ for(var i=0;i<list.length;i++){
+  html+="<button class='reasonBtn' onclick='selReason(this,\""+list[i]+"\")'>"+list[i]+"</button>";
+ }
+ cont.innerHTML=html;
+ reportModal.style.display="flex";
+}
 function closeReport(){reportModal.style.display="none";}
-function selReason(el,t){var b=document.querySelectorAll("#reportBox.reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");el.classList.add("selected");reportText.value=t;}
+function selReason(el,t){var b=document.querySelectorAll("#reasonContainer.reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");el.classList.add("selected");reportText.value=t;}
 function submitReport(){
  var reason=reportText.value;if(reason==""){alert("Select reason");return;}
  var keys=["hireJobs","needJobs"];
  for(var k=0;k<keys.length;k++){
   var jobs=JSON.parse(localStorage.getItem(keys[k])||"[]");
-  for(var i=0;i<jobs.length;i++){if(jobs[i].id==currentReportId){jobs[i].reports=(jobs[i].reports||0)+1;if(!jobs[i].reasons)jobs[i].reasons=[];jobs[i].reasons.push(reason+" - "+new Date().toLocaleString()+" - "+jobs[i].state+"/"+jobs[i].dist);localStorage.setItem(keys[k],JSON.stringify(jobs));}}
+  for(var i=0;i<jobs.length;i++){if(jobs[i].id==currentReportId){jobs[i].reports=(jobs[i].reports||0)+1;if(!jobs[i].reasons)jobs[i].reasons=[];jobs[i].reasons.push("["+currentReportType.toUpperCase()+"] "+reason+" - "+new Date().toLocaleString()+" - "+jobs[i].state+"/"+jobs[i].dist);localStorage.setItem(keys[k],JSON.stringify(jobs));}}
  }
  closeReport();showJobs();showAdmin();
  alert("Thank you for reporting, we will look into the matter.");
