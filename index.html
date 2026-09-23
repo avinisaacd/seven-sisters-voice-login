@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Jobs</title>
+<title>Seven Sisters Jobs - All Categories</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f4f6f8}
 .header{background:#111827;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
 .logo{font-weight:800;font-size:15px}.logo span{color:#ff6b35}
 .searchBar{background:#fff;padding:10px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:20}
-.stateTabs,.catTabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px}
-.stateTabs button,.catTabs button{white-space:nowrap;padding:6px 11px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:10px;font-weight:700;cursor:pointer}
-.stateTabs button.active,.catTabs button.active{background:#111827;color:#fff}
-.row{display:flex;gap:6px}.row input,.row select{flex:1;padding:8px;border:1px solid #ddd;border-radius:8px;font-size:12px}
-.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:6px;width:fit-content}
-.switch button{padding:5px 12px;border-radius:16px;border:none;font-weight:700;font-size:11px;background:transparent;color:#666}
+.stateTabs,.catTabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;scrollbar-width:none}
+.stateTabs::-webkit-scrollbar,.catTabs::-webkit-scrollbar{display:none}
+.stateTabs button,.catTabs button{white-space:nowrap;padding:7px 12px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0}
+.stateTabs button.active{background:#111827;color:#fff}
+.catTabs button.active{background:#ff6b35;color:#fff;border-color:#ff6b35}
+.row{display:flex;gap:6px;margin-top:6px}.row input,.row select{flex:1;padding:8px;border:1px solid #ddd;border-radius:8px;font-size:12px}
+.switch{display:flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-top:8px;width:fit-content}
+.switch button{padding:6px 14px;border-radius:16px;border:none;font-weight:700;font-size:11px;background:transparent;color:#666;cursor:pointer}
 .switch button.active{background:#111827;color:#fff}
 .container{padding:10px;max-width:700px;margin:0 auto}
 .card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
@@ -23,22 +25,26 @@ body{background:#f4f6f8}
 input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5db;border-radius:8px;font-size:13px}
 .warn{background:#eff6ff;border:1px solid #dbeafe;color:#1e40af;padding:8px;border-radius:8px;font-size:11px;margin-bottom:8px}
 .job{border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px;background:#fff}
-.badge{font-size:9px;padding:2px 6px;border-radius:10px;font-weight:700}
-.safe{background:#dcfce7;color:#166534}.reported{background:#fee2e2;color:#991b1b}.schoolBadge{background:#dbeafe;color:#1e40af}
+.badge{font-size:9px;padding:3px 7px;border-radius:10px;font-weight:700}
+.safe{background:#dcfce7;color:#166534}.reported{background:#fee2e2;color:#991b1b}
+.catBadge{background:#f3f4f6;color:#111827;border:1px solid #e5e7eb}
+.catSchool{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}
+.catBeauty{background:#fce7f3;color:#9d174d}
+.catDriver{background:#fef3c7;color:#92400e}
 .rbtn{float:right;background:#fff;border:1px solid #fecaca;color:#dc2626;padding:3px 7px;border-radius:15px;font-size:10px;cursor:pointer;margin-left:4px}
 .delOwn{float:right;background:#111827;color:#fff;border:none;padding:3px 8px;border-radius:15px;font-size:10px;cursor:pointer;margin-left:4px}
 .small{font-size:10px;color:#6b7280}
 .stateLabel{display:inline-block;background:#111827;color:#fff;padding:2px 6px;border-radius:8px;font-size:9px}
 .myPostTag{background:#f59e0b;color:#fff;padding:2px 6px;border-radius:8px;font-size:9px;margin-left:4px}
 #reportModal,#myModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center}
-#reportBox,#myBox{background:#fff;width:92%;max-width:400px;padding:16px;border-radius:14px;max-height:85vh;overflow-y:auto}
+#reportBox,#myBox{background:#fff;width:92%;max-width:420px;padding:16px;border-radius:14px;max-height:85vh;overflow-y:auto}
 .reasonBtn{padding:6px 9px;border:1px solid #e5e7eb;border-radius:20px;background:#f9fafb;margin:3px;font-size:11px;cursor:pointer}
 .reasonBtn.selected{background:#111827;color:#fff}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="logo">Seven Sisters <span>Jobs</span></div>
+<div class="logo">Seven Sisters <span>Jobs</span> <span style="font-size:8px;color:#9CA3AF;display:block;font-weight:400">20+ Categories • No Scam</span></div>
 <div style="display:flex;gap:6px">
 <button onclick="openMyPosts()" style="background:#f59e0b;color:#fff;border:none;padding:6px 10px;border-radius:15px;font-size:10px;font-weight:700">My Posts</button>
 <button onclick="document.getElementById('adminCard').style.display='block'" style="background:#ff6b35;color:#fff;border:none;padding:5px 9px;border-radius:15px;font-size:10px">Admin</button>
@@ -47,86 +53,93 @@ input,textarea,select{width:100%;padding:9px;margin:4px 0;border:1px solid #d1d5
 
 <div class="searchBar">
 <div class="stateTabs" id="stateTabs"></div>
-<div class="catTabs" id="catTabs">
-<button class="active" onclick="filterCat('All',this)">All</button>
-<button onclick="filterCat('School',this)">🏫 School</button>
-<button onclick="filterCat('Driver',this)">Driver</button>
-<button onclick="filterCat('Sales',this)">Sales</button>
-<button onclick="filterCat('Office',this)">Office</button>
-</div>
+<div class="catTabs" id="catTabs"></div>
 <div class="row">
-<input id="searchInput" placeholder="Search..." onkeyup="showJobs()">
+<input id="searchInput" placeholder="Search role, company..." onkeyup="showJobs()">
 <select id="distFilter" onchange="showJobs()"><option value="">All Districts</option></select>
 </div>
 <div class="switch">
-<button id="btnHire" class="active" onclick="setMode('hire')">Hiring</button>
-<button id="btnNeed" onclick="setMode('need')">Seekers</button>
+<button id="btnHire" class="active" onclick="setMode('hire')">Hiring - I Need Staff</button>
+<button id="btnNeed" onclick="setMode('need')">Seeker - I Need Job</button>
 </div>
 </div>
 
 <div class="container">
 <div class="card">
 <h3 id="postTitle">Post Job</h3>
-<div class="warn">Fix: Old jobs now show category correctly. My Posts now works with phone number also.</div>
+<div class="warn">🏫 School admins + All shop owners: Select correct category below so seekers can find fast.</div>
 <div id="hireForm">
-<select id="catSel"><option value="General">General</option><option value="School">🏫 School / Teacher</option><option value="Driver">Driver</option><option value="Sales">Sales</option><option value="Office">Office</option></select>
+<select id="catSel"></select>
 <select id="aState" onchange="updateDist('aState','aDist')"><option value="">State *</option></select>
 <select id="aDist"><option value="">District *</option></select>
-<input id="a1" placeholder="Company / School Name *">
-<input id="a2" placeholder="Role *">
-<textarea id="a4" placeholder="Salary + Timing *"></textarea>
+<input id="a1" placeholder="Company / School / Shop Name *">
+<input id="a2" placeholder="Role * eg: Primary Teacher, Beauty Staff">
+<textarea id="a4" placeholder="Salary + Timing + Qualification *"></textarea>
 <input id="a5" placeholder="WhatsApp Number *">
 </div>
 <div id="needForm" style="display:none">
-<select id="bCat"><option value="General">General</option><option value="School">🏫 Teacher</option><option value="Driver">Driver</option><option value="Sales">Sales</option><option value="Office">Office</option></select>
+<select id="bCat"></select>
 <select id="bState" onchange="updateDist('bState','bDist')"><option value="">State *</option></select>
 <select id="bDist"><option value="">District *</option></select>
 <input id="b1" placeholder="Your Name *">
-<input id="b2" placeholder="Skill *">
-<textarea id="b4" placeholder="About *"></textarea>
+<input id="b2" placeholder="Your Skill * eg: Teacher, Driver, Tailor">
+<textarea id="b4" placeholder="Experience + Expected Salary *"></textarea>
 <input id="b5" placeholder="WhatsApp *">
 </div>
-<button class="btn" onclick="addJob()">Post Now</button>
+<button class="btn" onclick="addJob()">Post Now - Free</button>
 </div>
+
 <div id="jobList"></div>
+
 <div class="card" id="adminCard" style="display:none">
-<h3>Admin</h3>
-<input id="adminPass" type="password" placeholder="1234">
+<h3>Admin Login</h3>
+<input id="adminPass" type="password" placeholder="Password 1234">
 <button class="btn" onclick="login()">Login</button>
 <div id="adminBox" style="display:none"><div id="adminList"></div><button class="btn" style="background:#111827" onclick="document.getElementById('adminCard').style.display='none'">Close</button></div>
 </div>
 </div>
 
-<div id="reportModal"><div id="reportBox"><h3 id="reportTitle" style="text-align:center">Report</h3><div id="reasonContainer" style="text-align:center;margin:8px 0"></div><textarea id="reportText"></textarea><button class="btn" onclick="submitReport()">Confirm</button><button class="btn" style="background:#e5e7eb;color:#111" onclick="document.getElementById('reportModal').style.display='none'">Cancel</button></div></div>
+<div id="reportModal"><div id="reportBox"><h3 style="text-align:center">Report This</h3><div id="reasonContainer" style="text-align:center;margin:8px 0"></div><textarea id="reportText" placeholder="Reason"></textarea><button class="btn" onclick="submitReport()">Submit Report</button><button class="btn" style="background:#e5e7eb;color:#111" onclick="document.getElementById('reportModal').style.display='none'">Cancel</button></div></div>
 
-<div id="myModal"><div id="myBox"><h3 style="text-align:center">My Posted Jobs</h3><p class="small" style="text-align:center">Shows jobs from this phone + your number</p><input id="myPhoneSearch" placeholder="Enter your WhatsApp number to find old posts" style="margin-top:8px"><button class="btn" style="background:#f59e0b" onclick="findByPhone()">Find My Old Posts</button><div id="myList" style="margin-top:10px"></div><button class="btn" style="background:#111827" onclick="document.getElementById('myModal').style.display='none'">Close</button></div></div>
+<div id="myModal"><div id="myBox"><h3 style="text-align:center">My Posted Jobs</h3><input id="myPhoneSearch" placeholder="Enter WhatsApp to find old posts"><button class="btn" style="background:#f59e0b" onclick="findByPhone()">Find My Old Posts</button><div id="myList" style="margin-top:10px"></div><button class="btn" style="background:#111827" onclick="document.getElementById('myModal').style.display='none'">Close</button></div></div>
 
 <script>
+var categories=[
+"General","🏫 School / Teacher","📚 Tuition / Coaching","🛍️ Sales / Shop Staff","💻 Computer / Data Entry","💼 Office / Admin","📞 Telecaller / Receptionist","🚚 Driver","📦 Delivery Boy","🔧 Electrician / Plumber / Technician","✂️ Tailor / Boutique","💇 Beauty Parlour / Spa","👨‍🍳 Cook / Kitchen Helper","☕ Waiter / Cafe / Restaurant","🛡️ Security Guard","🏥 Nurse / Health Staff","📸 Photo / Video / Editing","🏋️ Gym Trainer / Staff","🚧 Labour / Mistri / Carpenter","Other"
+];
 var states={"Assam":["Bajali","Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Dima Hasao","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup","Kamrup Metropolitan","Karbi Anglong","Karimganj (Sribhumi)","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Sivasagar","Sonitpur","South Salmara-Mankachar","Tamulpur","Tinsukia","Udalguri","West Karbi Anglong"],"Meghalaya":["East Garo Hills","East Jaintia Hills","East Khasi Hills","Eastern West Khasi Hills (Mairang)","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"],"Mizoram":["Aizawl","Champhai","Hnahthial","Khawzawl","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Saitual","Serchhip"],"Manipur":["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"],"Nagaland":["Chumoukedima","Dimapur","Kiphire","Kohima","Longleng","Meluri","Mokokchung","Mon","Niuland","Noklak","Peren","Phek","Shamator","Tseminyu","Tuensang","Wokha","Zunheboto"],"Tripura":["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"],"Arunachal Pradesh":["Anjaw","Bichom","Changlang","Dibang Valley","East Kameng","East Siang","Itanagar Capital Complex","Kamle","Keyi Panyor","Kra Daadi","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"]};
-var hireReasons=["Asking money","Fake company/school","Telegram/Crypto","Wrong details","Filled"];
-var seekerReasons=["Fake profile","Spam","Wrong number","Abusive","Asking money"];
+var reasons=["Asking money/fee","Fake company/school","Telegram/Crypto scam","Wrong salary/location","Already filled / Spam"];
 var selectedState="All",selectedCat="All",mode="hire",currentReportId=null;
 
 function migrate(){
  var keys=["hireJobs","needJobs"];
  for(var k=0;k<keys.length;k++){
   var jobs=JSON.parse(localStorage.getItem(keys[k])||"[]");
-  var changed=false;
-  for(var i=0;i<jobs.length;i++){ if(!jobs[i].cat || jobs[i].cat=="undefined"){ jobs[i].cat="General"; changed=true; } }
-  if(changed) localStorage.setItem(keys[k],JSON.stringify(jobs));
+  var ch=false;
+  for(var i=0;i<jobs.length;i++){ if(!jobs[i].cat || jobs[i].cat=="undefined"){ jobs[i].cat="General"; ch=true; } }
+  if(ch) localStorage.setItem(keys[k],JSON.stringify(jobs));
  }
 }
 
-function initStates(){
+function init(){
  migrate();
+ // categories dropdowns
+ var opts=""; for(var i=0;i<categories.length;i++) opts+="<option value='"+categories[i]+"'>"+categories[i]+"</option>";
+ document.getElementById("catSel").innerHTML=opts;
+ document.getElementById("bCat").innerHTML=opts;
+ // state tabs
  var tabs=document.getElementById("stateTabs");
  var html="<button class='active' onclick='filterState(\"All\",this)'>All NE</button>";
  for(var s in states) html+="<button onclick='filterState(\""+s+"\",this)'>"+s+"</button>";
  tabs.innerHTML=html;
- var opts="<option value=''>State *</option>";
- for(var s in states) opts+="<option>"+s+"</option>";
- aState.innerHTML=opts; bState.innerHTML=opts;
+ var catTabs=document.getElementById("catTabs");
+ var chtml="<button class='active' onclick='filterCat(\"All\",this)'>All Jobs</button>";
+ for(var i=0;i<categories.length;i++){ chtml+="<button onclick='filterCat(\""+categories[i]+"\",this)'>"+categories[i]+"</button>"; }
+ catTabs.innerHTML=chtml;
+ var stOpts="<option value=''>State *</option>"; for(var s in states) stOpts+="<option>"+s+"</option>";
+ aState.innerHTML=stOpts; bState.innerHTML=stOpts;
 }
+
 function updateDist(sid,did){
  var st=document.getElementById(sid).value;
  var ds=document.getElementById(did);
@@ -167,23 +180,27 @@ function addJob(){
   if(st==""||dt==""||c1==""||c2==""||c4==""||c5==""){alert("Fill all *");return;}
   var jobs=JSON.parse(localStorage.getItem("hireJobs")||"[]");
   var id=Date.now();
-  jobs.unshift({id:id,cat:cat,state:st,dist:dt,company:c1,role:c2,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
+  jobs.unshift({id:id,cat:cat,state:st,dist:dt,company:c1,role:c2,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0});
   localStorage.setItem("hireJobs",JSON.stringify(jobs));
-  myIds.push(id);localStorage.setItem("myPostedIds",JSON.stringify(myIds));
-  localStorage.setItem("myLastPhone",c5);
+  myIds.push(id);localStorage.setItem("myPostedIds",JSON.stringify(myIds));localStorage.setItem("myLastPhone",c5);
   a1.value="";a2.value="";a4.value="";a5.value="";
  } else {
   var cat=bCat.value,st=bState.value,dt=bDist.value,d1=b1.value,d2=b2.value,d4=b4.value,d5=b5.value;
   if(st==""||dt==""||d1==""||d2==""||d4==""||d5==""){alert("Fill all *");return;}
   var jobs2=JSON.parse(localStorage.getItem("needJobs")||"[]");
   var id=Date.now();
-  jobs2.unshift({id:id,cat:cat,state:st,dist:dt,name:d1,skill:d2,about:d4,phone:d5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
+  jobs2.unshift({id:id,cat:cat,state:st,dist:dt,name:d1,skill:d2,about:d4,phone:d5,date:new Date().toLocaleDateString(),reports:0});
   localStorage.setItem("needJobs",JSON.stringify(jobs2));
-  myIds.push(id);localStorage.setItem("myPostedIds",JSON.stringify(myIds));
-  localStorage.setItem("myLastPhone",d5);
+  myIds.push(id);localStorage.setItem("myPostedIds",JSON.stringify(myIds));localStorage.setItem("myLastPhone",d5);
   b1.value="";b2.value="";b4.value="";b5.value="";
  }
- showJobs();alert("Posted! Now visible in My Posts.");
+ showJobs();alert("Posted in "+(mode=="hire"?catSel.value:bCat.value));
+}
+function getCatClass(cat){
+ if(cat.indexOf("School")>-1) return "catSchool";
+ if(cat.indexOf("Beauty")>-1 || cat.indexOf("Tailor")>-1) return "catBeauty";
+ if(cat.indexOf("Driver")>-1 || cat.indexOf("Delivery")>-1) return "catDriver";
+ return "catBadge";
 }
 function showJobs(){
  var q=searchInput.value.toLowerCase();
@@ -192,30 +209,31 @@ function showJobs(){
  var div=document.getElementById("jobList");
  var jobs=JSON.parse(localStorage.getItem(mode=="hire"?"hireJobs":"needJobs")||"[]");
  var filtered=jobs.filter(function(j){
-  if(!j.cat || j.cat=="undefined") j.cat="General";
+  if(!j.cat) j.cat="General";
   var okState=selectedState=="All"||j.state==selectedState;
   var okDist=dFil==""||j.dist==dFil;
   var okCat=selectedCat=="All"||j.cat==selectedCat;
-  var txt=(j.role||j.skill||""+" "+(j.company||j.name||"")).toLowerCase();
+  var txt=(j.role||j.skill||""+" "+(j.company||j.name||"")+" "+j.cat).toLowerCase();
   return okState && okDist && okCat && (q==""||txt.indexOf(q)>-1);
  });
- div.innerHTML="<p class='small'>Showing "+filtered.length+" | "+selectedState+" / "+selectedCat+"</p>";
+ div.innerHTML="<p class='small'>Showing "+filtered.length+" jobs | State: "+selectedState+" | Category: "+selectedCat+"</p>";
  for(var i=0;i<filtered.length;i++){
   var j=filtered[i];
   var isMine=myIds.indexOf(j.id)>-1;
   var badge=j.reports>=1?"<span class='badge reported'>Reported</span>":"<span class='badge safe'>✓ Safe</span>";
-  var catBadge=j.cat=="School"?"<span class='badge schoolBadge'>🏫 School</span>":"<span class='badge' style='background:#f3f4f6'>"+(j.cat||"General")+"</span>";
+  var catClass=getCatClass(j.cat||"");
+  var catBadge="<span class='badge "+catClass+"'>"+(j.cat||"General")+"</span>";
   var delBtn=isMine?"<button class='delOwn' onclick='delOwnJob("+j.id+")'>Delete</button>":"";
   var mineTag=isMine?"<span class='myPostTag'>My Post</span>":"";
   if(mode=="hire"){
-   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
+   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.role+"</b><br><span class='small'>"+j.company+" | "+j.date+"</span><br><div style='margin:5px 0;font-size:12px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
   } else {
-   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
+   div.innerHTML+="<div class='job'>"+delBtn+"<button class='rbtn' onclick='openReport("+j.id+")'>Report</button><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> "+catBadge+" "+badge+mineTag+"<br><b>"+j.name+"</b> - "+j.skill+"<br><div style='margin:5px 0;font-size:12px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;text-decoration:none'>WhatsApp</a></div>";
   }
  }
 }
 function delOwnJob(id){
- if(!confirm("Delete your post?")) return;
+ if(!confirm("Delete?")) return;
  var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");
  var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
  localStorage.setItem("hireJobs",JSON.stringify(h.filter(function(x){return x.id!=id})));
@@ -242,8 +260,6 @@ function findByPhone(){
  var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
  var all=h.concat(n);
  var mine=all.filter(function(j){return j.phone==phone});
- if(mine.length==0){alert("No posts found with number "+phone);}
- // also save these IDs to myPostedIds for future
  var myIds=JSON.parse(localStorage.getItem("myPostedIds")||"[]");
  for(var i=0;i<mine.length;i++){ if(myIds.indexOf(mine[i].id)==-1) myIds.push(mine[i].id); }
  localStorage.setItem("myPostedIds",JSON.stringify(myIds));
@@ -252,15 +268,15 @@ function findByPhone(){
 }
 function renderMyList(list){
  var div=document.getElementById("myList");
- if(list.length==0){div.innerHTML="<p class='small'>No posts found. If you posted earlier, enter your WhatsApp number above and click Find.</p>";return;}
+ if(list.length==0){div.innerHTML="<p class='small'>No posts. Enter WhatsApp number and click Find.</p>";return;}
  div.innerHTML="";
  for(var i=0;i<list.length;i++){
   var j=list[i];
   var title=j.role?j.role+" at "+j.company:j.name+" - "+j.skill;
-  div.innerHTML+="<div class='job'><span class='stateLabel'>"+j.state+" - "+j.dist+" / "+(j.cat||"General")+"</span><br><b>"+title+"</b><br><span class='small'>"+j.phone+" | "+j.date+"</span><br><button onclick='delOwnJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:6px 8px;border-radius:6px;margin-top:6px;width:100%'>Delete This Post</button></div>";
+  div.innerHTML+="<div class='job'><span class='stateLabel'>"+j.state+" - "+j.dist+"</span> <span class='badge catBadge'>"+(j.cat||"")+"</span><br><b>"+title+"</b><br><span class='small'>"+j.phone+" | "+j.date+"</span><br><button onclick='delOwnJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:6px 8px;border-radius:6px;margin-top:6px;width:100%'>Delete This Post</button></div>";
  }
 }
-function openReport(id){currentReportId=id;reportText.value="";var cont=document.getElementById("reasonContainer");var html="";var list=mode=="hire"?hireReasons:seekerReasons;for(var i=0;i<list.length;i++){html+="<button class='reasonBtn' onclick='selReason(this,\""+list[i]+"\")'>"+list[i]+"</button>";}cont.innerHTML=html;document.getElementById("reportModal").style.display="flex";}
+function openReport(id){currentReportId=id;reportText.value="";var cont=document.getElementById("reasonContainer");var html="";for(var i=0;i<reasons.length;i++){html+="<button class='reasonBtn' onclick='selReason(this,\""+reasons[i]+"\")'>"+reasons[i]+"</button>";}cont.innerHTML=html;document.getElementById("reportModal").style.display="flex";}
 function selReason(el,t){var b=document.querySelectorAll(".reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");el.classList.add("selected");reportText.value=t;}
 function submitReport(){
  var reason=reportText.value;if(reason==""){alert("Select reason");return;}
@@ -273,13 +289,4 @@ function submitReport(){
 }
 function login(){if(adminPass.value=="1234"){adminBox.style.display="block";showAdmin();}else alert("Wrong");}
 function showAdmin(){
- var div=document.getElementById("adminList");
- var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
- var all=h.concat(n);div.innerHTML="";
- for(var i=0;i<all.length;i++){var j=all[i];div.innerHTML+="<div class='job'><b>"+(j.role||j.name)+"</b> - "+j.state+" - "+j.phone+"<br><button onclick='delJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:4px 8px;border-radius:6px;margin-top:4px'>Delete</button></div>";}
-}
-function delJob(id){var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");var n=JSON.parse(localStorage.getItem("needJobs")||"[]");localStorage.setItem("hireJobs",JSON.stringify(h.filter(function(x){return x.id!=id})));localStorage.setItem("needJobs",JSON.stringify(n.filter(function(x){return x.id!=id})));showJobs();showAdmin();}
-initStates();showJobs();
-</script>
-</body>
-</html>
+ var div=document.getElementById("adminLi
