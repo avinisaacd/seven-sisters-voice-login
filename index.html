@@ -8,17 +8,20 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#fdf6f0}
 .header{background:#ff6b35;color:#fff;padding:18px;text-align:center;font-size:20px;font-weight:700}
-.tabs{display:flex;background:#fff;border-bottom:1px solid #eee}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:10}
 .tabs button{flex:1;padding:14px;border:none;background:#fff;font-weight:700;color:#888}
 .tabs button.active{color:#ff6b35;border-bottom:3px solid #ff6b35;background:#fff5f0}
 .tab{display:none;padding:15px}
 .tab.active{display:block}
-.card{background:#fff;border-radius:16px;padding:20px}
-.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:25px;margin-top:10px;font-weight:700}
+.card{background:#fff;border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:25px;margin-top:10px;font-weight:700;cursor:pointer}
 input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
 .switch{display:flex;background:#eee;border-radius:30px;padding:4px;width:fit-content;margin:15px auto}
-.switch button{padding:10px 20px;border-radius:25px;border:none;font-weight:700}
+.switch button{padding:10px 20px;border-radius:25px;border:none;font-weight:700;cursor:pointer}
 .switch button.active{background:#ff6b35;color:#fff}
+.job-item{border:1px solid #ffe0d0;background:#fffaf5;border-radius:12px;padding:15px;margin-top:10px}
+.job-item b{color:#ff6b35}
+.small{font-size:12px;color:#888}
 </style>
 </head>
 <body>
@@ -30,65 +33,102 @@ input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border
 <button id="b4" onclick="show('p4')">Friends</button>
 </div>
 
-<div id="p1" class="tab active"><div class="card"><h2>Welcome</h2><br><button class="btn" style="width:auto;padding:12px 30px" onclick="show('p2')">Enter Home</button></div></div>
-<div id="p2" class="tab"><div class="card">Home Feed</div></div>
+<div id="p1" class="tab active"><div class="card" style="text-align:center"><h2>Welcome to Seven Sisters</h2><p>Voice of NE India</p><br><button class="btn" style="width:auto;padding:12px 30px" onclick="show('p3')">Find Jobs →</button></div></div>
+<div id="p2" class="tab"><div class="card">Home Feed - Coming soon</div></div>
+
 <div id="p3" class="tab">
 <div class="card">
-<h2 style="text-align:center">Jobs</h2>
+<h2 style="text-align:center">💼 Jobs in Northeast</h2>
 <div class="switch">
 <button id="e1" class="active" onclick="job('hire')">I Want to Hire</button>
 <button id="e2" onclick="job('need')">I Need a Job</button>
 </div>
+
 <div id="hire">
-<input id="c1" placeholder="Company Name">
-<input id="c2" placeholder="Job Role">
-<input id="c3" placeholder="Location">
-<textarea id="c4" placeholder="Details"></textarea>
-<input id="c5" placeholder="Phone">
+<input id="c1" placeholder="Company / Shop Name">
+<input id="c2" placeholder="Job Role (e.g. Sales Girl)">
+<input id="c3" placeholder="Location (e.g. Guwahati)">
+<textarea id="c4" placeholder="Details & Salary"></textarea>
+<input id="c5" placeholder="WhatsApp / Phone">
 <button class="btn" onclick="post1()">Post Job</button>
+<div id="hireList" style="margin-top:20px"></div>
 </div>
+
 <div id="need" style="display:none">
-<input id="s1" placeholder="Your Name">
-<input id="s2" placeholder="Skills">
+<input id="s1" placeholder="Your Full Name">
+<input id="s2" placeholder="Skills (e.g. Cooking, Driving)">
 <input id="s3" placeholder="Location">
-<textarea id="s4" placeholder="About You"></textarea>
-<input id="s5" placeholder="Phone">
-<button class="btn" onclick="post2()">Post Profile</button>
+<textarea id="s4" placeholder="About You & Experience"></textarea>
+<input id="s5" placeholder="WhatsApp / Phone">
+<button class="btn" onclick="post2()">Post My Profile</button>
+<div id="needList" style="margin-top:20px"></div>
+</div>
+
 </div>
 </div>
-</div>
-<div id="p4" class="tab"><div class="card">Friends</div></div>
+
+<div id="p4" class="tab"><div class="card">Friends - Coming soon</div></div>
 
 <script>
+// TAB SWITCH
 function show(id){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.getElementById('b'+id[1]).classList.add('active');
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.getElementById('b'+id[1]).classList.add('active');
+ if(id=='p3') renderJobs();
 }
 function job(t){
-if(t=='hire'){
-document.getElementById('hire').style.display='block';
-document.getElementById('need').style.display='none';
-document.getElementById('e1').classList.add('active');
-document.getElementById('e2').classList.remove('active');
-}else{
-document.getElementById('hire').style.display='none';
-document.getElementById('need').style.display='block';
-document.getElementById('e2').classList.add('active');
-document.getElementById('e1').classList.remove('active');
+ if(t=='hire'){
+  document.getElementById('hire').style.display='block';
+  document.getElementById('need').style.display='none';
+  document.getElementById('e1').classList.add('active');
+  document.getElementById('e2').classList.remove('active');
+ }else{
+  document.getElementById('hire').style.display='none';
+  document.getElementById('need').style.display='block';
+  document.getElementById('e2').classList.add('active');
+  document.getElementById('e1').classList.remove('active');
+ }
+ renderJobs();
 }
-}
+
+// POST & SAVE
 function post1(){
-if(!c1.value||!c2.value){alert('Fill Company & Role');return;}
-alert('Job Posted: '+c2.value);
-c1.value='';c2.value='';c3.value='';c4.value='';c5.value='';
+ if(!c1.value||!c2.value){alert('Fill Company & Role');return;}
+ let jobs = JSON.parse(localStorage.getItem('hireJobs')||'[]');
+ jobs.unshift({company:c1.value, role:c2.value, loc:c3.value, details:c4.value, phone:c5.value, time:new Date().toLocaleString()});
+ localStorage.setItem('hireJobs', JSON.stringify(jobs));
+ c1.value='';c2.value='';c3.value='';c4.value='';c5.value='';
+ renderJobs();
+ alert('✅ Job Posted & Listed Below!');
 }
 function post2(){
-if(!s1.value||!s2.value){alert('Fill Name & Skills');return;}
-alert('Profile Posted: '+s1.value);
-s1.value='';s2.value='';s3.value='';s4.value='';s5.value='';
+ if(!s1.value||!s2.value){alert('Fill Name & Skills');return;}
+ let jobs = JSON.parse(localStorage.getItem('needJobs')||'[]');
+ jobs.unshift({name:s1.value, skill:s2.value, loc:s3.value, about:s4.value, phone:s5.value, time:new Date().toLocaleString()});
+ localStorage.setItem('needJobs', JSON.stringify(jobs));
+ s1.value='';s2.value='';s3.value='';s4.value='';s5.value='';
+ renderJobs();
+ alert('✅ Profile Posted & Listed Below!');
 }
+
+// SHOW LIST
+function renderJobs(){
+ let h = JSON.parse(localStorage.getItem('hireJobs')||'[]');
+ let hireDiv = document.getElementById('hireList');
+ hireDiv.innerHTML = h.length?'<h3>Posted Jobs ('+h.length+')</h3>':'<p class="small">No jobs posted yet</p>';
+ h.forEach(j=>{
+  hireDiv.innerHTML+=`<div class="job-item"><b>${j.role}</b> at ${j.company}<br><span class="small">${j.loc} | ${j.time}</span><br>${j.details}<br><b>📞 ${j.phone}</b></div>`;
+ });
+ let n = JSON.parse(localStorage.getItem('needJobs')||'[]');
+ let needDiv = document.getElementById('needList');
+ needDiv.innerHTML = n.length?'<h3>Job Seekers ('+n.length+')</h3>':'<p class="small">No profiles yet</p>';
+ n.forEach(j=>{
+  needDiv.innerHTML+=`<div class="job-item"><b>${j.name}</b> - ${j.skill}<br><span class="small">${j.loc} | ${j.time}</span><br>${j.about}<br><b>📞 ${j.phone}</b></div>`;
+ });
+}
+renderJobs();
 </script>
 </body>
 </html>
