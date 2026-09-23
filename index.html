@@ -3,191 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seven Sisters Voice</title>
+<title>Seven Sisters Jobs - No Scam NE Jobs</title>
 <style>
-body{margin:0;font-family:Arial;background:#fdf6f0}
-.header{background:#ff6b35;color:#fff;padding:18px;text-align:center;font-weight:bold;font-size:20px}
-.tabs{display:flex;background:#fff;position:sticky;top:0}
-.tabs button{flex:1;padding:14px;border:none;background:#fff;font-weight:bold;color:#888}
-.tabs button.active{color:#ff6b35;border-bottom:3px solid #ff6b35}
-.tab{display:none;padding:15px}
-.tab.active{display:block}
-.card{background:#fff;border-radius:12px;padding:15px;margin-bottom:15px}
-input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
-.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:20px;font-weight:bold;margin-top:8px;cursor:pointer}
-.warn{background:#fff3cd;padding:10px;border-radius:8px;font-size:13px;border:1px solid #ffcc00;margin-bottom:10px}
-.job{border:1px solid #ffd5b5;background:#fffaf5;padding:12px;border-radius:10px;margin-top:10px}
-.small{font-size:11px;color:#777}
-.rbtn{float:right;background:#ffdddd;color:red;border:none;padding:4px 8px;border-radius:10px;font-size:11px;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f4f6f8}
+.header{background:#111827;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:19px}.logo span{color:#ff6b35}
+.header button{background:#ff6b35;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700;font-size:12px}
+.searchBar{background:#fff;padding:15px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10}
+.searchRow{display:flex;gap:8px}
+.searchRow input,.searchRow select{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px}
+.switch{display:flex;background:#e5e7eb;border-radius:25px;padding:3px;margin-top:12px;width:fit-content}
+.switch button{padding:8px 18px;border-radius:20px;border:none;font-weight:700;font-size:13px;cursor:pointer;background:transparent;color:#666}
+.switch button.active{background:#111827;color:#fff}
+.container{padding:15px;max-width:600px;margin:0 auto}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.btn{width:100%;background:#ff6b35;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;margin-top:8px;cursor:pointer}
+input,textarea,select{width:100%;padding:11px;margin:6px 0;border:1px solid #d1d5db;border-radius:8px;font-size:14px}
+.warn{background:#fff7ed;border:1px solid #ffedd5;color:#9a3412;padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}
+.job{border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-top:12px;background:#fff;position:relative}
+.badge{font-size:10px;padding:3px 7px;border-radius:10px;font-weight:700}
+.safe{background:#dcfce7;color:#166534}.pending{background:#fef3c7;color:#92400e}.reported{background:#fee2e2;color:#991b1b}
+.rbtn{float:right;background:#fff;border:1px solid #fecaca;color:#dc2626;padding:4px 9px;border-radius:15px;font-size:11px;cursor:pointer}
+.small{font-size:11px;color:#6b7280}
 #reportModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center}
-#reportBox{background:#fff;width:90%;max-width:350px;padding:20px;border-radius:16px}
-.reasonBtn{padding:8px 10px;border:1px solid #ddd;border-radius:20px;background:#f5f5f5;margin:4px;font-size:12px;cursor:pointer}
-.reasonBtn.selected{background:#ff6b35;color:#fff;border-color:#ff6b35}
-.reportReason{background:#ffe0e0;padding:6px 8px;border-radius:6px;margin-top:6px;font-size:12px;color:#900;border-left:4px solid red}
+#reportBox{background:#fff;width:92%;max-width:380px;padding:20px;border-radius:16px}
+.reasonBtn{padding:7px 10px;border:1px solid #e5e7eb;border-radius:20px;background:#f9fafb;margin:4px;font-size:12px;cursor:pointer}
+.reasonBtn.selected{background:#111827;color:#fff}
+.reportReason{background:#fef2f2;border-left:4px solid #dc2626;padding:6px 8px;border-radius:6px;margin-top:6px;font-size:12px;color:#7f1d1d}
+.adminJob{border:2px solid #fecaca}
 </style>
 </head>
 <body>
-<div class="header">Seven Sisters Voice</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="openTab(1)">Enter</button>
-<button id="t3" onclick="openTab(3)">Jobs</button>
-<button id="t4" onclick="openTab(4)">Admin</button>
+<div class="header">
+<div class="logo">Seven Sisters <span>Jobs</span></div>
+<button onclick="openTab('admin')">Admin</button>
 </div>
 
-<div id="tab1" class="tab active"><div class="card"><h3>Welcome</h3><p>Safe Jobs NE</p><button class="btn" onclick="openTab(3)">Go to Jobs</button></div></div>
+<div class="searchBar">
+<div class="searchRow">
+<input id="searchInput" placeholder="Search role: driver, sales..." onkeyup="showJobs()">
+<select id="locFilter" onchange="showJobs()">
+<option value="">All NE</option>
+<option value="Guwahati">Guwahati</option>
+<option value="Dibrugarh">Dibrugarh</option>
+<option value="Jorhat">Jorhat</option>
+<option value="Silchar">Silchar</option>
+<option value="Tezpur">Tezpur</option>
+<option value="Nagaon">Nagaon</option>
+<option value="Shillong">Shillong</option>
+<option value="Imphal">Imphal</option>
+<option value="Dimapur">Dimapur / Kohima</option>
+<option value="Aizawl">Aizawl</option>
+<option value="Itanagar">Itanagar</option>
+<option value="Agartala">Agartala</option>
+</select>
+</div>
+<div class="switch">
+<button id="btnHire" class="active" onclick="setMode('hire')">Hiring</button>
+<button id="btnNeed" onclick="setMode('need')">Job Seekers</button>
+</div>
+</div>
 
-<div id="tab3" class="tab">
-<div class="card">
-<h3 style="text-align:center">Safe Jobs</h3>
-<div class="warn"><b>SCAM PROTECTION:</b> Never pay money. Press Report if asking fee.</div>
-<input id="a1" placeholder="Company Name">
-<input id="a2" placeholder="Job Role">
-<input id="a3" placeholder="Location">
-<textarea id="a4" placeholder="Details and Salary"></textarea>
-<input id="a5" placeholder="Phone">
-<button class="btn" onclick="addJob()">Post Job</button>
+<div class="container">
+<!-- POST FORM -->
+<div class="card" id="postCard">
+<h3 id="postTitle">Post a Job - For Shops/Companies</h3>
+<div class="warn">🛡️ Protected: No fee jobs only. Auto-block for crypto/telegram/fee words. Users can report with reason.</div>
+<div id="hireForm">
+<input id="a1" placeholder="Company / Shop Name *">
+<input id="a2" placeholder="Job Role * eg: Sales Boy, Receptionist">
+<select id="a3"><option value="">Select Location *</option><option>Guwahati</option><option>Dibrugarh</option><option>Jorhat</option><option>Silchar</option><option>Tezpur</option><option>Nagaon</option><option>Shillong</option><option>Imphal</option><option>Dimapur</option><option>Aizawl</option><option>Itanagar</option><option>Agartala</option><option>Other NE</option></select>
+<textarea id="a4" placeholder="Salary + Timing + Work * eg: 12k, 9am-6pm, Food+Room"></textarea>
+<input id="a5" placeholder="WhatsApp Number *">
+</div>
+<div id="needForm" style="display:none">
+<input id="b1" placeholder="Your Name *">
+<input id="b2" placeholder="Your Skill * eg: Driving, Computer, Sales">
+<select id="b3"><option value="">Your Location *</option><option>Guwahati</option><option>Dibrugarh</option><option>Jorhat</option><option>Silchar</option><option>Tezpur</option><option>Nagaon</option><option>Shillong</option><option>Imphal</option><option>Dimapur</option><option>Aizawl</option><option>Itanagar</option><option>Agartala</option><option>Other NE</option></select>
+<textarea id="b4" placeholder="About You + Experience *"></textarea>
+<input id="b5" placeholder="WhatsApp Number *">
+</div>
+<button class="btn" onclick="addJob()">Post Now</button>
+</div>
+
+<!-- JOBS LIST -->
 <div id="jobList"></div>
-</div>
-</div>
 
-<div id="tab4" class="tab">
-<div class="card">
-<h3>Admin Panel - See Reports Here</h3>
-<input id="p" type="password" placeholder="Password 1234">
+<!-- ADMIN -->
+<div class="card" id="adminCard" style="display:none">
+<h3>Admin Panel - Reports & Reasons</h3>
+<input id="adminPass" type="password" placeholder="Password 1234">
 <button class="btn" onclick="login()">Login</button>
 <div id="adminBox" style="display:none;margin-top:15px">
-<h4>All Jobs + Report Reasons:</h4>
 <div id="adminList"></div>
-<button class="btn" style="background:black;margin-top:15px" onclick="clearJobs()">Clear All Jobs</button>
+<button class="btn" style="background:#111827;margin-top:10px" onclick="closeAdmin()">Close Admin</button>
 </div>
 </div>
 </div>
 
+<!-- REPORT MODAL -->
 <div id="reportModal">
 <div id="reportBox">
-<h3 style="text-align:center">Report Job</h3>
-<p class="small" style="text-align:center">Why reporting?</p>
-<div style="text-align:center;margin:10px 0">
-<button class="reasonBtn" onclick="selectReason(this,'Asking for money/fee')">Asking money</button>
-<button class="reasonBtn" onclick="selectReason(this,'Fake company')">Fake company</button>
-<button class="reasonBtn" onclick="selectReason(this,'Telegram/Crypto task')">Telegram/Crypto</button>
-<button class="reasonBtn" onclick="selectReason(this,'Wrong location/salary')">Wrong details</button>
-<button class="reasonBtn" onclick="selectReason(this,'Other scam')">Other scam</button>
+<h3 style="text-align:center">Report this Job</h3>
+<p class="small" style="text-align:center;margin:6px 0">Select reason - this will go to Admin</p>
+<div style="text-align:center;margin:8px 0">
+<button class="reasonBtn" onclick="selReason(this,'Asking for money/fee')">Asking money</button>
+<button class="reasonBtn" onclick="selReason(this,'Fake company/shop')">Fake company</button>
+<button class="reasonBtn" onclick="selReason(this,'Telegram / Crypto / Task scam')">Telegram/Crypto</button>
+<button class="reasonBtn" onclick="selReason(this,'Wrong salary/location')">Wrong details</button>
+<button class="reasonBtn" onclick="selReason(this,'Already filled / Not picking')">Not responding</button>
 </div>
-<textarea id="reportText" placeholder="Write reason..."></textarea>
+<textarea id="reportText" placeholder="Write your reason here..."></textarea>
 <button class="btn" onclick="submitReport()">Confirm Report</button>
-<button class="btn" style="background:#eee;color:#333" onclick="closeReport()">Cancel</button>
+<button class="btn" style="background:#e5e7eb;color:#111" onclick="closeReport()">Cancel</button>
 </div>
 </div>
 
 <script>
-var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit"];
+var blocked=["fee","crypto","investment","telegram","forex","pay to join","security deposit","registration"];
+var mode="hire";
 var currentReportId=null;
 
-function openTab(n){
- var tabs=document.querySelectorAll(".tab");
- for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
- var btns=document.querySelectorAll(".tabs button");
- for(var i=0;i<btns.length;i++) btns[i].classList.remove("active");
- document.getElementById("tab"+n).classList.add("active");
- document.getElementById("t"+n).classList.add("active");
- if(n==3) showJobs();
- if(n==4){
-   if(localStorage.getItem("admin")=="yes"){
-     document.getElementById("adminBox").style.display="block";
-     showAdmin();
-   }
- }
+function setMode(m){
+ mode=m;
+ document.getElementById("btnHire").classList.remove("active");
+ document.getElementById("btnNeed").classList.remove("active");
+ document.getElementById("btnHire").classList.add(m=="hire"?"active":"");
+ document.getElementById("btnNeed").classList.add(m=="need"?"active":"");
+ if(m=="hire"){document.getElementById("hireForm").style.display="block";document.getElementById("needForm").style.display="none";document.getElementById("postTitle").innerText="Post a Job - For Shops/Companies";}
+ else{document.getElementById("hireForm").style.display="none";document.getElementById("needForm").style.display="block";document.getElementById("postTitle").innerText="Post Your Profile - For Job Seekers";}
+ showJobs();
 }
+function openTab(t){ if(t=="admin"){document.getElementById("adminCard").style.display="block";window.scrollTo(0,0);} }
+function closeAdmin(){document.getElementById("adminCard").style.display="none";}
 
 function addJob(){
- var c1=document.getElementById("a1").value;
- var c2=document.getElementById("a2").value;
- var c3=document.getElementById("a3").value;
- var c4=document.getElementById("a4").value;
- var c5=document.getElementById("a5").value;
- if(c1==""||c2==""||c3==""||c4==""||c5==""){alert("Fill all");return;}
- var full=(c1+" "+c2+" "+c4).toLowerCase();
- for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: "+blocked[i]);return;}}
- var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
- jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
- localStorage.setItem("jobs",JSON.stringify(jobs));
- document.getElementById("a1").value="";document.getElementById("a2").value="";document.getElementById("a3").value="";document.getElementById("a4").value="";document.getElementById("a5").value="";
+ if(mode=="hire"){
+  var c1=a1.value,c2=a2.value,c3=a3.value,c4=a4.value,c5=a5.value;
+  if(c1==""||c2==""||c3==""||c4==""||c5==""){alert("Fill all *");return;}
+  var full=(c1+" "+c2+" "+c4).toLowerCase();
+  for(var i=0;i<blocked.length;i++){if(full.indexOf(blocked[i])>-1){alert("BLOCKED: Scam word - "+blocked[i]);return;}}
+  var jobs=JSON.parse(localStorage.getItem("hireJobs")||"[]");
+  jobs.unshift({id:Date.now(),company:c1,role:c2,loc:c3,details:c4,phone:c5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
+  localStorage.setItem("hireJobs",JSON.stringify(jobs));
+  a1.value="";a2.value="";a3.value="";a4.value="";a5.value="";
+ } else {
+  var d1=b1.value,d2=b2.value,d3=b3.value,d4=b4.value,d5=b5.value;
+  if(d1==""||d2==""||d3==""||d4==""||d5==""){alert("Fill all *");return;}
+  var jobs2=JSON.parse(localStorage.getItem("needJobs")||"[]");
+  jobs2.unshift({id:Date.now(),name:d1,skill:d2,loc:d3,about:d4,phone:d5,date:new Date().toLocaleDateString(),reports:0,reasons:[]});
+  localStorage.setItem("needJobs",JSON.stringify(jobs2));
+  b1.value="";b2.value="";b3.value="";b4.value="";b5.value="";
+ }
  showJobs();
+ alert("Posted! Your post is live with scam protection.");
 }
 
 function showJobs(){
- var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
+ var q=document.getElementById("searchInput").value.toLowerCase();
+ var loc=document.getElementById("locFilter").value;
  var div=document.getElementById("jobList");
- div.innerHTML="";
- if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}
- div.innerHTML="<h4>Jobs: "+jobs.length+"</h4>";
- for(var i=0;i<jobs.length;i++){
-  var j=jobs[i];
-  var warn="";
-  if(j.reports>=1) warn=" <span style='color:red'>(Reported "+j.reports+"x)</span>";
-  div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report "+j.reports+"</button><b>"+j.role+"</b> at "+j.company+warn+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br>"+j.details+"<br><b>Phone: "+j.phone+"</b></div>";
+ var jobs=JSON.parse(localStorage.getItem(mode=="hire"?"hireJobs":"needJobs")||"[]");
+ var filtered=jobs.filter(function(j){
+  var text=(j.role||j.skill||""+" "+(j.company||j.name||"")+" "+j.loc).toLowerCase();
+  var matchQ=q==""||text.indexOf(q)>-1;
+  var matchL=loc==""||j.loc==loc;
+  return matchQ && matchL;
+ });
+ div.innerHTML="<p class='small' style='margin:10px 0'>Showing "+filtered.length+" "+(mode=="hire"?"jobs":"seekers")+"</p>";
+ if(filtered.length==0){div.innerHTML+="<div class='card' style='text-align:center'>No results. Try All NE.</div>";return;}
+ for(var i=0;i<filtered.length;i++){
+  var j=filtered[i];
+  var badge=j.reports>=2?"<span class='badge reported'>⚠️ Reported "+j.reports+"</span>":j.reports==1?"<span class='badge pending'>Reported 1</span>":"<span class='badge safe'>✓ Safe</span>";
+  if(mode=="hire"){
+   div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport("+j.id+")'>Report 🚩 "+j.reports+"</button><b>"+j.role+"</b> "+badge+"<br><span class='small'>"+j.company+" | "+j.loc+" | "+j.date+"</span><br><div style='margin:8px 0;font-size:13px'>"+j.details+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
+  } else {
+   div.innerHTML+="<div class='job'><button class='rbtn' onclick='openReport2("+j.id+")'>Report "+j.reports+"</button><b>"+j.name+"</b> - "+j.skill+" "+badge+"<br><span class='small'>"+j.loc+" | "+j.date+"</span><br><div style='margin:8px 0;font-size:13px'>"+j.about+"</div><a href='https://wa.me/91"+j.phone+"' style='background:#25D366;color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;text-decoration:none'>WhatsApp: "+j.phone+"</a></div>";
+  }
  }
 }
 
-function openReport(id){
- currentReportId=id;
- document.getElementById("reportText").value="";
- var btns=document.querySelectorAll(".reasonBtn");
- for(var i=0;i<btns.length;i++) btns[i].classList.remove("selected");
- document.getElementById("reportModal").style.display="flex";
-}
-function closeReport(){document.getElementById("reportModal").style.display="none";currentReportId=null;}
-function selectReason(el,text){var btns=document.querySelectorAll(".reasonBtn");for(var i=0;i<btns.length;i++)btns[i].classList.remove("selected");el.classList.add("selected");document.getElementById("reportText").value=text;}
+function openReport(id){currentReportId=id;document.getElementById("reportText").value="";var b=document.querySelectorAll(".reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");document.getElementById("reportModal").style.display="flex";}
+function openReport2(id){openReport(id);}
+function closeReport(){document.getElementById("reportModal").style.display="none";}
+function selReason(el,t){var b=document.querySelectorAll(".reasonBtn");for(var i=0;i<b.length;i++)b[i].classList.remove("selected");el.classList.add("selected");document.getElementById("reportText").value=t;}
 
 function submitReport(){
  var reason=document.getElementById("reportText").value;
- if(reason==""){alert("Please select or write reason");return;}
- var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
- for(var i=0;i<jobs.length;i++){
-  if(jobs[i].id==currentReportId){
-   jobs[i].reports = (jobs[i].reports||0)+1;
-   if(!jobs[i].reasons) jobs[i].reasons=[];
-   jobs[i].reasons.push(reason);
-   break;
-  }
+ if(reason==""){alert("Select or write reason");return;}
+ var key=mode=="hire"?"hireJobs":"needJobs";
+ // if reporting from admin view, check both
+ var jobs=JSON.parse(localStorage.getItem(key)||"[]");
+ var found=false;
+ for(var i=0;i<jobs.length;i++){if(jobs[i].id==currentReportId){jobs[i].reports=(jobs[i].reports||0)+1;if(!jobs[i].reasons)jobs[i].reasons=[];jobs[i].reasons.push(reason+" - "+new Date().toLocaleString());found=true;break;}}
+ if(found){localStorage.setItem(key,JSON.stringify(jobs));}
+ else {
+  // try other list
+  var other=key=="hireJobs"?"needJobs":"hireJobs";
+  var jobs2=JSON.parse(localStorage.getItem(other)||"[]");
+  for(var i=0;i<jobs2.length;i++){if(jobs2[i].id==currentReportId){jobs2[i].reports=(jobs2[i].reports||0)+1;if(!jobs2[i].reasons)jobs2[i].reasons=[];jobs2[i].reasons.push(reason+" - "+new Date().toLocaleString());localStorage.setItem(other,JSON.stringify(jobs2));break;}}
  }
- localStorage.setItem("jobs",JSON.stringify(jobs));
- closeReport();
- showJobs();
- showAdmin();
+ closeReport();showJobs();showAdmin();
  alert("Thank you for reporting, we will look into the matter.");
 }
 
 function login(){
- if(document.getElementById("p").value=="1234"){
-   localStorage.setItem("admin","yes");
-   document.getElementById("adminBox").style.display="block";
-   showAdmin();
- } else alert("Wrong password");
+ if(document.getElementById("adminPass").value=="1234"){localStorage.setItem("admin","yes");document.getElementById("adminBox").style.display="block";showAdmin();} else alert("Wrong");
 }
-
 function showAdmin(){
- var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");
  var div=document.getElementById("adminList");
+ var h=JSON.parse(localStorage.getItem("hireJobs")||"[]");
+ var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
+ var all=h.concat(n);
+ all.sort(function(a,b){return (b.reports||0)-(a.reports||0);});
  div.innerHTML="";
- if(jobs.length==0){div.innerHTML="<p class='small'>No jobs</p>";return;}
- for(var i=0;i<jobs.length;i++){
-  var j=jobs[i];
+ if(all.length==0){div.innerHTML="<p class='small'>No posts yet</p>";return;}
+ for(var i=0;i<all.length;i++){
+  var j=all[i];
+  var title=j.role?j.role+" at "+j.company:j.name+" - "+j.skill;
   var reasonHtml="";
   if(j.reasons && j.reasons.length>0){
-   for(var k=0;k<j.reasons.length;k++){
-     reasonHtml+="<div class='reportReason'>REASON "+(k+1)+": "+j.reasons[k]+"</div>";
-   }
-  } else {
-   reasonHtml="<div class='small'>No reports yet</div>";
-  }
-  div.innerHTML+="<div class='job'><b>"+j.role+"</b> at "+j.company+"<br><span class='small'>"+j.loc+" | Total Reports: "+j.reports+"</span><br><div style='margin-top:8px'>"+reasonHtml+"</div><br><button onclick='del("+j.id+")' style='background:red;color:#fff;border:none;padding:6px 12px;border-radius:8px;margin-top:8px'>Delete This Job</button></div>";
+   for(var k=0;k<j.reasons.length;k++){reasonHtml+="<div class='reportReason'>REASON "+(k+1)+": "+j.reasons[k]+"</div>";}
+  } else {reasonHtml="<div class='small'>No reports - Safe</div>";}
+  div.innerHTML+="<div class='job adminJob'><b>"+title+"</b><br><span class='small'>"+j.loc+" | Reports: "+(j.reports||0)+" | "+j.phone+"</span><div style='margin-top:8px'>"+reasonHtml+"</div><button onclick='delJob("+j.id+")' style='background:#dc2626;color:#fff;border:none;padding:6px 12px;border-radius:6px;margin-top:8px;font-size:12px'>Delete This Post</button></div>";
  }
 }
-
-function del(id){var jobs=JSON.parse(localStorage.getItem("jobs")||"[]");jobs=jobs.filter(function(x){return x.id!=id});localStorage.setItem("jobs",JSON.stringify(jobs));showJobs();showAdmin();}
-function clearJobs(){if(confirm("Delete all?")){localStorage.removeItem("jobs");showJobs();showAdmin();}}
+function delJob(id){
+ var h=JSON.parse(localStorage.getItem("hireJobs")||"[]"); var n=JSON.parse(localStorage.getItem("needJobs")||"[]");
+ var nh=h.filter(function(x){return x.id!=id}); var nn=n.filter(function(x){return x.id!=id});
+ localStorage.setItem("hireJobs",JSON.stringify(nh)); localStorage.setItem("needJobs",JSON.stringify(nn));
+ showJobs(); showAdmin();
+}
 showJobs();
 </script>
 </body>
