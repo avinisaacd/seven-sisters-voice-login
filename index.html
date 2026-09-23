@@ -1,141 +1,51 @@
-<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seven Sisters Voice</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seven Sisters Voice</title>
 <style>
-body{margin:0;background:#fdf4ff;font-family:Arial}
-h1{font-size:50px;font-weight:900;line-height:.9;padding-top:60px;text-align:center}
-h1 span{color:#9333ff;display:block}
-.sub{text-align:center;color:#666}
-.box{background:#fff;border-radius:28px;padding:24px;width:90%;max-width:360px;margin:30px auto;box-shadow:0 20px 40px rgba(0,0,0,.1);text-align:center}
-input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1.5px solid #e9d5ff;margin-top:8px;font-size:13px;outline:none;box-sizing:border-box}
-input:focus,select:focus,textarea:focus{border-color:#9333ff}
-button{cursor:pointer}
-.btn{width:100%;margin-top:14px;background:#111;color:#fff;padding:16px;border-radius:999px;font-weight:900;border:0;font-size:16px}
-#main{display:none;max-width:1100px;margin:0 auto;padding:14px}
-.card{background:#fff;border-radius:16px;padding:14px;border:1px solid #eee;margin-bottom:10px}
-.sideTab{padding:12px;border-radius:12px;cursor:pointer;font-weight:700;margin-bottom:6px;display:flex;gap:8px}
-.sideTab.active{background:#111;color:#fff}
-.content{display:none !important}
-.content.active{display:block !important}
-.jobSubTab{padding:10px 18px;border-radius:999px;border:1.5px solid #e9d5ff;background:#fff;font-weight:800;font-size:13px;cursor:pointer;margin-right:6px}
-.jobSubTab.active{background:#9333ff;color:#fff;border-color:#9333ff}
-.jobCard{padding:12px;background:#fdfaff;border-radius:12px;border:1px solid #f3e8ff;margin-top:10px}
-.label{font-size:11px;font-weight:800;color:#9333ff;margin-top:10px;display:block;text-align:left}
-</style></head><body>
+body{font-family:Arial; margin:0; padding:0; background:#fff8f0;}
+.header{background:#ff6b35; color:white; padding:15px; text-align:center; font-size:20px; font-weight:bold;}
+.tabs{display:flex; overflow-x:auto; background:white; border-bottom:1px solid #ddd; position:sticky; top:0;}
+.tabs button{flex:1; padding:12px 15px; border:none; background:white; cursor:pointer; white-space:nowrap;}
+.tabs button.active{background:#ff6b35; color:white;}
+.tab-content{display:none; padding:15px;}
+.tab-content.active{display:block;}
+input, textarea, select{width:92%; padding:10px; margin:6px 0; border:1px solid #ccc; border-radius:5px;}
+.btn{padding:10px 20px; background:#ff6b35; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:10px;}
+</style>
+</head>
+<body>
 
-<div id="login">
-<h1>Your Voice.<span>Your Hills.</span></h1>
-<p class="sub">Northeast India</p>
-<div class="box">
-<input id="n" value="Avin">
-<button class="btn" onclick="document.getElementById('login').style.display='none';document.getElementById('main').style.display='block';var v=document.getElementById('n').value;document.getElementById('u').innerText=v;document.getElementById('u2').innerText=v">Enter Hills →</button>
-</div>
+<div class="header">Seven Sisters Voice - NE India</div>
+
+<div class="tabs">
+  <button class="tabBtn active" onclick="openTab('enter')">Enter Hills</button>
+  <button class="tabBtn" onclick="openTab('home')">Home</button>
+  <button class="tabBtn" onclick="openTab('jobs')">Jobs</button>
+  <button class="tabBtn" onclick="openTab('friends')">Friends</button>
 </div>
 
-<div id="main">
-<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
-<div style="width:260px">
-<div class="card"><div><b>👋 <span id="u">Avin</span></b> <button onclick="document.getElementById('main').style.display='none';document.getElementById('login').style.display='block'" style="float:right;background:#eee;border:0;padding:6px 12px;border-radius:20px;font-weight:800">Logout</button></div></div>
-<div class="card">
-<div class="sideTab active" id="tab-home" onclick="openTab('home')">🏠 Home</div>
-<div class="sideTab" id="tab-jobs" onclick="openTab('jobs')">💼 Jobs</div>
-<div class="sideTab" id="tab-friends" onclick="openTab('friends')">👥 Friends</div>
-<div class="sideTab" id="tab-trending" onclick="openTab('trending')">🔥 Trending</div>
-</div>
+<!-- ENTER HILLS -->
+<div id="enter" class="tab-content active">
+  <h2>Welcome to Seven Sisters</h2>
+  <p>Voice of Northeast India</p>
+  <button class="btn" onclick="openTab('home')">Enter Home</button>
 </div>
 
-<div style="flex:1;min-width:300px">
-
-<div class="content active" id="content-home">
-<div class="card"><b>Welcome <span id="u2">Avin</span>! 🎉</b><p style="margin-top:8px;color:#555;font-size:13px">Share what's happening in hills</p><textarea id="postTxt" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px" rows="3" placeholder="What's happening?"></textarea><button onclick="addPost()" style="margin-top:8px;width:100%;background:#111;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post</button><div id="posts" style="margin-top:12px"></div></div>
+<!-- HOME -->
+<div id="home" class="tab-content">
+  <h2>Home Feed</h2>
+  <p>Latest posts from hills...</p>
 </div>
 
-<div class="content" id="content-jobs">
-<div class="card">
-<h3>💼 Jobs - Northeast</h3>
-<div style="margin-top:14px">
-<button class="jobSubTab active" id="jobTab-employer" onclick="openJobSub('employer')">🏢 Employer - Post Job</button>
-<button class="jobSubTab" id="jobTab-employee" onclick="openJobSub('employee')">👤 Employee - Find Job</button>
-</div>
+<!-- JOBS - FIXED -->
+<div id="jobs" class="tab-content">
+  <h2 style="text-align:center;">Jobs in Northeast</h2>
+  <div style="display:flex; gap:10px; justify-content:center; margin:15px;">
+    <button id="employerBtn" onclick="switchJob('employer')" style="padding:10px 25px; background:#ff6b35; color:white; border:none; border-radius:20px; font-weight:bold;">Employer</button>
+    <button id="employeeBtn" onclick="switchJob('employee')" style="padding:10px 25px; background:#e0e0e0; color:black; border:none; border-radius:20px; font-weight:bold;">Job Seeker</button>
+  </div>
 
-<div id="job-employer" style="display:block;margin-top:16px">
-<div style="background:#f5f3ff;padding:16px;border-radius:16px;border:1.5px solid #e9d5ff">
-<b style="font-size:14px">🏢 Post a Job (Employer)</b>
-<label class="label">Industry / Institution Name *</label>
-<input id="empIndustry" placeholder="e.g. DPS Jorhat, GNRC Hospital">
-<label class="label">Position *</label>
-<input id="empPosition" placeholder="e.g. Primary Teacher">
-<label class="label">Job Role / Description *</label>
-<textarea id="empRole" rows="2" placeholder="e.g. Teach Class 1-5, B.Ed required"></textarea>
-<label class="label">Salary *</label>
-<input id="empSalary" placeholder="e.g. ₹25,000/month">
-<label class="label">Working Hours *</label>
-<input id="empHours" placeholder="e.g. 9 AM - 4 PM">
-<label class="label">Contact Details *</label>
-<input id="empContact" placeholder="e.g. 9876543210 / hr@dps.com">
-<button onclick="postEmployerJob()" style="margin-top:14px;width:100%;background:#9333ff;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Post Job →</button>
-</div>
-<div id="employerJobsList" style="margin-top:16px"></div>
-</div>
-
-<div id="job-employee" style="display:none;margin-top:16px">
-<div style="background:#f0fdf4;padding:16px;border-radius:16px;border:1.5px solid #bbf7d0">
-<b style="font-size:14px">👤 Looking for Job? (Employee)</b>
-<label class="label">Job You Are Seeking *</label>
-<input id="empSeek" placeholder="e.g. Teaching, Delivery">
-<label class="label">Years of Experience *</label>
-<select id="empExp"><option value="">Select Experience</option><option>Fresher</option><option>1 Year</option><option>2 Years</option><option>3 Years</option><option>5+ Years</option></select>
-<label class="label">Location</label>
-<input id="empSeekLoc" placeholder="e.g. Jorhat">
-<label class="label">Contact / Skills</label>
-<input id="empSeekContact" placeholder="e.g. B.Ed, English">
-<button onclick="postEmployeeProfile()" style="margin-top:14px;width:100%;background:#16a34a;color:#fff;padding:12px;border-radius:999px;border:0;font-weight:900">Update Profile →</button>
-</div>
-<div id="employeeList" style="margin-top:16px"></div>
-</div>
-
-</div>
-</div>
-
-<div class="content" id="content-friends">
-<div class="card"><h3>👥 Friends</h3>
-<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:10px">Priya • Dibrugarh</div>
-<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:10px">Manish • Kohima</div>
-</div>
-</div>
-
-<div class="content" id="content-trending">
-<div class="card"><h3>🔥 Trending</h3>
-<div style="margin-top:12px;padding:12px;background:#fdfaff;border-radius:12px">#AssamTea • 2.3k</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-
-<script>
-var employerJobs=[];
-var employeeProfiles=[];
-function openTab(name){
-document.getElementById('content-home').className='content';
-document.getElementById('content-jobs').className='content';
-document.getElementById('content-friends').className='content';
-document.getElementById('content-trending').className='content';
-document.getElementById('tab-home').className='sideTab';
-document.getElementById('tab-jobs').className='sideTab';
-document.getElementById('tab-friends').className='sideTab';
-document.getElementById('tab-trending').className='sideTab';
-document.getElementById('content-'+name).className='content active';
-document.getElementById('tab-'+name).className='sideTab active';
-}
-function openJobSub(sub){
-document.getElementById('job-employer').style.display=(sub=='employer'?'block':'none');
-document.getElementById('job-employee').style.display=(sub=='employee'?'block':'none');
-document.getElementById('jobTab-employer').className=(sub=='employer'?'jobSubTab active':'jobSubTab');
-document.getElementById('jobTab-employee').className=(sub=='employee'?'jobSubTab active':'jobSubTab');
-}
-function addPost(){
-var v=document.getElementById('postTxt').value.trim();
-if(!v){alert('Write something');return;}
-document.getElementById('posts').innerHTML='<div style="padding:10px;border-bottom:1px solid #eee"><b>You</b>: '+v+'</div>'+document.getElementById('posts').innerHTML;
-document.getElementById
+  <div id="employerForm">
